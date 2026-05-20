@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GANXING TOOLS — Professional Polishing Tools / 赣星专业抛光工具</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  /* ── Backgrounds ── */
+  --bg:        #F9F6F2;
+  --bg2:       #EAE3D8;
+  --bg3:       #D4CBBE;
+  --bg4:       #C1B6A8;
+
+  /* ── Lines & borders ── */
+  --line:      rgba(112, 100, 88, 0.1);
+  --line2:     rgba(112, 100, 88, 0.2);
+
+  /* ── Industrial Red accent ── */
+  --accent:    #B8860B;
+  --accent2:   #9C6F09;
+  --accent-dim: rgba(184, 134, 11, 0.1);
+  --accent-mid: rgba(184, 134, 11, 0.3);
+
+ /* ── Charcoal / text ── */
+  --white:     #FFFFFF;
+  --ink:       #332A23;
+  --ink2:      #554A41;
+  --ink3:      #776A5D;
+  --ink4:      #443A32;
+
+  /* ── kept for compatibility aliases ── */
+  --gray1: #EAE3D8;
+  --gray2: #776A5D;
+  --gray3: #B5AFA9;
+  --gray4: #C1B6A8;
+
+  /* ── Dark footer / nav surfaces ── */
+  --dark:      #332A23;
+  --dark2:     #252018;
+  --dark-line: rgba(255,255,255,0.1);
+
+--font-head: 'Baskerville', serif;
+--font-body: 'Open Sans', sans-serif;
+--font-mono: 'Courier New', monospace;
+}
+html { scroll-behavior:smooth; }
+body { background:var(--bg2); color:var(--ink); font-family:var(--font-body); overflow-x:hidden; line-height:1; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg2); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
+
+body.lang-zh [data-en] { display:none !important; }
+body.lang-en [data-zh] { display:none !important; }
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:999;
+  height:60px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
+  background:rgba(26,20,16,0.04); backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo { font-family:var(--font-head); font-weight:900; font-size:20px; color:var(--ink); display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-logo-dot { width:8px; height:8px; background:var(--accent); border-radius:50%; flex-shrink:0; }
+.nav-menu { display:flex; align-items:center; gap:32px; list-style:none; }
+.nav-menu a { font-size:13px; font-weight:500; color:var(--ink3); text-decoration:none; transition:color 0.2s; }
+.nav-menu a:hover { color:var(--ink); }
+.nav-right { display:flex; align-items:center; gap:12px; }
+.lang-toggle { display:flex; border:1px solid var(--line2); overflow:hidden; }
+.lang-btn { background:transparent; border:none; color:var(--ink4); font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.1em; padding:7px 14px; cursor:pointer; transition:all 0.2s; }
+.lang-btn.active { background:var(--accent); color:var(--ink); }
+.lang-btn:not(.active):hover { color:var(--ink); }
+.btn-nav { font-family:var(--font-body); font-size:13px; font-weight:600; padding:9px 22px; border:none; cursor:pointer; transition:all 0.2s; }
+.btn-ghost { background:transparent; border:1px solid var(--line2); color:var(--ink3); }
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+.btn-fill { background:var(--accent); color:var(--ink); }
+.btn-fill:hover { background:var(--accent2); }
+
+/* TAG */
+.tag { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); background:transparent; border:1px solid transparent; padding:5px 12px; border-radius:0; }
+.tag::before { content:''; width:5px; height:5px; background:var(--accent); border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+/* HERO */
+.hero { min-height:100vh; padding-top:60px; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,16,46,0.05) 0%, transparent 70%); }
+.hero-grid-lines { position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:80px 80px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%); }
+.hero-left { padding:80px 48px; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+.hero-eyebrow { margin-bottom:32px; }
+.hero-h1 { font-family:var(--font-head); font-weight:900; font-size:clamp(52px,6vw,84px); line-height:0.92; letter-spacing:-0.03em; margin-bottom:28px; }
+.hero-h1 em { font-style:normal; color:var(--accent); display:block; }
+.hero-h1 .outline { -webkit-text-stroke:1.5px rgba(30,24,20,0.2); color:transparent; display:block; }
+.hero-desc { font-size:16px; font-weight:300; line-height:1.7; color:var(--ink3); max-width:440px; margin-bottom:40px; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-lg { font-family:var(--font-body); font-size:14px; font-weight:600; padding:14px 32px; cursor:pointer; transition:all 0.25s; display:inline-flex; align-items:center; gap:10px; border:none; }
+.btn-primary-lg { background:var(--accent); color:var(--ink); }
+.btn-primary-lg:hover { background:var(--accent2); transform:translateY(-1px); }
+.btn-outline-lg { background:transparent; color:var(--ink); border:1px solid var(--line2); }
+.btn-outline-lg:hover { border-color:var(--ink); }
+.hero-metrics { margin-top:56px; padding-top:40px; border-top:1px solid var(--line); display:flex; gap:40px; flex-wrap:wrap; }
+.metric-val { font-family:var(--font-head); font-size:36px; font-weight:900; color:var(--ink); letter-spacing:-0.02em; line-height:1; }
+.metric-val span { color:var(--accent); }
+.metric-lbl { font-size:12px; color:var(--ink4); margin-top:6px; letter-spacing:0.05em; }
+.hero-right { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; padding:80px 48px 80px 0; }
+.hero-visual-box { 
+  width: 100%; 
+  max-width: 800px; 
+  aspect-ratio: 4/3; /* 核心：4:3比例 */
+  background: var(--bg2); 
+  border: 1px solid var(--line2); 
+  position: relative; 
+  overflow: hidden; 
+}
+
+/* 轮播图核心样式 */
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 2s ease;
+}
+.carousel-slide:hover img {
+  transform: scale(1.05); /* 图片悬停缩放效果 */
+}
+
+/* 轮播图左右点击区域 */
+.carousel-hit {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 30%;
+  z-index: 10;
+  cursor: pointer;
+  transition: background 2s;
+}
+.carousel-hit-left {
+  left: 0;
+}
+.carousel-hit-right {
+  right: 0;
+}
+.carousel-hit:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* TICKER */
+.ticker-wrap { border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; background:var(--bg2); }
+.ticker-track { display:flex; animation:slide 30s linear infinite; width:max-content; }
+.ticker-item { flex-shrink:0; padding:14px 36px; font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink4); border-right:1px solid var(--line); white-space:nowrap; display:flex; align-items:center; gap:12px; }
+.ticker-item.hl { color:var(--accent); }
+.ticker-sep { width:4px; height:4px; background:currentColor; border-radius:50%; opacity:0.5; }
+@keyframes slide { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+
+/* SECTION */
+.section { padding:100px 48px; }
+.section-inner { max-width:1320px; margin:0 auto; }
+.s-label { font-family:var(--font-mono); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink4); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.s-label::before { content:'//'; color:var(--accent); }
+.s-title { font-family:var(--font-head); font-weight:900; font-size:clamp(36px,4vw,56px); line-height:0.95; letter-spacing:-0.025em; }
+.s-sub { font-size:15px; font-weight:300; color:var(--ink3); line-height:1.75; max-width:500px; margin-top:16px; }
+.divider { height:1px; background:var(--line); margin:0 48px; }
+
+/* ── CATEGORIES — 每行3列，图片+信息 ── */
+.categories-bg { background:var(--bg2); }
+.cat-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; }
+
+/* The category cards become a 2-level modal navigation (see bottom modal markup) */
+#categories .cat-grid { display:none; }
+
+/* 3-column grid, 1px gap on bg-color */
+.cat-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:1px;
+  background:var(--line2);
+}
+
+.cat-card {
+  background:var(--bg2);
+  cursor:pointer;
+  transition:background 0.25s;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+}
+.cat-card:hover { background:var(--bg3); }
+.cat-card:hover .cat-arrow { opacity:1; transform:translate(0,0); }
+.cat-card:hover .cat-img img { transform:scale(1.04); }
+
+/* 图片区域：固定宽高比，满铺 */
+.cat-img {
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--bg3);
+  position:relative;
+  flex-shrink:0;
+}
+.cat-img img {
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform 0.4s ease;
+  display:block;
+}
+/* 无图时的占位样式 */
+.cat-img-placeholder {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:52px; color:var(--gray4);
+  background: linear-gradient(135deg, var(--bg3) 0%, var(--bg4) 100%);
+}
+
+/* 卡片文字内容 */
+.cat-body {
+  padding:28px 28px 36px;
+  display:flex; flex-direction:column; gap:12px;
+  flex:1;
+}
+.cat-num { font-family:var(--font-mono); font-size:10px; color:var(--ink4); letter-spacing:0.15em; }
+.cat-name { font-family:var(--font-head); font-size:22px; font-weight:700; letter-spacing:-0.01em; line-height:1.15; }
+.cat-desc { font-size:13px; color:var(--ink4); line-height:1.65; flex:1; }
+.cat-footer { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+.cat-count { font-family:var(--font-mono); font-size:11px; color:var(--accent); letter-spacing:0.1em; }
+.cat-arrow { font-size:18px; color:var(--accent); opacity:0; transform:translate(-4px,4px); transition:all 0.25s; }
+
+/* PRODUCTS */
+.products-bg { background:var(--bg2); }
+.prod-controls { display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; flex-wrap:wrap; gap:20px; }
+.prod-tabs { display:flex; }
+.prod-tab { background:transparent; border:1px solid var(--line); color:var(--ink4); font-family:var(--font-body); font-size:13px; font-weight:500; padding:9px 20px; cursor:pointer; transition:all 0.2s; margin-right:-1px; }
+.prod-tab.active { background:var(--accent); border-color:var(--accent); color:var(--ink); z-index:1; }
+.prod-tab:hover:not(.active) { color:var(--ink); border-color:var(--line2); }
+.prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line2); }
+.prod-card { background:var(--bg2); transition:background 0.2s; cursor:pointer; }
+.prod-card:hover { background:var(--bg3); }
+.prod-img { height:240px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:72px; position:relative; border-bottom:1px solid var(--line); overflow:hidden; }
+.prod-img img { width:100%; height:100%; object-fit:cover; }
+.prod-label { position:absolute; top:16px; left:16px; font-family:var(--font-mono); font-size:10px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding:5px 10px; z-index:1; }
+.label-new { background:var(--accent); color:var(--ink); }
+.label-hot { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+.prod-body { padding:24px 24px 28px; }
+.prod-cat-tag { font-family:var(--font-mono); font-size:10px; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:10px; }
+.prod-name { font-family:var(--font-head); font-size:22px; font-weight:700; margin-bottom:10px; line-height:1.1; }
+.prod-spec { font-size:13px; color:var(--ink3); line-height:1.7; margin-bottom:20px; }
+.prod-footer { display:flex; justify-content:space-between; align-items:center; }
+.prod-action { background:transparent; border:1px solid var(--line2); color:var(--ink3); font-family:var(--font-body); font-size:12px; font-weight:500; padding:9px 18px; cursor:pointer; transition:all 0.2s; }
+.prod-action:hover { background:var(--accent); border-color:var(--accent); color:var(--ink); }
+
+/* TECH */
+.tech-bg { background:var(--bg2); }
+.tech-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.tech-visual { position:relative; aspect-ratio:1; background:var(--bg2); border:1px solid var(--line2); overflow:hidden; }
+.tech-visual video { width:100%; height:100%; object-fit:cover; }
+.tech-corner { position:absolute; width:12px; height:12px; border-color:var(--accent); border-style:solid; z-index:2; }
+.tc-tl{top:-1px;left:-1px;border-width:1px 0 0 1px;}
+.tc-tr{top:-1px;right:-1px;border-width:1px 1px 0 0;}
+.tc-bl{bottom:-1px;left:-1px;border-width:0 0 1px 1px;}
+.tc-br{bottom:-1px;right:-1px;border-width:0 1px 1px 0;}
+.tech-badge2 { position:absolute; top:20px; right:20px; background:var(--bg2); border:1px solid var(--line2); padding:10px 16px; font-family:var(--font-mono); font-size:11px; color:var(--ink3); letter-spacing:0.1em; z-index:2; }
+.tech-badge2 strong { display:block; font-size:20px; font-weight:500; color:var(--accent); margin-bottom:2px; font-family:var(--font-head); }
+.feat-list { display:flex; flex-direction:column; margin-top:40px; }
+.feat-row { display:flex; gap:24px; padding:28px 0; border-bottom:1px solid var(--line); }
+.feat-row:first-child { border-top:1px solid var(--line); }
+.feat-index { font-family:var(--font-mono); font-size:11px; color:var(--accent); min-width:32px; padding-top:2px; }
+.feat-content h3 { font-family:var(--font-head); font-size:17px; font-weight:600; margin-bottom:8px; }
+.feat-content p { font-size:13px; color:var(--ink3); line-height:1.7; font-weight:300; }
+.feat-icon { margin-left:auto; font-size:20px; opacity:0.6; }
+
+/* ABOUT */
+.about-bg { background:var(--bg2); }
+.about-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.about-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line2); margin-top:48px; }
+.about-stat { background:var(--bg2); padding:32px 28px; }
+.about-stat-val { font-family:var(--font-head); font-size:48px; font-weight:900; letter-spacing:-0.03em; color:var(--ink); line-height:1; margin-bottom:8px; }
+.about-stat-val span { color:var(--accent); }
+.about-stat-lbl { font-size:13px; color:var(--ink4); }
+.about-img { background:var(--bg2); border:1px solid var(--line); aspect-ratio:4/5; display:flex; align-items:center; justify-content:center; position:relative; font-size:80px; }
+.about-img-tag { position:absolute; bottom:24px; left:24px; background:var(--accent); padding:12px 20px; }
+.about-img-tag strong { display:block; font-family:var(--font-head); font-size:22px; font-weight:900; }
+.about-img-tag span { font-size:12px; color:rgba(30,24,20,0.65); font-weight:300; }
+.cert-strip { display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+.cert-badge { background:var(--bg3); border:1px solid var(--line2); padding:8px 16px; font-family:var(--font-mono); font-size:11px; color:var(--ink3); letter-spacing:0.1em; }
+
+/* NEWS */
+.news-bg { background:var(--bg2); }
+.news-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; }
+.news-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:1px; background:var(--line2); }
+.news-card { background:var(--bg2); cursor:pointer; transition:background 0.2s; }
+.news-card:hover { background:var(--bg3); }
+.news-img2 { height:200px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:48px; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
+.news-card.featured .news-img2 { height:280px; }
+.news-img-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(26,20,16,0.5) 0%,transparent 60%); }
+.news-body { padding:24px; }
+.news-meta { display:flex; gap:12px; align-items:center; margin-bottom:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; color:var(--ink4); text-transform:uppercase; }
+.news-meta .dot { width:3px; height:3px; background:var(--gray4); border-radius:50%; }
+.news-cat { color:var(--accent); }
+.news-title { font-family:var(--font-head); font-size:18px; font-weight:700; line-height:1.25; margin-bottom:10px; }
+.news-card.featured .news-title { font-size:22px; }
+.news-excerpt { font-size:13px; color:var(--ink4); line-height:1.65; }
+.news-link { display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-size:12px; font-weight:600; color:var(--accent); text-decoration:none; transition:gap 0.2s; }
+.news-link:hover { gap:10px; }
+
+/* CONTACT */
+.contact-bg { background:var(--bg); }
+.contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.contact-left h2 { font-family:var(--font-head); font-size:clamp(36px,4vw,56px); font-weight:900; letter-spacing:-0.025em; line-height:0.95; }
+.contact-left h2 em { font-style:normal; color:var(--accent); }
+.contact-points { display:flex; flex-direction:column; margin-top:48px; }
+.c-point { display:flex; align-items:flex-start; gap:16px; padding:24px 0; border-bottom:1px solid var(--line); }
+.c-point:first-child { border-top:1px solid var(--line); }
+.c-icon { width:40px; height:40px; background:transparent; border:1px solid transparent; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.c-lbl { font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+.c-val { font-size:15px; color:var(--ink2); line-height:1.5; }
+.c-val a { color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+.c-val a:hover { color:var(--accent2); text-decoration:underline; }
+.form-wrap { background:var(--bg2); border:1px solid var(--line); padding:40px; }
+.form-title { font-family:var(--font-head); font-size:20px; font-weight:700; margin-bottom:28px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group.full { grid-column:1/-1; }
+.form-lbl { font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink4); }
+.form-input { background:var(--bg3); border:1px solid var(--line); color:var(--ink); font-family:var(--font-body); font-size:14px; font-weight:300; padding:13px 16px; outline:none; transition:border-color 0.2s; appearance:none; }
+.form-input::placeholder { color:var(--gray4); }
+.form-input:focus { border-color:var(--accent); }
+textarea.form-input { resize:vertical; min-height:100px; line-height:1.6; }
+.btn-submit { width:100%; background:var(--accent); color:var(--ink); border:none; font-family:var(--font-body); font-size:15px; font-weight:600; padding:16px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; }
+.btn-submit:hover { background:var(--accent2); }
+
+/* FOOTER */
+footer { background:var(--bg2); border-top:1px solid var(--line); padding:60px 48px 32px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:48px; }
+.footer-brand-name { font-family:var(--font-head); font-size:22px; font-weight:900; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.footer-brand-name .dot { width:8px; height:8px; background:var(--accent); border-radius:50%; }
+.footer-desc { font-size:13px; color:var(--ink4); line-height:1.7; max-width:280px; margin-bottom:24px; }
+.social-row { display:flex; gap:8px; }
+.social-btn { width:36px; height:36px; background:var(--bg3); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:14px; cursor:pointer; transition:border-color 0.2s; text-decoration:none; color:inherit; }
+.social-btn:hover { border-color:var(--accent); }
+.footer-col h4 { font-family:var(--font-mono); font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink4); margin-bottom:20px; }
+.footer-links { display:flex; flex-direction:column; gap:10px; list-style:none; }
+.footer-links a { font-size:13px; color:var(--ink3); text-decoration:none; transition:color 0.2s; }
+.footer-links a:hover { color:var(--accent); }
+.footer-bottom { border-top:1px solid var(--line); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.footer-copy { font-family:var(--font-mono); font-size:11px; color:var(--ink4); }
+.footer-bottom-links { display:flex; gap:24px; flex-wrap:wrap; }
+.footer-bottom-links a { font-size:12px; color:var(--ink4); text-decoration:none; }
+.footer-bottom-links a:hover { color:var(--ink); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity:1; transform:translateY(0); }
+
+/* CATEGORY MODAL (2-level) */
+.cat-modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.62);
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:92px;
+  z-index:10000;
+}
+.cat-modal-overlay.active{ display:flex; }
+.cat-modal{
+  width:min(880px, calc(100vw - 40px));
+  background:var(--bg2);
+  border:1px solid var(--line2);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,0.28);
+  backdrop-filter: blur(16px) saturate(1.4);
+}
+.cat-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+}
+.cat-modal-title{
+  font-family:var(--font-head);
+  font-size:18px;
+  font-weight:900;
+  color:var(--ink);
+}
+.cat-modal-close{
+  width:40px; height:40px;
+  border-radius:50%;
+  border:1px solid var(--line2);
+  background:transparent;
+  cursor:pointer;
+  font-size:22px;
+  color:var(--ink);
+  transition:all 0.2s;
+}
+.cat-modal-close:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.cat-modal-body{ padding:18px 22px 24px; }
+.cat-acc-item{
+  border:1px solid var(--line);
+  background:var(--bg2);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.cat-acc-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px 16px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  font-family:var(--font-head);
+  font-size:20px;
+  font-weight:800;
+  color:var(--ink);
+  text-align:left;
+}
+.cat-acc-chevron{
+  color:var(--accent);
+  font-size:20px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+.cat-acc-item[data-open="true"] .cat-acc-chevron{
+  transform: rotate(45deg);
+}
+.cat-submenu{
+  padding:0 16px 14px;
+  display:none;
+}
+.cat-acc-item[data-open="true"] .cat-submenu{ display:block; }
+.cat-sub-link{
+  display:block;
+  text-decoration:none;
+  border:1px solid var(--line2);
+  border-radius:8px;
+  padding:11px 12px;
+  margin-top:10px;
+  background:rgba(255,255,255,0.03);
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink3);
+  transition:all 0.2s;
+}
+.cat-sub-link:hover{
+  background:var(--bg3);
+  border-color:var(--accent);
+  color:var(--ink);
+}
+.cat-top-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px;
+  background:var(--bg2);
+  transition:all 0.2s;
+  margin-bottom:12px;
+  font-family:var(--font-head);
+  font-size:18px;
+  font-weight:800;
+  color:var(--ink);
+}
+.cat-top-link:hover{
+  background:var(--bg3);
+  border-color:var(--accent);
+}
+.cat-top-sub{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:var(--ink4);
+  text-transform:uppercase;
+  font-weight:500;
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  nav{padding:0 24px;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:flex;padding:0 24px 40px;}
+  .hero-visual-box{max-width:100%;}
+  .section{padding:72px 24px;}
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+  .prod-grid{grid-template-columns:1fr 1fr;}
+  .tech-layout,.about-layout,.contact-layout{grid-template-columns:1fr;gap:48px;}
+  .news-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px;}
+  .divider{margin:0 24px;}
+}
+@media(max-width:640px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden;}
+  img,video,canvas,svg{max-width:100%;height:auto;}
+  nav{height:auto;min-height:60px;padding:10px 16px;gap:8px;flex-wrap:wrap;}
+  .nav-right{width:100%;justify-content:space-between;flex-wrap:nowrap;}
+  .btn-nav{display:none;}
+  .section{padding:56px 16px;}
+  .nav-menu{
+    display:flex;
+    width:100%;
+    order:3;
+    gap:18px;
+    overflow-x:auto;
+    white-space:nowrap;
+    padding-bottom:4px;
+    scrollbar-width:none;
+  }
+  .nav-menu::-webkit-scrollbar{display:none;}
+  .nav-menu a{font-size:12px;flex:0 0 auto;}
+  .section-inner,.hero-left,.hero-right,.about-layout>*,.contact-layout>*,.news-grid>*,.prod-grid>*,.cat-grid>*{min-width:0;}
+  .hero-left{padding:48px 16px 40px;}
+  .hero-h1{
+    font-size:clamp(40px,12vw,56px);
+    line-height:0.96;
+    letter-spacing:-0.02em;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+  .hero-desc{font-size:14px;line-height:1.65;}
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .btn-lg{width:100%;justify-content:center;padding:12px 16px;}
+  .hero-right{
+    display:flex;
+    padding:0 16px 28px;
+  }
+  .hero-visual-box{
+    width:100%;
+    max-width:none;
+    aspect-ratio:4/3;
+  }
+  .cat-grid,.prod-grid,.news-grid{grid-template-columns:minmax(0,1fr);}
+  .form-grid,.about-stats,.footer-top,.tech-layout,.about-layout,.contact-layout{grid-template-columns:minmax(0,1fr);}
+  .about-stat{padding:24px 20px;}
+  .about-stat-val{font-size:42px;}
+  .hero-metrics{flex-direction:column;gap:24px;}
+  .hero{padding-top:130px;}
+  footer{padding:48px 24px 24px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+
+/* ── Dark footer surface ── */
+footer {
+  background: var(--dark) !important;
+  border-top: 1px solid var(--dark-line) !important;
+  color: #F0EDE8 !important;
+}
+.footer-brand-name { color: #F0EDE8 !important; }
+.footer-brand-name .dot { background: var(--accent) !important; }
+.footer-desc { color: rgba(240,237,232,0.5) !important; }
+.footer-col h4 { color: rgba(240,237,232,0.35) !important; }
+.footer-links a { color: rgba(240,237,232,0.55) !important; }
+.footer-links a:hover { color: var(--accent) !important; }
+.footer-copy { color: rgba(240,237,232,0.3) !important; }
+.footer-bottom { border-top-color: var(--dark-line) !important; }
+.footer-bottom-links a { color: rgba(240,237,232,0.35) !important; }
+.footer-bottom-links a:hover { color: rgba(240,237,232,0.7) !important; }
+.social-btn { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.1) !important; }
+.social-btn:hover { border-color: var(--accent) !important; }
+.footer-nav a { color: rgba(240,237,232,0.45) !important; }
+.footer-nav a:hover { color: var(--accent) !important; }
+
+/* ── NAV on white ── */
+nav { border-bottom-color: var(--line2) !important; }
+.nav-menu a { color: var(--ink3) !important; }
+.nav-menu a:hover { color: var(--ink) !important; }
+.nav-back { color: var(--ink3) !important; }
+.nav-back:hover { color: var(--accent) !important; }
+.btn-ghost { border-color: var(--line2) !important; color: var(--ink3) !important; }
+.btn-ghost:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+.lang-btn { color: var(--ink4) !important; }
+.lang-btn:not(.active):hover { color: var(--ink) !important; }
+.lang-toggle { border-color: var(--line2) !important; }
+
+/* ── HERO on light ── */
+.hero-h1 { color: var(--ink) !important; }
+.hero-h1 em { color: var(--accent) !important; }
+.hero-desc { color: var(--ink3) !important; }
+.metric-val { color: var(--ink) !important; }
+.metric-lbl { color: var(--ink4) !important; }
+.hero-metrics { border-top-color: var(--line) !important; }
+.hero-visual-box { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.spec-bar { background: var(--bg3) !important; border-top-color: var(--line) !important; }
+.spec-name { color: var(--ink4) !important; }
+.spec-val { color: var(--ink) !important; }
+.tech-badge { background: var(--bg) !important; border-color: var(--line2) !important; color: var(--ink3) !important; }
+.tech-badge strong { color: var(--accent) !important; }
+/* hero grid lines */
+.hero-grid-lines {
+  background-image:
+    linear-gradient(rgba(30,24,20,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(30,24,20,0.05) 1px,transparent 1px) !important;
+}
+
+/* ── Sections ── */
+.s-label { color: var(--ink4) !important; }
+.s-label::before { color: var(--accent) !important; }
+.s-title { color: var(--ink) !important; }
+.s-sub { color: var(--ink3) !important; }
+.divider { background: var(--line) !important; }
+.section-label { color: var(--accent) !important; }
+
+/* ── Category cards ── */
+.cat-card { background: var(--bg) !important; }
+.cat-card:hover { background: var(--bg2) !important; }
+.cat-num { color: var(--ink4) !important; }
+.cat-name { color: var(--ink) !important; }
+.cat-desc { color: var(--ink3) !important; }
+.cat-count { color: var(--accent) !important; }
+.cat-arrow { color: var(--accent) !important; }
+.cat-icon-wrap { background: transparent !important; border-color: transparent !important; }
+.cat-img-placeholder { color: var(--ink4) !important; background: linear-gradient(135deg,var(--bg3),var(--bg4)) !important; }
+
+/* ── Product cards ── */
+.prod-card { background: var(--bg2) !important; }
+.prod-card:hover { background: var(--bg3) !important; }
+.prod-img { background: var(--bg3) !important; border-bottom-color: var(--line) !important; }
+.prod-cat-tag { color: var(--accent) !important; }
+.prod-name { color: var(--ink) !important; }
+.prod-spec { color: var(--ink3) !important; }
+.prod-price { color: var(--ink) !important; }
+.prod-price sub { color: var(--ink4) !important; }
+.prod-action { border-color: var(--line2) !important; color: var(--ink3) !important; }
+.prod-action:hover { background: var(--accent) !important; border-color: var(--accent) !important; color: var(--ink) !important; }
+.prod-tab { border-color: var(--line) !important; color: var(--ink4) !important; }
+.prod-tab:hover:not(.active) { color: var(--ink) !important; border-color: var(--line2) !important; }
+.prod-label.label-sale { background: var(--bg4) !important; color: var(--ink3) !important; border-color: var(--line2) !important; }
+.prod-watt { color: var(--bg4) !important; }
+
+/* ── Tech section ── */
+.tech-bg { background: var(--bg2) !important; }
+.tech-visual { background: var(--bg) !important; border-color: var(--line2) !important; }
+.tech-visual-inner { border-color: var(--line) !important; }
+.tech-badge2 { background: var(--bg) !important; border-color: var(--line2) !important; color: var(--ink3) !important; }
+.tech-badge2 strong { color: var(--accent) !important; }
+.feat-row { border-bottom-color: var(--line) !important; }
+.feat-row:first-child { border-top-color: var(--line) !important; }
+.feat-index { color: var(--accent) !important; }
+.feat-content h3 { color: var(--ink) !important; }
+.feat-content p { color: var(--ink3) !important; }
+
+/* ── About ── */
+.about-bg { background: var(--bg) !important; }
+.about-stat { background: var(--bg2) !important; }
+.about-stat-val { color: var(--ink) !important; }
+.about-stat-val span { color: var(--accent) !important; }
+.about-stat-lbl { color: var(--ink4) !important; }
+.about-img { background: var(--bg2) !important; border-color: var(--line) !important; }
+.cert-badge { background: var(--bg3) !important; border-color: var(--line2) !important; color: var(--ink3) !important; }
+
+/* ── News ── */
+.news-bg { background: var(--bg2) !important; }
+.news-card { background: var(--bg) !important; }
+.news-card:hover { background: var(--bg3) !important; }
+.news-img { background: var(--bg3) !important; border-bottom-color: var(--line) !important; }
+.news-img2 { background: var(--bg3) !important; border-bottom-color: var(--line) !important; }
+.news-meta { color: var(--ink4) !important; }
+.news-meta .dot { background: var(--line2) !important; }
+.news-cat { color: var(--accent) !important; }
+.news-title { color: var(--ink) !important; }
+.news-excerpt { color: var(--ink3) !important; }
+.news-header a { color: var(--ink4) !important; }
+
+/* ── Contact ── */
+.contact-bg { background: var(--bg) !important; }
+.contact-left h2 { color: var(--ink) !important; }
+.c-lbl { color: var(--accent) !important; }
+.c-val { color: var(--ink2) !important; }
+.c-icon { background: transparent !important; border-color: transparent !important; }
+.c-point { border-bottom-color: var(--line) !important; }
+.c-point:first-child { border-top-color: var(--line) !important; }
+.form-wrap { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.form-title { color: var(--ink) !important; }
+.form-lbl { color: var(--ink4) !important; }
+.form-input { background: var(--bg) !important; border-color: var(--line2) !important; color: var(--ink) !important; }
+.form-input::placeholder { color: var(--ink4) !important; }
+.form-input:focus { border-color: var(--accent) !important; }
+
+/* ── Ticker ── */
+.ticker-wrap { background: var(--dark) !important; border-color: transparent !important; }
+.ticker-item { color: rgba(240,237,232,0.4) !important; border-right-color: rgba(255,255,255,0.06) !important; }
+.ticker-item.hl { color: var(--accent) !important; }
+
+/* ── Tags ── */
+.tag { color: var(--accent) !important; background: transparent !important; border-color: transparent !important; }
+.hero-tag { background: var(--bg4) !important; border-color: var(--line2) !important; color: var(--ink3) !important; }
+
+/* ── Reveal ── */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity:1; transform:translateY(0); }
+
+/* ── s-label before ── */
+.s-label::before { content:'//'; color:var(--accent) !important; }
+
+/* ── CTA band ── */
+.cta-band { background: var(--dark) !important; border-top-color: transparent !important; }
+.cta-text h3 { color: #F0EDE8 !important; }
+.cta-text p { color: rgba(240,237,232,0.5) !important; }
+.btn-cta-ghost {
+  border-color: rgba(255,255,255,0.2) !important;
+  color: rgba(240,237,232,0.6) !important;
+}
+.btn-cta-ghost:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+
+/* ── Article pages ── */
+.article-hero { background: var(--bg2) !important; }
+.hero-media { background: linear-gradient(135deg,#F7F6F4 0%,#EDE8E4 50%,#F7F6F4 100%) !important; }
+.hero-media-grid {
+  background-image:
+    linear-gradient(rgba(30,24,20,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(30,24,20,0.04) 1px,transparent 1px) !important;
+}
+.hero-bg-cert { opacity:0.04 !important; }
+.hero-img-ph { opacity:0.12 !important; }
+.hero-overlay { background: linear-gradient(to top,rgba(247,246,244,0.92) 0%,rgba(247,246,244,0.3) 55%,transparent 100%) !important; }
+.hero-right-overlay { background: linear-gradient(to right,rgba(247,246,244,0.6),transparent) !important; }
+.hero-content { color: var(--ink) !important; }
+.hero-title { color: var(--ink) !important; }
+.hero-lead { color: var(--ink3) !important; }
+.hero-date { color: var(--ink4) !important; }
+.hero-left-panel { background: var(--bg) !important; border-right-color: var(--line) !important; }
+.hero-right-panel { background: var(--bg3) !important; }
+.hero-inner { color: var(--ink) !important; }
+.hero-meta-item { color: var(--ink4) !important; }
+.hero-meta-item span { color: var(--ink3) !important; }
+
+/* Article highlights bar */
+.highlights { background: var(--line) !important; }
+.hl-item { background: var(--bg2) !important; }
+.hl-val { color: var(--accent) !important; }
+.hl-label { color: var(--ink3) !important; }
+
+/* Rich text */
+.rte h2 { color: var(--ink) !important; }
+.rte h3 { color: var(--ink2) !important; }
+.rte p { color: var(--ink3) !important; }
+.rte strong { color: var(--ink) !important; }
+.pullquote { background: var(--bg2) !important; border-left-color: var(--accent) !important; color: var(--ink) !important; }
+.pullquote cite { color: var(--ink4) !important; }
+
+/* Feature grid */
+.feature-grid { background: var(--line) !important; }
+.feat-item { background: var(--bg2) !important; }
+.feat-text h4 { color: var(--ink) !important; }
+.feat-text p { color: var(--ink3) !important; }
+
+/* Gallery */
+.gallery-title::before { color: var(--accent) !important; }
+.gallery-title { color: var(--ink4) !important; }
+.gallery-main { background: var(--bg3) !important; border-color: var(--line2) !important; }
+.gallery-thumb { background: var(--bg3) !important; color: var(--ink4) !important; }
+.gallery-thumb.active::after { border-color: var(--accent) !important; }
+.img-caption { background: var(--bg2) !important; border-color: var(--line) !important; color: var(--ink3) !important; }
+.img-placeholder { background: linear-gradient(135deg,var(--bg3),var(--bg4)) !important; }
+.img-placeholder .ph-text { color: var(--ink4) !important; }
+
+/* Spec compare */
+.spec-compare { background: var(--bg2) !important; border-color: var(--line) !important; }
+.spec-compare-head { background: var(--bg3) !important; border-bottom-color: var(--line2) !important; }
+.sc-col-head { color: var(--ink4) !important; }
+.sc-col-head.highlight { color: var(--accent) !important; }
+.spec-row { border-bottom-color: var(--line) !important; }
+.sc-cell.key { color: var(--ink4) !important; }
+.sc-cell.val { color: var(--ink2) !important; }
+.sc-cell.val.accent { color: var(--accent) !important; }
+
+/* Article divider */
+.article-divider { background: var(--line) !important; }
+
+/* Sidebar */
+.sidebar-card { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.sidebar-card-head { color: var(--ink4) !important; border-bottom-color: var(--line) !important; }
+.sidebar-card-head::before { color: var(--accent) !important; }
+.key-fact { border-bottom-color: var(--line) !important; }
+.kf-label { color: var(--ink4) !important; }
+.kf-val { color: var(--ink) !important; }
+.related-title { color: var(--ink3) !important; }
+.related-item:hover .related-title { color: var(--ink) !important; }
+.related-cat { color: var(--accent) !important; }
+.related-thumb { background: var(--bg3) !important; }
+.share-btn { background: var(--bg3) !important; border-color: var(--line) !important; color: var(--ink3) !important; }
+.share-btn:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+
+/* Timeline */
+.timeline::before { background: var(--line2) !important; }
+.tl-dot { background: var(--accent) !important; border-color: var(--bg) !important; }
+.tl-day { color: var(--accent) !important; }
+.tl-title { color: var(--ink) !important; }
+.tl-text { color: var(--ink3) !important; }
+.tl-img { background: var(--bg3) !important; border-color: var(--line) !important; }
+.tl-img-ph .icon { opacity:0.3; }
+.tl-img-ph .hint { color: var(--ink4) !important; }
+.tl-img-cap { color: var(--ink4) !important; }
+
+/* Photo wall */
+.photo-wall { background: var(--line) !important; }
+.pw-cell { background: var(--bg3) !important; }
+.pw-ph .icon { opacity:0.25; }
+.pw-ph .hint { color: var(--ink4) !important; }
+.pw-caption { background: var(--bg2) !important; border-color: var(--line) !important; color: var(--ink3) !important; }
+
+/* Location / quote */
+.location-badge { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.loc-name { color: var(--ink) !important; }
+.loc-sub { color: var(--ink4) !important; }
+.quote-card { background: var(--bg2) !important; border-left-color: var(--accent) !important; }
+.qc-text { color: var(--ink) !important; }
+.qc-name { color: var(--ink3) !important; }
+.qc-title { color: var(--ink4) !important; }
+.qc-avatar { background: transparent !important; border-color: transparent !important; }
+
+/* Stat strip */
+.stat-strip { background: var(--bg2) !important; border-color: var(--line) !important; }
+.stat-cell { border-right-color: var(--line) !important; }
+.stat-num { color: var(--accent) !important; }
+.stat-lbl { color: var(--ink4) !important; }
+
+/* Cert showcase */
+.cert-card { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.cert-full { color: var(--ink3) !important; }
+.cert-logo-area { background: var(--bg3) !important; border-color: var(--line) !important; }
+.cert-validity { color: var(--ink4) !important; }
+.cert-badge-hero { background: rgba(200,16,46,0.08) !important; border-color: rgba(200,16,46,0.25) !important; color: var(--accent) !important; }
+
+/* Coverage table */
+.coverage-table th { background: var(--bg3) !important; color: var(--ink4) !important; border-bottom-color: var(--line2) !important; }
+.coverage-table td { border-bottom-color: var(--line) !important; color: var(--ink2) !important; }
+.coverage-table td:first-child { color: var(--ink3) !important; }
+.prod-pill { background: transparent !important; border-color: transparent !important; color: var(--accent) !important; }
+.check { color: #1A8C3A !important; }
+.cross { color: var(--ink4) !important; }
+
+/* Process steps */
+.process-steps { background: var(--line) !important; }
+.ps-item { background: var(--bg2) !important; }
+.ps-num { color: var(--accent) !important; }
+.ps-title { color: var(--ink) !important; }
+.ps-desc { color: var(--ink3) !important; }
+
+/* Cert timeline */
+.ct-item { border-bottom-color: var(--line) !important; }
+.ct-item:first-child { border-top-color: var(--line) !important; }
+.ct-date { color: var(--accent) !important; }
+.ct-title { color: var(--ink) !important; }
+.ct-desc { color: var(--ink3) !important; }
+
+/* Cert doc */
+.cert-doc { background: var(--bg2) !important; border-color: var(--line2) !important; }
+.cert-doc:hover { border-color: var(--accent-mid) !important; }
+.cert-doc-img { background: linear-gradient(135deg,var(--bg3),var(--bg4)) !important; }
+.cd-icon { opacity:0.2; }
+.cd-hint { color: var(--ink4) !important; }
+.cert-doc-footer { border-top-color: var(--line) !important; }
+.cert-doc-name { color: var(--ink3) !important; }
+.cert-doc-dl { color: var(--accent) !important; }
+
+/* Info box */
+.info-box { background: var(--bg2) !important; border-color: var(--line2) !important; border-left-color: var(--accent) !important; }
+.info-box-title { color: var(--accent) !important; }
+.info-box p { color: var(--ink3) !important; }
+
+/* Breadcrumb / page header */
+.page-header { background: var(--bg2) !important; border-bottom-color: var(--line) !important; }
+.breadcrumb a { color: var(--ink4) !important; }
+.breadcrumb span { color: var(--accent) !important; }
+.ph-cat { color: var(--accent) !important; }
+.ph-title { color: var(--ink) !important; }
+.ph-sub { color: var(--ink3) !important; }
+.ph-emoji { opacity:0.04 !important; }
+
+/* Product detail cards */
+.product-card { background: var(--bg2) !important; }
+.product-card:hover { background: var(--bg3) !important; }
+.pc-img { background: var(--bg3) !important; border-bottom-color: var(--line) !important; }
+.pc-img-placeholder { background: linear-gradient(135deg,var(--bg3),var(--bg4)) !important; }
+.ph-hint { color: var(--ink4) !important; }
+.pc-model-badge { background: rgba(247,246,244,0.9) !important; border-color: var(--line2) !important; color: var(--ink3) !important; backdrop-filter:blur(6px); }
+.pc-model { color: var(--accent) !important; }
+.pc-name { color: var(--ink) !important; }
+.pc-name em { color: var(--ink4) !important; }
+.pc-specs .spec-key { color: var(--ink4) !important; }
+.pc-specs .spec-val { color: var(--ink2) !important; }
+.pc-specs tr { border-bottom-color: var(--line) !important; }
+.pc-footer { border-top-color: var(--line) !important; }
+.pc-status { background: transparent !important; border-color: transparent !important; border-radius: 0 !important; color: var(--accent) !important; }
+
+/* Back CTA */
+.back-cta { background: var(--dark) !important; border-top-color: transparent !important; }
+.back-cta p { color: rgba(240,237,232,0.4) !important; }
+.btn-back { border-color: rgba(255,255,255,0.15) !important; color: rgba(240,237,232,0.5) !important; }
+.btn-back:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+
+/* Section filter info */
+.filter-info { color: var(--ink4) !important; }
+.filter-info span { color: var(--accent) !important; }
+
+/* Progress bar */
+.progress-bar { background: var(--accent) !important; }
+
+/* about-img-tag accent strip */
+.about-img-tag { background: var(--accent) !important; }
+.about-img-tag strong { color: var(--ink) !important; }
+.about-img-tag span { color: rgba(255,255,255,0.8) !important; }
+
+
+/* ── Hero outline text readable on white ── */
+.hero-h1 .outline {
+  -webkit-text-stroke: 1.5px rgba(30,24,20,0.18) !important;
+  color: transparent !important;
+}
+/* ── Breadcrumb on light bg ── */
+.breadcrumb { color: var(--ink4) !important; }
+/* ── Search/filter mono text ── */
+[style*="font-family:var(--font-mono)"] { color: var(--ink4); }
+/* ── All section inner text defaults ── */
+.section-inner { color: var(--ink); }
+/* ── Hero metrics divider ── */
+.hero-metrics { border-top: 1px solid var(--line2) !important; }
+/* ── Cert badge hero dot ── */
+.cert-badge-hero .badge-dot { background: var(--accent) !important; }
+/* ── hero bg for news pages ── */
+.hero-bg { background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,16,46,0.05) 0%, transparent 70%) !important; }
+/* ── page-header bg pattern ── */
+.page-header::before { background: radial-gradient(ellipse 50% 80% at 0% 50%, rgba(200,16,46,0.05) 0%, transparent 70%) !important; }
+/* ── footer top grid ── */
+.footer-top { border-bottom: none; }
+/* ── about-stats separator ── */
+.about-stats { background: var(--line2) !important; }
+/* ── inline mono utility colors ── */
+.mono { color: var(--ink3); }
+/* ── gallery title ── */
+.gallery-title { color: var(--ink4) !important; }
+/* ── nav logo on white ── */
+.nav-logo { color: var(--ink) !important; }
+/* ── pullquote cite ── */
+.pullquote cite { color: var(--ink4) !important; }
+/* ── related item ── */
+.related-item { text-decoration: none !important; }
+/* ── cert name colors preserved ── */
+.cert-name.etl { color: #1A6FBF !important; }
+.cert-name.ce  { color: #1A8C3A !important; }
+.cert-name.ccc { color: #B22222 !important; }
+/* ── spec compare head on cat pages ── */
+.spec-compare-head { color: var(--ink4) !important; }
+/* ── ticker sep dot ── */
+.ticker-sep { background: rgba(240,237,232,0.3) !important; }
+/* ── hero cat pill on white ── */
+.cat-pill { background: var(--accent) !important; color: #fff !important; }
+/* ── date pill ── */
+.date-pill, .reading-time { color: var(--ink4) !important; }
+/* ── article body default text ── */
+.article-body { color: var(--ink); }
+/* ── hero lead on split hero ── */
+.hero-lead { color: var(--ink3) !important; }
+
+</style>
+</head>
+<body class="lang-zh">
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-dot"></div>
+    GANXING
+  </a>
+  <ul class="nav-menu">
+    <li><a href="javascript:void(0)" onclick="openCategoryModal()" data-zh>产品系列</a><a href="javascript:void(0)" onclick="openCategoryModal()" data-en>Products</a></li>
+    <li><a href="#tech" data-zh>核心技术</a><a href="#tech" data-en>Technology</a></li>
+    <li><a href="#about" data-zh>关于我们</a><a href="#about" data-en>About Us</a></li>
+    <li><a href="#news" data-zh>新闻动态</a><a href="#news" data-en>News</a></li>
+    <li><a href="#contact" data-zh>联系我们</a><a href="#contact" data-en>Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="btn-nav btn-ghost" onclick="scrollToInquiry()" data-zh>产品目录 PDF</button>
+    <button class="btn-nav btn-ghost" onclick="scrollToInquiry()" data-en>Product Catalog</button>
+    <button class="btn-nav btn-fill" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-zh>获取报价</button>
+    <button class="btn-nav btn-fill" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-en>Get a Quote</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <!-- (Removed) 2026 Flagship Series announcement tag -->
+    </div>
+    <h1 class="hero-h1">
+      Professional<br>
+      <em>polishing</em>
+      <span class="outline">TOOLS</span>
+    </h1>
+    <p class="hero-desc" data-zh>GANXING 专业抛光电动工具，为工业现场和专业施工团队而生。突破性无刷电机架构，让每一瓦功率都精准转化为工作效率。</p>
+    <p class="hero-desc" data-en>GANXING professional polishing tools — engineered for industrial job sites and expert teams. Our breakthrough brushless motor architecture converts every watt into measurable productivity.</p>
+    <div class="hero-actions">
+      <button class="btn-lg btn-primary-lg" onclick="openCategoryModal()" data-zh>探索全系产品 →</button>
+      <button class="btn-lg btn-primary-lg" onclick="openCategoryModal()" data-en>Explore All Products →</button>
+      <button class="btn-lg btn-outline-lg" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-zh>联系销售团队</button>
+      <button class="btn-lg btn-outline-lg" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-en>Contact Sales</button>
+    </div>
+    <div class="hero-metrics">
+      <div>
+        <div class="metric-val">16<span>+</span></div>
+        <div class="metric-lbl" data-zh>年研发积累</div>
+        <div class="metric-lbl" data-en>Years R&amp;D</div>
+      </div>
+      <div>
+        <div class="metric-val">50<span>+</span></div>
+        <div class="metric-lbl" data-zh>产品型号</div>
+        <div class="metric-lbl" data-en>Product Models</div>
+      </div>
+      <div>
+        <div class="metric-val">15<span data-zh>国</span><span data-en>+</span></div>
+        <div class="metric-lbl" data-zh>全球覆盖</div>
+        <div class="metric-lbl" data-en>Countries</div>
+      </div>
+      <div>
+        <div class="metric-val">99<span>.8%</span></div>
+        <div class="metric-lbl" data-zh>出厂合格率</div>
+        <div class="metric-lbl" data-en>Pass Rate</div>
+      </div>
+    </div>
+  </div>
+  <!-- 右侧轮播图区域（4:3比例，6张图自动轮播） -->
+  <div class="hero-right">
+    <div class="hero-visual-box" id="carouselBox">
+      <div class="carousel-container">
+        <!-- 左右点击区域 -->
+        <div class="carousel-hit carousel-hit-left"></div>
+        <div class="carousel-hit carousel-hit-right"></div>
+        
+        <div class="carousel-slide active"><img src="imageupdate/carousel01.jpg" alt="抛光工具1"></div>
+        <div class="carousel-slide"><img src="imageupdate/carousel02.jpg" alt="抛光工具2"></div>
+        <div class="carousel-slide"><img src="imageupdate/carousel03.jpg" alt="抛光工具3"></div>
+        <div class="carousel-slide"><img src="imageupdate/carousel04.jpg" alt="抛光工具4"></div>
+        <div class="carousel-slide"><img src="imageupdate/carousel05.jpg" alt="抛光工具5"></div>
+        <div class="carousel-slide"><img src="imageupdate/carousel06.jpg" alt="抛光工具6"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>无刷电机平台</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>IP54 全系防护</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>三重智能保护</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>18V 统一电池</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>60min 快充</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>CE / UL / CCC 认证</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>20+ 项专利</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>3年整机质保</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>Brushless Motor Platform</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>IP54 Full Protection</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>Triple Smart Protection</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>18V Unified Battery</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>60-Min Fast Charge</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>CE / UL / CCC Certified</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>20+ Patents</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>3-Year Warranty</div>
+    <!-- duplicate for loop -->
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>无刷电机平台</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>IP54 全系防护</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>三重智能保护</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>18V 统一电池</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>30min 快充</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>CE / UL / CCC 认证</div>
+    <div class="ticker-item hl" data-zh><span class="ticker-sep"></span>20+ 项专利</div>
+    <div class="ticker-item" data-zh><span class="ticker-sep"></span>3年整机质保</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>Brushless Motor Platform</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>IP54 Full Protection</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>Triple Smart Protection</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>18V Unified Battery</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>30-Min Fast Charge</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>CE / UL / CCC Certified</div>
+    <div class="ticker-item hl" data-en><span class="ticker-sep"></span>20+ Patents</div>
+    <div class="ticker-item" data-en><span class="ticker-sep"></span>3-Year Warranty</div>
+  </div>
+</div>
+
+<!-- ══ CATEGORIES ══ -->
+<!-- TECH -->
+<div class="divider"></div>
+<section class="section tech-bg" id="tech">
+  <div class="section-inner">
+    <div class="tech-layout">
+      <div class="tech-visual reveal">
+        <div class="tech-corner tc-tl"></div><div class="tech-corner tc-tr"></div>
+        <div class="tech-corner tc-bl"></div><div class="tech-corner tc-br"></div>
+        <!-- 视频播放器 - 请将 src 替换为您的实际视频路径 -->
+        <video autoplay muted loop playsinline>
+          <source src="videos/tech-showcase.mp4" type="video/mp4">
+          <!-- 备用图片，当视频无法加载时显示 -->
+          您的浏览器不支持视频播放。
+        </video>
+        <div class="tech-badge2">
+          <strong>Polishing Technology</strong>
+          <span data-zh>Digital Control& Li-ion System</span><span data-en>Digital Control& Li-ion System</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="s-label" data-zh>核心技术</div>
+        <div class="s-label" data-en>Core Technology</div>
+        <h2 class="s-title" data-zh>技术驱动<br>卓越性能</h2>
+        <h2 class="s-title" data-en>Technology<br>Drives Excellence</h2>
+        <p class="s-sub" data-zh>我们将先进的电机控制算法与精密机械工艺融合，打造出行业领先的抛光工具动力平台。</p>
+        <p class="s-sub" data-en>We integrate advanced motor control algorithms with precision mechanical engineering to create an industry-leading power platform for professional polishing tools.</p>
+        <div class="feat-list">
+          <div class="feat-row">
+            <div class="feat-index">01</div>
+            <div class="feat-content">
+              <h3 data-zh>高效无刷电机</h3>
+              <h3 data-en>High-Efficiency Brushless Motor</h3>
+              <p data-zh>永磁无刷架构，铜线绕组密度提升28%，配合矢量控制算法实现全转速域最优效率输出。</p>
+              <p data-en>Permanent-magnet architecture. Copper winding density up 28%. Vector control algorithm ensures peak efficiency across the full RPM range.</p>
+            </div>
+            <!-- <div class="feat-icon">⚡</div> -->
+          </div>
+          <div class="feat-row">
+            <div class="feat-index">02</div>
+            <div class="feat-content">
+              <h3 data-zh>三重智能保护系统</h3>
+              <h3 data-en>Triple Smart Protection System</h3>
+              <p data-zh>毫秒级响应的过载、过热、欠压实时监测电路，MCU动态调节输出，杜绝损机风险。</p>
+              <p data-en>Millisecond-response overload, overheat, and undervoltage monitoring. MCU dynamically adjusts output to eliminate tool damage risk.</p>
+            </div>
+            <!-- <div class="feat-icon">🛡</div> -->
+          </div>
+          <div class="feat-row">
+            <div class="feat-index">03</div>
+            <div class="feat-content">
+              <h3 data-zh>人体工学 NVH 调校</h3>
+              <h3 data-en>Ergonomic NVH Optimisation</h3>
+              <p data-zh>以使用者为中心的设计理念，通过握持手感、重量分布及噪振控制的精细调校，让操作自然高效。</p>
+              <p data-en>Human-centered design with fine-tuned grip ergonomics, weight distribution, and noise/vibration control — making every operation feel natural.</p>
+            </div>
+            <!-- <div class="feat-icon">✋</div> -->
+          </div>
+          <div class="feat-row">
+            <div class="feat-index">04</div>
+            <div class="feat-content">
+              <h3 data-zh>恒速电子控制（ECC）</h3>
+              <h3 data-en>Electronic Constant Control (ECC)</h3>
+              <p data-zh>负载波动时自动补偿功率，保持转速稳定在设定值 ±2% 以内，抛光质量一致性大幅提升。</p>
+              <p data-en>Auto power compensation under load. Maintains speed within ±2% of set value for consistent polishing and finishing quality.</p>
+            </div>
+            <!-- <div class="feat-icon">📊</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="divider"></div>
+<section class="section about-bg" id="about">
+  <div class="section-inner">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="s-label" data-zh>关于我们</div>
+        <div class="s-label" data-en>About Us</div>
+        <h2 class="s-title" data-zh>专注抛光<br>工具16年</h2>
+        <h2 class="s-title" data-en>16 Years of<br>Polishing Excellence</h2>
+        <p class="s-sub" data-zh style="margin-top:20px;">永康市赣星电动工具有限公司是一家集研发、智造与全球销售于一体的科技型企业，长期深耕表面处理技术领域，致力于抛光类电动工具的技术研发和应用创新。我们坚持"以人为中心"的设计理念，将动力系统、智能控制与结构工程深度融合，让效率自然发生。依托数字化精密制造体系，产品远销欧盟、北美、东南亚等全球主流市场。</p>
+        <p class="s-sub" data-en style="margin-top:20px;">Yongkang Ganxing Power Tools Co., Ltd. is a technology-driven enterprise integrating R&amp;D, intelligent manufacturing, and global sales. Guided by a Human-Centered Design philosophy, we integrate power systems, intelligent control, and structural engineering. Our products hold CCC, ETL, and CE certifications and are distributed across the EU, North America, Southeast Asia, and other key global markets.</p>
+        <div class="cert-strip" style="margin-top:32px;">
+          <div class="cert-badge">CE</div>
+          <div class="cert-badge">ETL</div>
+          <div class="cert-badge">CCC</div>
+          <div class="cert-badge">ISO 9001</div>
+          <div class="cert-badge">RoHS</div>
+          <div class="cert-badge">GS</div>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-val">20<span>+</span></div>
+            <div class="about-stat-lbl" data-zh>核心专利</div>
+            <div class="about-stat-lbl" data-en>Patents</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-val">10<span>+</span></div>
+            <div class="about-stat-lbl" data-zh>研发工程师</div>
+            <div class="about-stat-lbl" data-en>Engineers</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-val">50<span>+</span></div>
+            <div class="about-stat-lbl" data-zh>产品型号</div>
+            <div class="about-stat-lbl" data-en>Product Models</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-val">15<span data-zh>国</span><span data-en>+</span></div>
+            <div class="about-stat-lbl" data-zh>全球销售网络</div>
+            <div class="about-stat-lbl" data-en>Countries Served</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img reveal">
+        <img src="imageupdate/factory.jpg">
+        <div class="about-img-tag">
+          <strong>Since 2010</strong>
+          <span data-zh>专业抛光电动工具</span>
+          <span data-en>Professional Polishing Tools</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<div class="divider"></div>
+<section class="section news-bg" id="news">
+  <div class="section-inner">
+    <div class="news-header">
+      <div>
+        <div class="s-label" data-zh>新闻动态</div>
+        <div class="s-label" data-en>Latest News</div>
+        <h2 class="s-title" data-zh>最新资讯</h2>
+        <h2 class="s-title" data-en>News &amp; Updates</h2>
+      </div>
+      <a href="#" style="font-size:13px;color:var(--ink4);text-decoration:none;">
+        <span data-zh>查看全部 →</span><span data-en>View All →</span>
+      </a>
+    </div>
+    <div class="news-grid reveal">
+      <div class="news-card featured">
+        <div class="news-img2" style="font-size:64px;"><img src="Newproducts-images/001.jpg"><div class="news-img-overlay"></div></div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-cat" data-zh>产品发布</span><span class="news-cat" data-en>Product Launch</span>
+            <span class="dot"></span><span>2026-03-01</span>
+          </div>
+          <div class="news-title" data-zh>GANXING 2026 旗舰抛光系列正式亮相，全新无刷平台重塑专业标准</div>
+          <div class="news-title" data-en>GANXING 2026 Flagship Polishing Series Debuts — New Brushless Platform Sets a New Professional Standard</div>
+          <div class="news-excerpt" data-zh>全系搭载新一代无刷电机，功率提升40%，重量减轻12%，覆盖汽车美容、石材、金属全场景应用。</div>
+          <div class="news-excerpt" data-en>The full lineup features a next-gen brushless motor — 40% more power, 12% lighter — covering automotive detailing, stone, and metal applications.</div>
+          <a class="news-link" href="news-01-product-launch.html" data-zh>阅读全文 →</a>
+          <a class="news-link" href="news-01-product-launch.html" data-en>Read More →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img2" style="font-size:40px;"><img src="Exhibition-images/Shanghai/006.jpg"><div class="news-img-overlay"></div></div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-cat" data-zh>公司动态</span><span class="news-cat" data-en>Company News</span>
+            <span class="dot"></span><span>2026-03-18</span>
+          </div>
+          <div class="news-title" data-zh>赣星亮相上海国际五金展</div>
+          <div class="news-title" data-en>GANXING Showcases Innovation at CIHS</div>
+          <div class="news-excerpt" data-zh>此次参展标志着我们全球化战略的重要里程碑，产品获得多家欧洲经销商高度关注。</div>
+          <div class="news-excerpt" data-en>A key milestone in our global expansion. Products attracted strong interest from multiple European distributors.</div>
+          <a class="news-link" href="news-02-exhibition.html" data-zh>阅读全文 →</a>
+          <a class="news-link" href="news-02-exhibition.html" data-en>Read More →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img2" style="font-size:40px;"><img src="imageupdate/certificate.jpg"><div class="news-img-overlay"></div></div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-cat" data-zh>认证资质</span><span class="news-cat" data-en>Certification</span>
+            <span class="dot"></span><span>2022-06-15</span>
+          </div>
+          <div class="news-title" data-zh>赣星全系产品通过CE认证</div>
+          <div class="news-title" data-en>GANXING Achieves CE Compliance Across Entire Product Portfolio</div>
+          <div class="news-excerpt" data-zh>CE和ETL 认证的获得，标志着赣星产品已完全符合欧盟，北美电气安全标准。</div>
+          <div class="news-excerpt" data-en>By securing CE and ETL marks, GANXING confirms its full compliance with the rigorous electrical safety requirements of both European and North American markets.</div>
+          <a class="news-link" href="news-03-certification.html" data-zh>阅读全文 →</a>
+          <a class="news-link" href="news-03-certification.html" data-en>Read More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="divider"></div>
+<section class="section contact-bg" id="contact">
+  <div class="section-inner">
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <h2 data-zh>开始<br><em>合作</em></h2>
+        <h2 data-en>Let's<br><em>Work Together</em></h2>
+        <p class="s-sub" data-zh style="margin-top:20px;">无论您是寻求产品采购、经销合作还是 OEM 定制，GANXING 专业团队随时响应，为您定制最优方案。</p>
+        <p class="s-sub" data-en style="margin-top:20px;">Whether you're looking for product procurement, dealership partnership, or OEM customisation — GANXING's expert team is ready to craft the ideal solution for you.</p>
+        <div class="contact-points">
+          <div class="c-point">
+            <div class="c-icon">📍</div>
+            <div>
+              <div class="c-lbl" data-zh>公司地址</div>
+              <div class="c-lbl" data-en>Address</div>
+              <div class="c-val" data-zh>浙江省金华市永康市东城街道下店午村广场东路11幢8号</div>
+              <div class="c-val" data-en>No.8, Building 11, Guangchang East Road, Xiadianwu Village, Dongcheng Street, Yongkang, Zhejiang, China</div>
+            </div>
+          </div>
+          <div class="c-point">
+            <div class="c-icon">📞</div>
+            <div>
+              <div class="c-lbl" data-zh>销售热线</div>
+              <div class="c-lbl" data-en>Sales Hotline</div>
+              <div class="c-val">+86 133-3579-0798</div>
+            </div>
+          </div>
+          <div class="c-point">
+            <div class="c-icon">✉️</div>
+            <div>
+              <div class="c-lbl" data-zh>商务邮箱</div>
+              <div class="c-lbl" data-en>Business Email</div>
+              <div class="c-val">sales@ganxing.com</div>
+            </div>
+          </div>
+          <div class="c-point">
+            <div class="c-icon">⏰</div>
+            <div>
+              <div class="c-lbl" data-zh>服务时间</div>
+              <div class="c-lbl" data-en>Business Hours</div>
+              <div class="c-val" data-zh>周一至周五 · 09:00 – 18:00 (UTC+8)</div>
+              <div class="c-val" data-en>Mon – Fri · 09:00 – 18:00 (UTC+8)</div>
+            </div>
+          </div>
+          <div class="c-point">
+            <div class="c-icon">🛒</div>
+            <div>
+              <div class="c-lbl" data-zh>1688 网站</div>
+              <div class="c-lbl" data-en>1688</div>
+              <div class="c-val">
+                <a href="https://www.1688.com/" target="_blank" rel="noopener">
+                  <span data-zh>进入链接 →</span><span data-en>Visit →</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="c-point">
+            <div class="c-icon">🏬</div>
+            <div>
+              <div class="c-lbl" data-zh>天猫旗舰店</div>
+              <div class="c-lbl" data-en>Tmall Flagship Store</div>
+              <div class="c-val">
+                <a href="https://www.tmall.com/" target="_blank" rel="noopener">
+                  <span data-zh>进入链接 →</span><span data-en>Visit →</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-wrap">
+          <div class="form-title" data-zh>发送询盘</div>
+          <div class="form-title" data-en>Send an Inquiry</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-lbl" data-zh>姓名 *</label>
+              <label class="form-lbl" data-en>Full Name *</label>
+              <input class="form-input" type="text" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" data-zh>公司名称</label>
+              <label class="form-lbl" data-en>Company</label>
+              <input class="form-input" type="text" placeholder="Company name">
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" data-zh>联系电话 *</label>
+              <label class="form-lbl" data-en>Phone *</label>
+              <input class="form-input" type="tel" placeholder="+86 / +1 ...">
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" data-zh>电子邮箱 *</label>
+              <label class="form-lbl" data-en>Email *</label>
+              <input class="form-input" type="email" placeholder="name@company.com">
+            </div>
+            <div class="form-group full">
+              <label class="form-lbl" data-zh>询问类型</label>
+              <label class="form-lbl" data-en>Inquiry Type</label>
+              <select class="form-input" id="inq-select"></select>
+            </div>
+            <div class="form-group full">
+              <label class="form-lbl" data-zh>需求描述</label>
+              <label class="form-lbl" data-en>Message</label>
+              <textarea class="form-input" id="msg-area"></textarea>
+            </div>
+          </div>
+          <button class="btn-submit" id="submit-btn"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name"><div class="dot"></div>GANXING TOOLS</div>
+      <div class="footer-desc" data-zh>专注专业抛光电动工具16年，为全球15个国家的施工和制造专业人士提供可靠动力解决方案。</div>
+      <div class="footer-desc" data-en>16 years focused on professional polishing power tools — delivering reliable solutions to professionals in 15 countries worldwide.</div>
+      <div class="social-row">
+        <!-- 微信 - 虚拟链接 -->
+        <a class="social-btn" href="https://weixin.qq.com/ganxing-tools" target="_blank" title="WeChat">💬</a>
+        <!-- 微博 - 虚拟链接 -->
+        <a class="social-btn" href="https://weibo.com/ganxing-tools" target="_blank" title="Weibo">📣</a>
+        <!-- LinkedIn - 虚拟链接 -->
+        <a class="social-btn" href="https://linkedin.com/company/ganxing-power-tools" target="_blank" title="LinkedIn">🔗</a>
+        <!-- YouTube - 虚拟链接 -->
+        <a class="social-btn" href="https://youtube.com/@ganxing-tools" target="_blank" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 data-zh>产品系列</h4>
+      <h4 data-en>Products</h4>
+      <ul class="footer-links">
+        <li><a href="cat-01-lithium.html" data-zh>汽车抛光系列</a><a href="cat-01-lithium.html" data-en>Polishing tools</a></li>
+        <li><a href="cat-05-metal-polishing.html" data-zh>金属抛光系列</a><a href="cat-05-metal-polishing.html" data-en>Metal surface finishing</a></li>
+        <li><a href="cat-06-stone-polishing.html" data-zh>石材抛光系列</a><a href="cat-06-stone-polishing.html" data-en>Stone working</a></li>
+        <li><a href="cat-07-angle-grinder.html" data-zh>角磨机系列（可调速）</a><a href="cat-07-angle-grinder.html" data-en>Angle Grinder Series (Var. Speed)</a></li>
+        <li><a href="cat-08-renovation.html" data-zh>建筑&翻新</a><a href="cat-08-renovation.html" data-en>Building & Renovation</a></li>
+        <li><a href="cat-09-accessories.html" data-zh>配件耗材</a><a href="cat-09-accessories.html" data-en>Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-zh>公司信息</h4>
+      <h4 data-en>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#about" data-zh>关于我们</a><a href="#about" data-en>About Us</a></li>
+        <li><a href="#tech" data-zh>核心技术</a><a href="#tech" data-en>Technology</a></li>
+        <li><a href="#news" data-zh>新闻动态</a><a href="#news" data-en>News</a></li>
+        <li><a href="#contact" data-zh>经销商招募</a><a href="#contact" data-en>Become a Dealer</a></li>
+        <li><a href="#contact" data-zh>加入我们</a><a href="#contact" data-en>Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-zh>服务支持</h4>
+      <h4 data-en>Support</h4>
+      <ul class="footer-links">
+        <li><a href="#" data-zh>产品目录下载</a><a href="#" data-en>Download Catalog</a></li>
+        <li><a href="#" data-zh>售后服务网点</a><a href="#" data-en>Service Centers</a></li>
+        <li><a href="#" data-zh>常见问题</a><a href="#" data-en>FAQ</a></li>
+        <li><a href="#" data-zh>保修政策</a><a href="#" data-en>Warranty Policy</a></li>
+        <li><a href="#contact" data-zh>联系我们</a><a href="#contact" data-en>Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 GANXING POWER TOOLS Co., Ltd. All Rights Reserved.</div>
+    <div class="footer-bottom-links">
+      <a href="#" data-zh>隐私政策</a><a href="#" data-en>Privacy Policy</a>
+      <a href="#" data-zh>使用条款</a><a href="#" data-en>Terms of Use</a>
+      <a href="#" data-zh>浙ICP备XXXXXXXX号</a><a href="#" data-en>浙ICP备XXXXXXXX号</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CATEGORY MODAL -->
+<div class="cat-modal-overlay" id="catModalOverlay" aria-hidden="true">
+  <div class="cat-modal" role="dialog" aria-modal="true" aria-labelledby="catModalTitle">
+    <div class="cat-modal-head">
+      <div class="cat-modal-title" id="catModalTitle">
+        <span data-zh>产品系列</span>
+        <span data-en>Products</span>
+      </div>
+      <button class="cat-modal-close" id="catModalClose" aria-label="Close">×</button>
+    </div>
+    <div class="cat-modal-body">
+      <div>
+        <div class="cat-acc-item" id="catAccCar" data-open="false">
+          <button class="cat-acc-toggle" type="button" id="catToggleCar" aria-expanded="false">
+            <span data-zh>汽车抛光机</span><span data-en>Polishing tools</span>
+            <span class="cat-acc-chevron">+</span>
+          </button>
+          <div class="cat-submenu">
+            <a class="cat-sub-link" href="cat-01-lithium.html">
+              <span data-zh>锂电产品</span><span data-en>Li-ion Products</span>
+              <div class="cat-top-sub" style="margin-top:6px;">
+              </div>
+            </a>
+            <a class="cat-sub-link" href="cat-02-orbital-polisher.html">
+              <span data-zh>偏心抛光机</span><span data-en>Orbital Polishers</span>
+              <div class="cat-top-sub" style="margin-top:6px;">
+              </div>
+            </a>
+            <a class="cat-sub-link" href="cat-03-sander.html">
+              <span data-zh>砂磨机</span><span data-en>Sanding tools</span>
+              <div class="cat-top-sub" style="margin-top:6px;">
+              </div>
+            </a>
+            <a class="cat-sub-link" href="cat-04-rotary.html">
+              <span data-zh>同心抛光机</span><span data-en>Rotary Polishers</span>
+              <div class="cat-top-sub" style="margin-top:6px;">
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <a class="cat-top-link" href="cat-05-metal-polishing.html">
+          <span>
+            <span data-zh>金属表面精加工</span><span data-en>Metal surface finishing</span>
+          </span>
+          <span class="cat-top-sub">
+          </span>
+        </a>
+
+        <a class="cat-top-link" href="cat-06-stone-polishing.html">
+          <span>
+            <span data-zh>石材精加工</span><span data-en>Stone working</span>
+          </span>
+          <span class="cat-top-sub">
+          </span>
+        </a>
+
+<a class="cat-top-link" href="cat-07-angle-grinder.html">
+            <span>
+              <span data-zh>角磨机系列（可调速）</span><span data-en>Angle Grinder Series (Var. Speed)</span>
+            </span>
+            <span class="cat-top-sub">
+            </span>
+          </a>
+
+<a class="cat-top-link" href="cat-08-renovation.html">
+            <span>
+              <span data-zh>建筑&翻新</span><span data-en>Building & Renovation</span>
+            </span>
+            <span class="cat-top-sub">
+            </span>
+          </a>
+
+        <a class="cat-top-link" href="cat-09-accessories.html">
+          <span>
+            <span data-zh>配件耗材</span><span data-en>Accessories</span>
+          </span>
+          <span class="cat-top-sub">
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const COPY = {
+  zh: { inqOptions:['请选择询问类型','产品采购','经销商合作','OEM / ODM 定制','售后服务','技术支持','其他'], msgPlaceholder:'请描述您的产品需求、采购数量或合作意向...', submitBtn:'发送询盘 →' },
+  en: { inqOptions:['Select inquiry type','Product Procurement','Distributor Partnership','OEM / ODM Custom','After-Sales Service','Technical Support','Other'], msgPlaceholder:'Describe your product needs, order quantities, or partnership interests...', submitBtn:'Send Inquiry →' }
+};
+let currentLang = 'zh';
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('gx_lang', lang); } catch (e) {}
+  document.body.className = 'lang-' + lang;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  updateDynamicCopy(lang);
+}
+function updateDynamicCopy(lang) {
+  const c = COPY[lang];
+  const sel = document.getElementById('inq-select');
+  if(sel) sel.innerHTML = c.inqOptions.map((o,i)=>`<option value="${i===0?'':o}"${i===0?' disabled selected':''}>${o}</option>`).join('');
+  const ta = document.getElementById('msg-area');
+  if(ta) ta.placeholder = c.msgPlaceholder;
+  const sb = document.getElementById('submit-btn');
+  if(sb) sb.textContent = c.submitBtn;
+}
+function initLangFromStorage() {
+  let saved = 'zh';
+  try {
+    saved = localStorage.getItem('gx_lang') || 'zh';
+  } catch (e) {}
+  if (saved !== 'zh' && saved !== 'en') saved = 'zh';
+  setLang(saved);
+}
+initLangFromStorage();
+
+// Product catalog PDF -> jump to inquiry form
+function scrollToInquiry(){
+  const contact = document.getElementById('contact');
+  if(contact) contact.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(() => {
+    const msg = document.getElementById('msg-area');
+    if(msg) msg.focus();
+  }, 420);
+}
+const ro = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting){ e.target.style.transitionDelay=(i*0.08)+'s'; e.target.classList.add('in'); } });
+}, { threshold:0.08 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if(href && href.length > 1){ e.preventDefault(); const t=document.querySelector(href); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-menu a');
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 90) current = s.id; });
+  links.forEach(a => { a.style.color = a.getAttribute('href')==='#'+current ? 'var(--white)' : ''; });
+});
+updateDynamicCopy(currentLang);
+
+// Category modal (2-level)
+function openCategoryModal(){
+  const overlay = document.getElementById('catModalOverlay');
+  if(!overlay) return;
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeCategoryModal(){
+  const overlay = document.getElementById('catModalOverlay');
+  if(!overlay) return;
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  const overlay = document.getElementById('catModalOverlay');
+  if(!overlay) return;
+
+  const closeBtn = document.getElementById('catModalClose');
+  if(closeBtn) closeBtn.addEventListener('click', closeCategoryModal);
+
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeCategoryModal();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeCategoryModal();
+  });
+
+  const toggleCarBtn = document.getElementById('catToggleCar');
+  const carItem = document.getElementById('catAccCar');
+  if(toggleCarBtn && carItem){
+    toggleCarBtn.addEventListener('click', function(){
+      const isOpen = carItem.dataset.open === 'true';
+      carItem.dataset.open = String(!isOpen);
+      toggleCarBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  // Clicking any link inside modal will navigate + close
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', function(){
+      closeCategoryModal();
+    });
+  });
+});
+
+// 核心：6张图片自动轮播 + 悬停暂停 + 左右点击切换
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const carousel = document.getElementById('carouselBox');
+  const hitLeft = document.querySelector('.carousel-hit-left');
+  const hitRight = document.querySelector('.carousel-hit-right');
+  let currentIndex = 0;
+  let slideInterval;
+
+  // 切换图片
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  // 下一张图片
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  // 上一张图片
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  // 开始自动轮播（3秒切换一次）
+  function startSlide() {
+    slideInterval = setInterval(nextSlide, 3000);
+  }
+
+  // 暂停轮播
+  function stopSlide() {
+    clearInterval(slideInterval);
+  }
+
+  // 重置轮播定时器（点击后调用，避免快速切换）
+  function resetSlideInterval() {
+    stopSlide();
+    startSlide();
+  }
+
+  // 初始化
+  showSlide(currentIndex);
+  startSlide();
+
+  // 鼠标悬停暂停，移开继续
+  carousel.addEventListener('mouseenter', stopSlide);
+  carousel.addEventListener('mouseleave', startSlide);
+
+  // 左右点击区域切换
+  hitLeft.addEventListener('click', () => {
+    prevSlide();
+    resetSlideInterval();
+  });
+  hitRight.addEventListener('click', () => {
+    nextSlide();
+    resetSlideInterval();
+  });
+});
+</script>
+</body>
+</html>
