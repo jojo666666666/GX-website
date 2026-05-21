@@ -1,0 +1,83 @@
+import type { Locale } from "@/lib/i18n";
+
+export const dictionary = {
+  en: {
+    brand: "GANXING",
+    nav: {
+      products: "Products",
+      technology: "Technology",
+      about: "About",
+      news: "News",
+      contact: "Contact",
+      quote: "Get a Quote",
+      back: "Back to Products",
+    },
+    home: {
+      eyebrow: "",
+      title: "Precision polishing systems for demanding work sites",
+      subtitle:
+        "GANXING professional polishing tools are engineered for industrial job sites and expert teams, converting every watt into reliable productivity.",
+      primaryCta: "Explore Products",
+      secondaryCta: "Contact Sales",
+      productsLabel: "Product Catalog",
+      productsTitle: "Built for every finish, substrate, and workflow",
+      techLabel: "Core Technology",
+      techTitle: "Technology drives excellence",
+      aboutLabel: "About Us",
+      aboutTitle: "16 years of polishing-tool focus",
+      newsLabel: "Latest News",
+      contactTitle: "Talk with GANXING",
+      contactBody:
+        "Share your surface, finish target, and production requirements. We will help match the right tool platform and accessories.",
+    },
+    product: {
+      breadcrumbHome: "Home",
+      breadcrumbProducts: "Products",
+      allModels: "All Models",
+      modelCount: "models",
+      inStock: "In Stock",
+      quote: "Get a Quote",
+      notFoundTitle: "Category not found",
+      notFoundBody: "The requested product category is not available in the migrated source set.",
+    },
+  },
+  zh: {
+    brand: "赣星",
+    nav: {
+      products: "产品",
+      technology: "技术",
+      about: "关于",
+      news: "新闻",
+      contact: "联系",
+      quote: "获取报价",
+      back: "返回产品系列",
+    },
+    home: {
+      eyebrow: "专业抛光",
+      title: "面向严苛现场的高性能抛光工具系统",
+      subtitle:
+        "GANXING 专业抛光电动工具，为工业现场和专业施工团队而生，让功率稳定转化为可靠效率。",
+      primaryCta: "探索产品",
+      secondaryCta: "联系销售",
+      productsLabel: "产品目录",
+      productsTitle: "覆盖不同材质、工艺与表面处理需求",
+      techLabel: "核心技术",
+      techTitle: "技术驱动卓越性能",
+      aboutLabel: "关于我们",
+      aboutTitle: "专注抛光工具 16 年",
+      newsLabel: "新闻动态",
+      contactTitle: "联系 GANXING",
+      contactBody: "告诉我们您的工件材质、目标效果与产线要求，我们将协助匹配合适的工具平台和配件。",
+    },
+    product: {
+      breadcrumbHome: "首页",
+      breadcrumbProducts: "产品系列",
+      allModels: "全部型号",
+      modelCount: "款型号",
+      inStock: "现货供应",
+      quote: "获取报价",
+      notFoundTitle: "未找到该分类",
+      notFoundBody: "当前迁移源文件中没有该产品分类。",
+    },
+  },
+} satisfies Record<Locale, Record<string, unknown>>;

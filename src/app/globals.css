@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8f8;
+  --foreground: #171717;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Prevent font size inflation on iOS */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(200, 16, 46, 0.08),
+      transparent 30rem
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--background) 44%, #eef1f2 100%);
+  color: var(--foreground);
+  font-family:
+    var(--font-inter),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+  /* Improve touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  /* Remove 300ms tap delay on mobile */
+  touch-action: manipulation;
+}
+
+/* Ensure all interactive elements have minimum touch target */
+button,
+[role="button"],
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(200, 16, 46, 0.18);
+}
+
+/* Ticker animation */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker 28s linear infinite;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation-duration: 60s;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth scrolling offset for fixed header */
+@media (max-width: 767px) {
+  :target {
+    scroll-margin-top: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :target {
+    scroll-margin-top: 5rem;
+  }
+}

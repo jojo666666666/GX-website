@@ -1,0 +1,249 @@
+import type { Metadata } from "next";
+import type { ProductCategory } from "@/data/products";
+import { getProductCategory, productCategories } from "@/data/products";
+import { localizedPath, type Locale } from "@/lib/i18n";
+
+const siteUrl = "https://www.ganxingtools.com";
+const companyName = "GANXING Tools";
+
+const seoSlugByLegacySlug: Record<string, string> = {
+  "cat-01-lithium": "cordless-polisher",
+  "cat-02-orbital-polisher": "orbital-polisher",
+  "cat-03-sander": "electric-sander",
+  "cat-04-rotary": "rotary-polisher",
+  "cat-05-metal-polishing": "metal-polishing-machine",
+  "cat-06-stone-polishing": "wet-polisher",
+  "cat-07-angle-grinder": "angle-grinder",
+  "cat-08-renovation": "renovation-tools",
+  "cat-09-accessories": "polishing-accessories",
+};
+
+const legacySlugBySeoSlug = Object.fromEntries(
+  Object.entries(seoSlugByLegacySlug).map(([legacySlug, seoSlug]) => [
+    seoSlug,
+    legacySlug,
+  ]),
+) as Record<string, string>;
+
+const mainFunctionByLegacySlug: Record<string, { en: string; zh: string }> = {
+  "cat-01-lithium": {
+    en: "cordless polishing and detailing",
+    zh: "无线抛光与精修",
+  },
+  "cat-02-orbital-polisher": {
+    en: "orbital paint correction",
+    zh: "偏心漆面修复",
+  },
+  "cat-03-sander": {
+    en: "sanding and surface preparation",
+    zh: "砂磨与表面预处理",
+  },
+  "cat-04-rotary": { en: "rotary polishing", zh: "同心抛光" },
+  "cat-05-metal-polishing": {
+    en: "metal surface finishing",
+    zh: "金属表面处理",
+  },
+  "cat-06-stone-polishing": { en: "wet stone polishing", zh: "石材湿磨抛光" },
+  "cat-07-angle-grinder": { en: "variable speed grinding", zh: "调速研磨切割" },
+  "cat-08-renovation": {
+    en: "floor grinding and renovation",
+    zh: "地坪研磨与翻新",
+  },
+  "cat-09-accessories": {
+    en: "polishing accessories supply",
+    zh: "抛光配件供应",
+  },
+};
+
+const applicationByLegacySlug: Record<string, { en: string; zh: string }[]> = {
+  "cat-01-lithium": [
+    {
+      en: "Automotive detailing and paint maintenance",
+      zh: "汽车美容与漆面养护",
+    },
+    {
+      en: "Spot polishing and localized paint correction",
+      zh: "局部抛光与漆面修复",
+    },
+    { en: "Cord-free outdoor applications", zh: "适用于户外无电源环境作业" },
+  ],
+  "cat-02-orbital-polisher": [
+    {
+      en: "Paint correction and swirl mark removal",
+      zh: "漆面修复与太阳纹去除",
+    },
+    {
+      en: "Final finishing and hologram-free polishing",
+      zh: "精细收尾与无炫纹抛光",
+    },
+    {
+      en: "Safe polishing for beginners and professionals",
+      zh: "适合新手及专业用户安全操作",
+    },
+  ],
+  "cat-03-sander": [
+    { en: "Surface preparation before coating", zh: "喷涂前表面预处理" },
+    { en: "Wood sanding and furniture refinishing", zh: "木材打磨与家具翻新" },
+    { en: "Paint, rust, and coating removal", zh: "油漆、锈层及涂层去除" },
+  ],
+  "cat-04-rotary": [
+    { en: "Heavy cutting and oxidation removal", zh: "重切削与氧化层去除" },
+    { en: "Mirror finishing for high-gloss surfaces", zh: "高光镜面抛光处理" },
+    { en: "Deep scratch and sanding mark removal", zh: "深度划痕与砂痕修复" },
+  ],
+  "cat-05-metal-polishing": [
+    { en: "Tube and pipe polishing", zh: "圆管及管材抛光" },
+    { en: "Linear finishing for metal surfaces", zh: "金属表面拉丝处理" },
+    { en: "Industrial aluminum and steel polishing", zh: "铝材与钢材工业抛光" },
+  ],
+  "cat-06-stone-polishing": [
+    {
+      en: "Granite finishing and edge polishing",
+      zh: "花岗岩精加工与边缘抛光",
+    },
+    { en: "Wet polishing for stone surfaces", zh: "石材湿抛作业" },
+    {
+      en: "Concrete & Marble & polishing and restoration",
+      zh: "混凝土及大理石抛光与翻新",
+    },
+  ],
+  "cat-07-angle-grinder": [
+    {
+      en: "Metal grinding, tile, stone, and concrete cutting & grinding",
+      zh: "金属、瓷砖、石材及混凝土切割与打磨",
+    },
+    { en: "Weld preparation and deburring", zh: "焊缝处理与去毛刺" },
+    { en: "Surface cleaning and rust removal", zh: "表面清洁与除锈" },
+  ],
+  "cat-08-renovation": [
+    { en: "Concrete floor grinding and leveling", zh: "混凝土地坪研磨与找平" },
+    { en: "Corner and edge grinding applications", zh: "边角区域精细打磨" },
+    {
+      en: "Dust-free renovation and surface preparation",
+      zh: "无尘翻新与基层处理",
+    },
+  ],
+  "cat-09-accessories": [
+    { en: "Adapter and backing plate matching", zh: "转接件与托盘匹配" },
+    {
+      en: "Compatibility support for multiple tool systems",
+      zh: "兼容多种工具系统",
+    },
+    { en: "Efficient maintenance and replacement", zh: "高效维护与快速更换" },
+  ],
+};
+
+export function getSeoSlug(category: ProductCategory) {
+  return seoSlugByLegacySlug[category.slug] ?? category.slug;
+}
+
+export function categoryPath(lang: Locale, category: ProductCategory) {
+  return localizedPath(lang, `/products/${getSeoSlug(category)}`);
+}
+
+export function getCategoryByRouteSlug(slug: string) {
+  return (
+    getProductCategory(slug) ??
+    getProductCategory(legacySlugBySeoSlug[slug] ?? "")
+  );
+}
+
+export function getMainFunction(
+  category: ProductCategory,
+  lang: Locale = "en",
+) {
+  return (
+    mainFunctionByLegacySlug[category.slug]?.[lang] ??
+    (lang === "zh" ? "专业表面处理" : "professional surface finishing")
+  );
+}
+
+export function getApplications(category: ProductCategory, lang: Locale) {
+  return (
+    applicationByLegacySlug[category.slug]?.map(
+      (application) => application[lang],
+    ) ??
+    (lang === "zh"
+      ? ["专业制造", "B2B 分销", "OEM 供应"]
+      : ["Professional manufacturing", "B2B distribution", "OEM supply"])
+  );
+}
+
+export function getAbsoluteUrl(path: string) {
+  return new URL(path, siteUrl).toString();
+}
+
+export function getAbsoluteImage(path: string) {
+  return getAbsoluteUrl(path);
+}
+
+export function buildCategoryDescription(
+  category: ProductCategory,
+  lang: Locale,
+) {
+  if (lang === "zh") {
+    return `${category.title.zh}专业制造商，提供稳定电机、精准调速与工业级表面处理方案。联系 GANXING 获取免费报价。`;
+  }
+
+  return `${category.title.en} from GANXING Tools with stable motors, precise speed control, and B2B finishing support. Get a free quote today.`;
+}
+
+export function buildCategoryMetadata(
+  category: ProductCategory,
+  lang: Locale,
+): Metadata {
+  const title =
+    lang === "zh"
+      ? `${category.title.zh} - 专业${getMainFunction(category, lang)}制造商 | ${companyName}`
+      : `${category.title.en} - Professional ${getMainFunction(category, lang)} Manufacturer | ${companyName}`;
+  const description = buildCategoryDescription(category, lang);
+  const seoSlug = getSeoSlug(category);
+  const path = `/products/${seoSlug}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: localizedPath(lang, path),
+      languages: {
+        "en-US": localizedPath("en", path),
+        "zh-CN": localizedPath("zh", path),
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: localizedPath(lang, path),
+      siteName: companyName,
+      type: "website",
+      locale: lang === "zh" ? "zh_CN" : "en_US",
+      alternateLocale: lang === "zh" ? ["en_US"] : ["zh_CN"],
+      images: [
+        {
+          url: category.sceneImage,
+          width: 1200,
+          height: 900,
+          alt: category.title[lang],
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [category.sceneImage],
+    },
+  };
+}
+
+export function getAllProductRouteParams() {
+  return productCategories.flatMap((category) => {
+    const seoSlug = getSeoSlug(category);
+    return [
+      { lang: "en", category: seoSlug },
+      { lang: "zh", category: seoSlug },
+      { lang: "en", category: category.slug },
+      { lang: "zh", category: category.slug },
+    ];
+  });
+}
