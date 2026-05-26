@@ -32,12 +32,14 @@ export async function sendInquiry(
     return { status: "error", message: "Please enter a valid email address." };
   }
 
-  const host = process.env.EMAIL_HOST;
-  const port = Number(process.env.EMAIL_PORT ?? 465);
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASS;
+  const host = process.env.SMTP_HOST;
+  const port = Number(process.env.SMTP_PORT ?? 587);
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const from = process.env.SMTP_FROM ?? user;
+  const to = process.env.CONTACT_EMAIL ?? user;
 
-  if (!host || !user || !pass) {
+  if (!host || !user || !pass || !from || !to) {
     console.error("SMTP environment variables are not configured.");
     return {
       status: "error",
@@ -48,7 +50,7 @@ export async function sendInquiry(
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465, // true for SSL on port 465
+    secure: port === 465, // SSL for port 465; TLS (STARTTLS) for 587
     auth: { user, pass },
   });
 
@@ -137,8 +139,8 @@ export async function sendInquiry(
 
   try {
     await transporter.sendMail({
-      from: `"GANXING Tools Inquiry" <${user}>`,
-      to: user, // send to Sales@ganxingtools.com
+      from: `"GANXING Tools Inquiry" <${from}>`,
+      to, // CONTACT_EMAIL = Sales@ganxingtools.com
       replyTo: email, // reply goes directly to the client
       subject: `[B2B Inquiry] ${name}${company ? ` — ${company}` : ""} | ${inquiryType}`,
       html: htmlBody,
