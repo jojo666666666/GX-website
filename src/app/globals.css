@@ -10,8 +10,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  /* Prevent font size inflation on iOS */
+  /* scroll-behavior: smooth removed — conflicts with Next.js page routing,
+     causing a sluggish "slide-down" animation on every page navigation.
+     Smooth scrolling for anchor links is handled via JS where needed. */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }

@@ -1,4 +1,17 @@
 {
-  "node": {},
+  "node": {
+    "606d130b718a4d2aec456d1f9a65be13834f538ca1": {
+      "workers": {
+        "app/[lang]/page": {
+          "moduleId": "[project]/.next-internal/server/app/[lang]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/sendInquiry.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "sendInquiry",
+          "filename": "src/app/actions/sendInquiry.ts"
+        }
+      },
+      "exportedName": "sendInquiry",
+      "filename": "src/app/actions/sendInquiry.ts"
+    }
+  },
   "edge": {}
 }

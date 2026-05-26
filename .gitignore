@@ -1,1 +1,14 @@
 node_modules
+
+# Environment variables — contains secrets, never commit
+.env
+.env.local
+.env.*.local
+
+# Next.js build output
+.next/
+out/
+
+# Misc
+.DS_Store
+*.pem

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
 
   return (
     <>
+      <ScrollToTop />
       <Header lang={lang} />
       {children}
       <Footer lang={lang} />
