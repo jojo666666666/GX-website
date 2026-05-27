@@ -1,4 +1,9 @@
-import { DouyinIcon, FacebookIcon, InstagramIcon, TmallIcon } from "@/components/Icons";
+import {
+  DouyinIcon,
+  YouTubeIcon,
+  InstagramIcon,
+  TmallIcon,
+} from "@/components/Icons";
 import type { Locale } from "@/lib/i18n";
 
 const links = {
@@ -10,25 +15,25 @@ const links = {
     },
     {
       label: "天猫",
-      href: "https://www.tmall.com/",
+      href: "https://shop.m.taobao.com/shop/shop_index.htm?shop_id=71191148",
       icon: TmallIcon,
     },
   ],
   en: [
     {
       label: "TikTok",
-      href: "https://www.tiktok.com/",
+      href: "https://www.tiktok.com/@ganxing_powertools?_r=1&_t=ZS-96hp26LqCSi",
       icon: DouyinIcon,
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/",
+      href: "https://www.instagram.com/ganxing_powertools?igsh=MW9hYjNjeHR1czN1cQ%3D%3D&utm_source=qr",
       icon: InstagramIcon,
     },
     {
-      label: "Facebook",
-      href: "https://www.facebook.com/",
-      icon: FacebookIcon,
+      label: "YouTube",
+      href: "https://www.youtube.com/",
+      icon: YouTubeIcon,
     },
   ],
 };

@@ -13,7 +13,13 @@ type LightboxProps = {
   onClose: () => void;
 };
 
-export default function Lightbox({ images, activeIndex, alt, onChange, onClose }: LightboxProps) {
+export default function Lightbox({
+  images,
+  activeIndex,
+  alt,
+  onChange,
+  onClose,
+}: LightboxProps) {
   const [mounted, setMounted] = useState(false);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const isOpen = activeIndex !== null;
@@ -42,7 +48,8 @@ export default function Lightbox({ images, activeIndex, alt, onChange, onClose }
 
     const previousOverflow = document.body.style.overflow;
     const previousPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     document.body.style.overflow = "hidden";
     if (scrollbarWidth > 0) {
@@ -147,7 +154,19 @@ export default function Lightbox({ images, activeIndex, alt, onChange, onClose }
         }}
         onPointerUp={handlePointerUp}
       >
-        <Image src={currentImage} alt={alt} fill sizes="100vw" className="object-contain" priority />
+        {/*
+         * Performance: no `priority` here — the lightbox is only opened on
+         * explicit user interaction, so there is no reason to preload these
+         * images. Removing `priority` lets the browser treat them as normal
+         * lazy-loaded resources and avoids unnecessary bandwidth on page load.
+         */}
+        <Image
+          src={currentImage}
+          alt={alt}
+          fill
+          sizes="100vw"
+          className="object-contain"
+        />
         {hasMultiple && activeIndex !== null ? (
           <div className="absolute bottom-3 left-1/2 rounded-full bg-black/50 px-3 py-1 text-sm font-semibold text-white backdrop-blur">
             {activeIndex + 1} / {images.length}

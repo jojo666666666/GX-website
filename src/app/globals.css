@@ -105,3 +105,28 @@ a {
     scroll-margin-top: 5rem;
   }
 }
+
+/*
+ * Performance: content-visibility tells the browser it can skip layout,
+ * paint, and compositing for off-screen sections until they are about to
+ * enter the viewport. This significantly reduces the initial rendering work
+ * on mobile CPUs and improves Time-to-Interactive (TTI) and Total Blocking
+ * Time (TBT) scores.
+ *
+ * `contain-intrinsic-size` provides an estimated height so the browser can
+ * still calculate scroll position correctly before the section is rendered.
+ * Adjust the value if sections are significantly taller or shorter.
+ */
+@media (min-width: 1px) {
+  /* Apply to every top-level <section> that is below the hero fold.
+     NOTE: content-visibility: auto is intentionally NOT applied to the
+     #products section (the first section after the ticker div) because
+     it causes the browser to skip layout calculation for off-screen
+     sections, making anchor-link scrolling land at the wrong position.
+     We only apply it to sections further down the page. */
+  main > section + section + section,
+  main > div + section + section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
+}

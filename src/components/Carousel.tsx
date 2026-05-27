@@ -79,11 +79,20 @@ export default function Carousel({ images, alt }: CarouselProps) {
           aria-label={`Open ${alt} image`}
           title="Click to enlarge"
         >
+          {/*
+           * Performance: render ONLY the active image.
+           * Previously all images were rendered simultaneously (just hidden via
+           * opacity), causing every product image to be fetched on page load.
+           * Now we render a single <Image> and swap it when the user navigates.
+           * The key prop forces React to remount (and thus re-fetch) only when
+           * the src actually changes.
+           */}
           <Image
+            key={currentImage}
             src={currentImage}
             alt={alt}
             fill
-            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1280px) 30vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-contain p-6 transition duration-500 group-hover:scale-[1.03]"
           />
         </button>

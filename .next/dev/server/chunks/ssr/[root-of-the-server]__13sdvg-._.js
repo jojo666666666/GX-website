@@ -1150,18 +1150,19 @@ async function HomePage({ params }) {
                                         muted: true,
                                         loop: true,
                                         playsInline: true,
+                                        preload: "none",
                                         poster: "/images/imageupdate/carousel03.jpg",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
                                             src: "/images/videos/tech-showcase.mp4",
                                             type: "video/mp4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                            lineNumber: 223,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 222,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1172,7 +1173,7 @@ async function HomePage({ params }) {
                                                 children: "Polishing Technology"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 237,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1180,13 +1181,13 @@ async function HomePage({ params }) {
                                                 children: "Digital Control & Li-ion System"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 232,
+                                                lineNumber: 240,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 236,
                                         columnNumber: 15
                                     }, this)
                                 ]
@@ -1202,7 +1203,7 @@ async function HomePage({ params }) {
                                         children: copy.home.techLabel
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 240,
+                                        lineNumber: 248,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1210,7 +1211,7 @@ async function HomePage({ params }) {
                                         children: copy.home.techTitle
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 243,
+                                        lineNumber: 251,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1218,7 +1219,7 @@ async function HomePage({ params }) {
                                         children: lang === "zh" ? "我们将先进的电机控制算法与精密机械工艺融合，打造行业领先的专业抛光工具动力平台。" : "We integrate advanced motor control algorithms with precision mechanical engineering to create an industry-leading power platform for professional polishing tools."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 246,
+                                        lineNumber: 254,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1231,7 +1232,7 @@ async function HomePage({ params }) {
                                                         children: String(index + 1).padStart(2, "0")
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 257,
+                                                        lineNumber: 265,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1241,7 +1242,7 @@ async function HomePage({ params }) {
                                                                 children: feature.title[lang]
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                                lineNumber: 261,
+                                                                lineNumber: 269,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1249,30 +1250,30 @@ async function HomePage({ params }) {
                                                                 children: feature.body[lang]
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                                lineNumber: 264,
+                                                                lineNumber: 272,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 260,
+                                                        lineNumber: 268,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, feature.title.en, true, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 253,
+                                                lineNumber: 261,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 251,
+                                        lineNumber: 259,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 239,
+                                lineNumber: 247,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -1306,7 +1307,7 @@ async function HomePage({ params }) {
                                         children: copy.home.aboutLabel
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 285,
+                                        lineNumber: 293,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1314,7 +1315,7 @@ async function HomePage({ params }) {
                                         children: copy.home.aboutTitle
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 288,
+                                        lineNumber: 296,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1322,7 +1323,7 @@ async function HomePage({ params }) {
                                         children: lang === "zh" ? "永康市赣星电动工具有限公司是一家集研发、智造与全球销售于一体的科技型企业，长期深耕表面处理技术领域，致力于抛光类电动工具的技术研发和应用创新。" : "Yongkang Ganxing Power Tools Co., Ltd. is a technology-driven enterprise integrating R&D, intelligent manufacturing, and global sales, focused on professional polishing power tools and surface-treatment innovation."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 291,
+                                        lineNumber: 299,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1339,12 +1340,12 @@ async function HomePage({ params }) {
                                                 children: cert
                                             }, cert, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 298,
+                                                lineNumber: 306,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 296,
+                                        lineNumber: 304,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1386,7 +1387,7 @@ async function HomePage({ params }) {
                                                         children: stat.value
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 323,
+                                                        lineNumber: 331,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1394,24 +1395,24 @@ async function HomePage({ params }) {
                                                         children: stat.label[lang]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 326,
+                                                        lineNumber: 334,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, stat.label.en, true, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 322,
+                                                lineNumber: 330,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 314,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 284,
+                                lineNumber: 292,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1425,7 +1426,7 @@ async function HomePage({ params }) {
                                         className: "object-cover"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 336,
+                                        lineNumber: 344,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1436,7 +1437,7 @@ async function HomePage({ params }) {
                                                 children: "Since 2010"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 344,
+                                                lineNumber: 352,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1444,35 +1445,35 @@ async function HomePage({ params }) {
                                                 children: lang === "zh" ? "专业抛光电动工具" : "Professional Polishing Tools"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 345,
+                                                lineNumber: 353,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 343,
+                                        lineNumber: 351,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 335,
+                                lineNumber: 343,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[lang]/page.tsx",
-                        lineNumber: 282,
+                        lineNumber: 290,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/page.tsx",
-                    lineNumber: 281,
+                    lineNumber: 289,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/page.tsx",
-                lineNumber: 277,
+                lineNumber: 285,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1486,7 +1487,7 @@ async function HomePage({ params }) {
                             children: copy.home.newsLabel
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/page.tsx",
-                            lineNumber: 362,
+                            lineNumber: 370,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1496,12 +1497,12 @@ async function HomePage({ params }) {
                                 children: lang === "zh" ? "最新资讯" : "News & Updates"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 366,
+                                lineNumber: 374,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/page.tsx",
-                            lineNumber: 365,
+                            lineNumber: 373,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1520,12 +1521,12 @@ async function HomePage({ params }) {
                                                 className: "object-cover transition duration-500 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 378,
+                                                lineNumber: 386,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                            lineNumber: 377,
+                                            lineNumber: 385,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1539,20 +1540,20 @@ async function HomePage({ params }) {
                                                             children: item.category[lang]
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                                            lineNumber: 388,
+                                                            lineNumber: 396,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             children: item.date
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                                            lineNumber: 389,
+                                                            lineNumber: 397,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                                    lineNumber: 387,
+                                                    lineNumber: 395,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1560,7 +1561,7 @@ async function HomePage({ params }) {
                                                     children: item.title[lang]
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                                    lineNumber: 391,
+                                                    lineNumber: 399,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1568,35 +1569,35 @@ async function HomePage({ params }) {
                                                     children: item.excerpt[lang]
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                                    lineNumber: 394,
+                                                    lineNumber: 402,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                            lineNumber: 386,
+                                            lineNumber: 394,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, item.slug, true, {
                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                    lineNumber: 372,
+                                    lineNumber: 380,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/page.tsx",
-                            lineNumber: 370,
+                            lineNumber: 378,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/[lang]/page.tsx",
-                    lineNumber: 361,
+                    lineNumber: 369,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/page.tsx",
-                lineNumber: 357,
+                lineNumber: 365,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1616,7 +1617,7 @@ async function HomePage({ params }) {
                                             lang === "zh" ? "开始" : "Let's",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 415,
+                                                lineNumber: 423,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1624,13 +1625,13 @@ async function HomePage({ params }) {
                                                 children: lang === "zh" ? "合作" : "Work Together"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 416,
+                                                lineNumber: 424,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 413,
+                                        lineNumber: 421,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1638,7 +1639,7 @@ async function HomePage({ params }) {
                                         children: copy.home.contactBody
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 420,
+                                        lineNumber: 428,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1652,7 +1653,7 @@ async function HomePage({ params }) {
                                                             children: item.label[lang]
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                                            lineNumber: 429,
+                                                            lineNumber: 437,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1660,13 +1661,13 @@ async function HomePage({ params }) {
                                                             children: item.value[lang]
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[lang]/page.tsx",
-                                                            lineNumber: 432,
+                                                            lineNumber: 440,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, item.label.en, true, {
                                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                                    lineNumber: 425,
+                                                    lineNumber: 433,
                                                     columnNumber: 19
                                                 }, this)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1677,32 +1678,32 @@ async function HomePage({ params }) {
                                                         children: lang === "zh" ? "社交与店铺" : "Social Channels"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 438,
+                                                        lineNumber: 446,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$SocialLinks$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                                                         lang: lang
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                                        lineNumber: 441,
+                                                        lineNumber: 449,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                                lineNumber: 437,
+                                                lineNumber: 445,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/page.tsx",
-                                        lineNumber: 423,
+                                        lineNumber: 431,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 412,
+                                lineNumber: 420,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1711,28 +1712,28 @@ async function HomePage({ params }) {
                                     lang: lang
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/page.tsx",
-                                    lineNumber: 448,
+                                    lineNumber: 456,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/page.tsx",
-                                lineNumber: 447,
+                                lineNumber: 455,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[lang]/page.tsx",
-                        lineNumber: 410,
+                        lineNumber: 418,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/page.tsx",
-                    lineNumber: 409,
+                    lineNumber: 417,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/page.tsx",
-                lineNumber: 405,
+                lineNumber: 413,
                 columnNumber: 7
             }, this)
         ]

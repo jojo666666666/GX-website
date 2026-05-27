@@ -18,12 +18,11 @@ export type NewsItem = {
 };
 
 export const heroImages = [
-  "/images/imageupdate/carousel01.jpg",
-  "/images/imageupdate/carousel02.jpg",
-  "/images/imageupdate/carousel03.jpg",
-  "/images/imageupdate/carousel04.jpg",
-  "/images/imageupdate/carousel05.jpg",
-  "/images/imageupdate/carousel06.jpg",
+  "/images/imageupdate/carousel001.jpg",
+  "/images/imageupdate/carousel002.jpg",
+  "/images/imageupdate/carousel003.jpg",
+  "/images/imageupdate/carousel004.jpg",
+  "/images/imageupdate/carousel005.jpg",
 ];
 
 export const heroStats = [

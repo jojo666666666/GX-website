@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import HomeCarousel from "@/components/HomeCarousel";
 import InquiryForm from "@/components/InquiryForm";
+import ScrollToSection from "@/components/ScrollToSection";
 import SocialLinks from "@/components/SocialLinks";
 import { dictionary } from "@/data/dictionary";
 import { productCategories } from "@/data/products";
@@ -80,18 +81,18 @@ export default async function HomePage({ params }: PageProps) {
                 {copy.home.subtitle}
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  href="#products"
+                <ScrollToSection
+                  targetId="products"
                   className="flex h-12 items-center justify-center rounded-full bg-red-600 px-7 text-sm font-semibold text-white shadow-xl shadow-red-600/20 transition hover:bg-red-700 active:bg-red-700 sm:h-11 sm:w-auto"
                 >
                   {copy.home.primaryCta}
-                </Link>
-                <Link
-                  href="#contact"
+                </ScrollToSection>
+                <ScrollToSection
+                  targetId="contact"
                   className="flex h-12 items-center justify-center rounded-full border border-neutral-300 bg-white px-7 text-sm font-semibold text-neutral-950 transition hover:border-neutral-950 active:border-neutral-950 sm:h-11 sm:w-auto"
                 >
                   {copy.home.secondaryCta}
-                </Link>
+                </ScrollToSection>
               </div>
             </div>
 
@@ -212,12 +213,20 @@ export default async function HomePage({ params }: PageProps) {
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-12">
             {/* Video — full width on mobile */}
             <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-black lg:aspect-square">
+              {/*
+               * Performance: `preload="none"` prevents the browser from
+               * downloading the video file on page load. The video is below
+               * the fold and auto-plays only when it enters the viewport,
+               * so there is no need to fetch it eagerly — especially on
+               * mobile where bandwidth is limited.
+               */}
               <video
                 className="h-full w-full object-cover"
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="none"
                 poster="/images/imageupdate/carousel03.jpg"
               >
                 <source
