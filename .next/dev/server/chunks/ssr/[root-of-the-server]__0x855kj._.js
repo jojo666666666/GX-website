@@ -152,8 +152,8 @@ const contactInfo = [
             zh: "商务邮箱"
         },
         value: {
-            en: "sales@ganxingtools.com",
-            zh: "sales@ganxingtools.com"
+            en: "contact@ganxingtools.com",
+            zh: "contact@ganxingtools.com"
         }
     },
     {

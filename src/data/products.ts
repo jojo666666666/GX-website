@@ -160,15 +160,13 @@ export const productCategories = [
         ],
       },
       {
-        model: "GX5901 mini]",
+        model: "GX5901 mini",
         title: {
           en: "The smart mini polisher with dual mode (Rotary & DA), Quick-Change working head",
           zh: "迷你抛光机，兼具直心&偏心双模式，快速更换工作头",
         },
         images: [
           "/images/cat-01-lithium-images/GX5901 mini/001.JPG",
-          "/images/cat-01-lithium-images/GX5901 mini/002.JPG",
-          "/images/cat-01-lithium-images/GX5901 mini/003.JPG",
           "/images/cat-01-lithium-images/GX5901 mini/002.jpg",
           "/images/cat-01-lithium-images/GX5901 mini/003.jpg",
         ],
@@ -232,7 +230,6 @@ export const productCategories = [
         },
         images: [
           "/images/cat-01-lithium-images/GX5905DA/001.JPG",
-          "/images/cat-01-lithium-images/GX5905DA/002.JPG",
           "/images/cat-01-lithium-images/GX5905DA/002.jpg",
         ],
         specs: [
@@ -1040,7 +1037,6 @@ export const productCategories = [
         images: [
           "/images/cat-02-orbital-images/GX5103/001.jpg",
           "/images/cat-02-orbital-images/GX5103/002.jpg",
-          "/images/cat-02-orbital-images/GX5103/003.jpg",
           "/images/cat-02-orbital-images/GX5103/003.JPG",
         ],
         specs: [
@@ -1220,10 +1216,9 @@ export const productCategories = [
           zh: "无刷磨光机，无刷电机，霍尔感应开关，无尘打磨",
         },
         images: [
-          "/images/cat-03-sander-images/GX5805/001.jpg",
+          "/images/cat-03-sander-images/GX5805/001.JPG",
           "/images/cat-03-sander-images/GX5805/002.jpg",
           "/images/cat-03-sander-images/GX5805/003.jpg",
-          "/images/cat-03-sander-images/GX5805/001.JPG",
         ],
         specs: [
           {
@@ -1272,7 +1267,6 @@ export const productCategories = [
         images: [
           "/images/cat-03-sander-images/GX5803/001.jpg",
           "/images/cat-03-sander-images/GX5803/002.jpg",
-          "/images/cat-03-sander-images/GX5803/003.jpg",
           "/images/cat-03-sander-images/GX5803/003.JPG",
         ],
         specs: [
@@ -1328,9 +1322,8 @@ export const productCategories = [
         },
         images: [
           "/images/cat-03-sander-images/GX6050/001.jpg",
-          "/images/cat-03-sander-images/GX6050/002.jpg",
-          "/images/cat-03-sander-images/GX6050/003.jpg",
           "/images/cat-03-sander-images/GX6050/002.JPG",
+          "/images/cat-03-sander-images/GX6050/003.jpg",
         ],
         specs: [
           {
@@ -3615,7 +3608,6 @@ export const productCategories = [
           zh: "6 mm 抛光机用柔性软轴",
         },
         images: [
-          "/images/cat-09-accessories-images/Flexible Shaft/001.jpg",
           "/images/cat-09-accessories-images/Flexible shaft/001.jpg",
         ],
         specs: [],
@@ -3627,7 +3619,6 @@ export const productCategories = [
           zh: "3 mm 抛光机用柔性软轴",
         },
         images: [
-          "/images/cat-09-accessories-images/Flexible Shaft/001.jpg",
           "/images/cat-09-accessories-images/Flexible shaft/001.jpg",
         ],
         specs: [],
