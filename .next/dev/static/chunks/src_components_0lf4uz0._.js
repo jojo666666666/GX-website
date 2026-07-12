@@ -16,7 +16,9 @@ __turbopack_context__.s([
     "InstagramIcon",
     ()=>InstagramIcon,
     "TmallIcon",
-    ()=>TmallIcon
+    ()=>TmallIcon,
+    "YouTubeIcon",
+    ()=>YouTubeIcon
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 ;
@@ -34,7 +36,7 @@ function ArrowLeftIcon({ className }) {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/src/components/Icons.tsx",
-            lineNumber: 8,
+            lineNumber: 13,
             columnNumber: 7
         }, this)
     }, void 0, false, {
@@ -58,12 +60,12 @@ function ArrowRightIcon({ className }) {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/src/components/Icons.tsx",
-            lineNumber: 16,
+            lineNumber: 32,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 15,
+        lineNumber: 26,
         columnNumber: 5
     }, this);
 }
@@ -81,12 +83,12 @@ function CloseIcon({ className }) {
             strokeLinecap: "round"
         }, void 0, false, {
             fileName: "[project]/src/components/Icons.tsx",
-            lineNumber: 24,
+            lineNumber: 51,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 23,
+        lineNumber: 45,
         columnNumber: 5
     }, this);
 }
@@ -106,7 +108,7 @@ function DouyinIcon({ className }) {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 32,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -116,13 +118,13 @@ function DouyinIcon({ className }) {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 33,
+                lineNumber: 76,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 31,
+        lineNumber: 63,
         columnNumber: 5
     }, this);
 }
@@ -141,7 +143,7 @@ function TmallIcon({ className }) {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 41,
+                lineNumber: 94,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -152,7 +154,7 @@ function TmallIcon({ className }) {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 42,
+                lineNumber: 100,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -162,13 +164,13 @@ function TmallIcon({ className }) {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 43,
+                lineNumber: 107,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 40,
+        lineNumber: 88,
         columnNumber: 5
     }, this);
 }
@@ -190,7 +192,7 @@ function InstagramIcon({ className }) {
                 strokeWidth: "1.9"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 51,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -201,7 +203,7 @@ function InstagramIcon({ className }) {
                 strokeWidth: "1.9"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 52,
+                lineNumber: 134,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -211,13 +213,13 @@ function InstagramIcon({ className }) {
                 fill: "currentColor"
             }, void 0, false, {
                 fileName: "[project]/src/components/Icons.tsx",
-                lineNumber: 53,
+                lineNumber: 135,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 50,
+        lineNumber: 119,
         columnNumber: 5
     }, this);
 }
@@ -233,17 +235,52 @@ function FacebookIcon({ className }) {
             fill: "currentColor"
         }, void 0, false, {
             fileName: "[project]/src/components/Icons.tsx",
-            lineNumber: 61,
+            lineNumber: 148,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Icons.tsx",
-        lineNumber: 60,
+        lineNumber: 142,
         columnNumber: 5
     }, this);
 }
 _c6 = FacebookIcon;
-var _c, _c1, _c2, _c3, _c4, _c5, _c6;
+function YouTubeIcon({ className }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+        className: className,
+        viewBox: "0 0 24 24",
+        fill: "none",
+        "aria-hidden": "true",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                d: "M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C16.2 4.2 12 4.2 12 4.2s-4.2 0-6.7.1c-.4.1-1.3.1-2.1.9-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.4v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.3.8C7 18 12 18 12 18s4.2 0 6.7-.2c.4-.1 1.3-.1 2.1-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C21.8 8.8 21.6 7.2 21.6 7.2Z",
+                stroke: "currentColor",
+                strokeWidth: "1.8",
+                strokeLinejoin: "round"
+            }, void 0, false, {
+                fileName: "[project]/src/components/Icons.tsx",
+                lineNumber: 164,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                d: "M10 15V9l5.5 3L10 15Z",
+                stroke: "currentColor",
+                strokeWidth: "1.8",
+                strokeLinejoin: "round"
+            }, void 0, false, {
+                fileName: "[project]/src/components/Icons.tsx",
+                lineNumber: 170,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/src/components/Icons.tsx",
+        lineNumber: 158,
+        columnNumber: 5
+    }, this);
+}
+_c7 = YouTubeIcon;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7;
 __turbopack_context__.k.register(_c, "ArrowLeftIcon");
 __turbopack_context__.k.register(_c1, "ArrowRightIcon");
 __turbopack_context__.k.register(_c2, "CloseIcon");
@@ -251,6 +288,7 @@ __turbopack_context__.k.register(_c3, "DouyinIcon");
 __turbopack_context__.k.register(_c4, "TmallIcon");
 __turbopack_context__.k.register(_c5, "InstagramIcon");
 __turbopack_context__.k.register(_c6, "FacebookIcon");
+__turbopack_context__.k.register(_c7, "YouTubeIcon");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

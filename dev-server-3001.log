@@ -1,0 +1,21 @@
+
+> gx-company-website@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3001
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://127.0.0.1:3001
+- Network:       http://127.0.0.1:3001
+- Environments: .env.local
+✓ Ready in 3.9s
+
+ GET /en 200 in 3.1s (proxy.ts: 3ms)
+ GET /en 200 in 87ms (next.js: 8ms, proxy.ts: 3ms, generate-params: 3ms, application-code: 77ms)
+ GET /images/imageupdate/carousel03.jpg 404 in 1022ms (next.js: 993ms, proxy.ts: 2ms, application-code: 26ms)
+ GET /favicon.ico 404 in 63ms (next.js: 6ms, generate-params: 4ms, application-code: 57ms)
+ GET /en/products/angle-grinder 200 in 408ms (next.js: 385ms, proxy.ts: 2ms, application-code: 21ms)
+ GET /en/products/angle-grinder/gx2810-b-1 200 in 411ms (next.js: 392ms, proxy.ts: 1802µs, application-code: 17ms)
+ GET /en 200 in 28ms (next.js: 6ms, proxy.ts: 2ms, generate-params: 3ms, application-code: 20ms)
+ GET /images/imageupdate/carousel03.jpg 404 in 31ms (next.js: 3ms, proxy.ts: 5ms, application-code: 23ms)
+ GET /en/products/cordless-polisher 200 in 25ms (next.js: 6ms, proxy.ts: 3ms, application-code: 16ms)
+ GET /en/products/cordless-polisher/gx5901-gen2-1 200 in 21ms (next.js: 5ms, proxy.ts: 1926µs, application-code: 14ms)
+[?25h

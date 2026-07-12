@@ -100,7 +100,7 @@ export const contactInfo = [
   },
   {
     label: { en: "Business Email", zh: "商务邮箱" },
-    value: { en: "sales@ganxingtools.com", zh: "sales@ganxingtools.com" },
+    value: { en: "contact@ganxingtools.com", zh: "contact@ganxingtools.com" },
   },
   {
     label: { en: "Business Hours", zh: "服务时间" },

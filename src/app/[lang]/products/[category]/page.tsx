@@ -15,6 +15,7 @@ import {
   getCategoryByRouteSlug,
   getMainFunction,
   getSeoSlug,
+  productPath,
 } from "@/lib/product-seo";
 
 type PageProps = {
@@ -40,6 +41,7 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
     localizedPath(lang, `/products/${getSeoSlug(category)}`),
   );
   const products = category.products.map((product, index) => {
+    const productUrl = getAbsoluteUrl(productPath(lang, category, product, index));
     const name =
       `${product.model} ${product.title[lang] || product.title.en}`.trim();
     const description = product.specs
@@ -66,7 +68,7 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
         "@type": "Offer",
         availability: "https://schema.org/InStock",
         priceCurrency: "USD",
-        url: pageUrl,
+        url: productUrl,
       },
     };
   });
@@ -88,6 +90,42 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
       "@context": "https://schema.org",
       ...product,
     })),
+  ];
+}
+
+function buildFaq(category: ProductCategory, applications: string[], lang: Locale) {
+  const categoryName = category.title[lang];
+
+  if (lang === "zh") {
+    return [
+      {
+        question: `${categoryName}适合哪些应用？`,
+        answer: `GANXING ${categoryName}适用于${applications.join("、")}。每个型号页面均提供产品图片与技术规格。`,
+      },
+      {
+        question: `如何选择合适的${categoryName}？`,
+        answer: "请根据具体工序、作业材料和页面列出的转速、尺寸及其他技术参数比较型号；如需协助，可向销售团队发送询盘。",
+      },
+      {
+        question: `如何获取GANXING ${categoryName}的报价？`,
+        answer: "选择所需型号后，可通过网站询盘表单联系 GANXING 销售团队，提供应用和采购需求以获取报价支持。",
+      },
+    ];
+  }
+
+  return [
+    {
+      question: `What applications are ${category.title.en} used for?`,
+      answer: `GANXING ${category.title.en} are used for ${applications.join(", ")}. Each model page includes product images and technical specifications.`,
+    },
+    {
+      question: `How do I choose the right ${category.title.en}?`,
+      answer: "Compare models against the required process, material, and the listed speed, size, and technical specifications. For selection help, send an inquiry to the sales team.",
+    },
+    {
+      question: `How can I request a quote for GANXING ${category.title.en}?`,
+      answer: "Select the required model and contact the GANXING sales team through the website inquiry form with your application and purchasing requirements.",
+    },
   ];
 }
 
@@ -122,6 +160,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
   }
 
   const applications = getApplications(category, lang);
+  const faqItems = buildFaq(category, applications, lang);
   const keyFeatures =
     lang === "zh"
       ? [
@@ -135,12 +174,26 @@ export default async function ProductCategoryPage({ params }: PageProps) {
       : [
           "Stable motor output",
           "Precise speed control",
-          "Low niise",
+          "Low noise",
           "Brushless motor",
           "Dustproof & waterproof",
           "Wear-resistant gear system",
         ];
-  const jsonLd = buildJsonLd(category, lang);
+  const jsonLd = [
+    ...buildJsonLd(category, lang),
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ];
 
   return (
     <main>
@@ -241,6 +294,38 @@ export default async function ProductCategoryPage({ params }: PageProps) {
         </div>
       </section>
 
+      <section
+        className="px-4 py-12 sm:px-5 sm:py-16 lg:px-8"
+        aria-labelledby="product-selection-faq"
+      >
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600 sm:text-sm">
+            GANXING TOOLS
+          </p>
+          <h2
+            id="product-selection-faq"
+            className="mt-2 text-2xl font-semibold text-neutral-950 sm:mt-3 sm:text-4xl"
+          >
+            {lang === "zh" ? "产品选型常见问题" : "Product Selection FAQ"}
+          </h2>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {faqItems.map((item) => (
+              <article
+                key={item.question}
+                className="rounded-xl border border-neutral-200 bg-white p-5"
+              >
+                <h3 className="text-base font-semibold text-neutral-950">
+                  {item.question}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Product Grid ── */}
       <section
         className="px-4 py-14 sm:px-5 sm:py-20 lg:px-8"
@@ -258,7 +343,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
               >
                 {lang === "zh"
                   ? "技术规格与全部型号"
-                  : "Technical Specifications and All Models"}
+                  : "All Product Models"}
               </h2>
             </div>
             <p className="text-sm font-semibold text-neutral-500">
@@ -269,7 +354,9 @@ export default async function ProductCategoryPage({ params }: PageProps) {
             {category.products.map((product, index) => (
               <ProductCard
                 key={`${product.model}-${index}`}
+                category={category}
                 product={product}
+                index={index}
                 lang={lang}
               />
             ))}

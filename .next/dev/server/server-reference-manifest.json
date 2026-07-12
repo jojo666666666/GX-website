@@ -1,6 +1,6 @@
 {
   "node": {
-    "606d130b718a4d2aec456d1f9a65be13834f538ca1": {
+    "6045981d13684dc2095279f794e1f203875d3f1767": {
       "workers": {
         "app/[lang]/page": {
           "moduleId": "[project]/.next-internal/server/app/[lang]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/sendInquiry.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
@@ -14,5 +14,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "3nVvjAm9wN0RGoH9utFnTbd5nL8xu+tkz8AsM32MmOM="
+  "encryptionKey": "Ev6KZu1Heffi1cmNmSEw5uSeVgkZ3CPVrkIjOr7SkoY="
 }

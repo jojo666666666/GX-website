@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ProductCategory } from "@/data/products";
+import type { Product, ProductCategory } from "@/data/products";
 import { getProductCategory, productCategories } from "@/data/products";
 import { localizedPath, type Locale } from "@/lib/i18n";
 
@@ -141,11 +141,59 @@ export function categoryPath(lang: Locale, category: ProductCategory) {
   return localizedPath(lang, `/products/${getSeoSlug(category)}`);
 }
 
+export function slugifySegment(value: string) {
+  const slug = value
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return slug || "product";
+}
+
+export function getProductRouteSlug(product: Product, index: number) {
+  const label = product.model || product.title.en || `product-${index + 1}`;
+
+  return `${slugifySegment(label)}-${index + 1}`;
+}
+
+export function productPath(
+  lang: Locale,
+  category: ProductCategory,
+  product: Product,
+  index: number,
+) {
+  return localizedPath(
+    lang,
+    `/products/${getSeoSlug(category)}/${getProductRouteSlug(product, index)}`,
+  );
+}
+
 export function getCategoryByRouteSlug(slug: string) {
   return (
     getProductCategory(slug) ??
     getProductCategory(legacySlugBySeoSlug[slug] ?? "")
   );
+}
+
+export function getProductByRouteSlug(
+  category: ProductCategory,
+  productSlug: string,
+) {
+  const index = category.products.findIndex(
+    (product, currentIndex) =>
+      getProductRouteSlug(product, currentIndex) === productSlug,
+  );
+
+  if (index < 0) {
+    return null;
+  }
+
+  return {
+    product: category.products[index],
+    index,
+  };
 }
 
 export function getMainFunction(
@@ -236,7 +284,76 @@ export function buildCategoryMetadata(
   };
 }
 
+export function buildProductDescription(
+  category: ProductCategory,
+  product: Product,
+  lang: Locale,
+) {
+  const title = product.title[lang] || product.title.en;
+  const specSummary = product.specs
+    .filter((spec) => spec.value)
+    .slice(0, 4)
+    .map((spec) => `${spec.key[lang] || spec.key.en}: ${spec.value}`)
+    .join("; ");
+
+  if (specSummary) {
+    return `${product.model} ${title} from GANXING ${category.title.en}. Key details: ${specSummary}. Contact us for configuration, packing, and OEM options.`;
+  }
+
+  return `${product.model || title} from GANXING ${category.title.en}. This product is designed for professional surface finishing workflows, with product images, application notes, and inquiry support available on this page.`;
+}
+
+export function buildProductMetadata(
+  category: ProductCategory,
+  product: Product,
+  index: number,
+  lang: Locale,
+): Metadata {
+  const name = `${product.model} ${product.title[lang] || product.title.en}`.trim();
+  const description = buildProductDescription(category, product, lang);
+  const path = `/products/${getSeoSlug(category)}/${getProductRouteSlug(product, index)}`;
+  const image = product.images[0] || category.sceneImage;
+
+  return {
+    title: `${name} | ${category.title[lang]} | ${companyName}`,
+    description,
+    alternates: {
+      canonical: localizedPath(lang, path),
+      languages: {
+        "en-US": localizedPath("en", path),
+        "zh-CN": localizedPath("zh", path),
+      },
+    },
+    openGraph: {
+      title: name,
+      description,
+      url: localizedPath(lang, path),
+      siteName: companyName,
+      type: "website",
+      locale: lang === "zh" ? "zh_CN" : "en_US",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 900,
+          alt: name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: name,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export function getAllProductRouteParams() {
+  if (process.env.NODE_ENV === "development") {
+    return [];
+  }
+
   return productCategories.flatMap((category) => {
     const seoSlug = getSeoSlug(category);
     return [
@@ -245,5 +362,26 @@ export function getAllProductRouteParams() {
       { lang: "en", category: category.slug },
       { lang: "zh", category: category.slug },
     ];
+  });
+}
+
+export function getAllProductDetailRouteParams() {
+  if (process.env.NODE_ENV === "development") {
+    return [];
+  }
+
+  return productCategories.flatMap((category) => {
+    const seoSlug = getSeoSlug(category);
+
+    return category.products.flatMap((product, index) => {
+      const productSlug = getProductRouteSlug(product, index);
+
+      return [
+        { lang: "en", category: seoSlug, product: productSlug },
+        { lang: "zh", category: seoSlug, product: productSlug },
+        { lang: "en", category: category.slug, product: productSlug },
+        { lang: "zh", category: category.slug, product: productSlug },
+      ];
+    });
   });
 }
