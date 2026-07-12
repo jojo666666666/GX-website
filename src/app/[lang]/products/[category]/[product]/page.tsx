@@ -37,7 +37,12 @@ export async function generateMetadata({ params }: PageProps) {
     : null;
 
   return category && productMatch
-    ? buildProductMetadata(category, productMatch.product, productMatch.index, lang)
+    ? buildProductMetadata(
+        category,
+        productMatch.product,
+        productMatch.index,
+        lang,
+      )
     : { title: "Product Details | GANXING Tools" };
 }
 
@@ -69,7 +74,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const copy = dictionary[lang];
   const title = product.title[lang] || product.title.en;
   const productName =
-    product.model && title.trim().toLowerCase() !== product.model.trim().toLowerCase()
+    product.model &&
+    title.trim().toLowerCase() !== product.model.trim().toLowerCase()
       ? `${product.model} ${title}`
       : product.model || title;
   const description = buildProductDescription(category, product, lang);
@@ -229,8 +235,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
             ) : (
               <div className="mt-5 rounded-lg border border-neutral-200 bg-white p-5 text-sm leading-relaxed text-neutral-600">
                 {lang === "zh"
-                  ? "该产品的详细参数可在后期补充，当前页面已预留参数区域。"
-                  : "Detailed specifications can be added later. This page already reserves a specification area for future updates."}
+                  ? "联系我们，获取更多产品详情."
+                  : "Contact us for more product details."}
               </div>
             )}
           </div>
