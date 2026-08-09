@@ -27,7 +27,7 @@ const links = {
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/ganxing_powertools?igsh=MW9hYjNjeHR1czN1cQ%3D%3D&utm_source=qr",
+      href: "https://www.instagram.com/ganxing.polisher?igsh=dnI3MTV0cHd3ZXNi&utm_source=qr",
       icon: InstagramIcon,
     },
     {

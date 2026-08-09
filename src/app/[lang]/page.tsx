@@ -63,6 +63,29 @@ export default async function HomePage({ params }: PageProps) {
         <div className="absolute inset-x-0 top-14 h-px bg-gradient-to-r from-transparent via-red-600/30 to-transparent sm:top-16" />
 
         <div className="mx-auto max-w-7xl">
+          <div className="mb-10 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl shadow-neutral-950/10">
+            <div className="flex flex-col gap-4 border-b border-neutral-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600">
+                  {lang === "zh" ? "即将参展" : "Upcoming Exhibition"}
+                </p>
+                <h2 className="mt-1 text-xl font-semibold text-neutral-950 sm:text-2xl">
+                  {lang === "zh" ? "期待在法兰克福与您见面" : "Meet GANXING in Frankfurt"}
+                </h2>
+              </div>
+            </div>
+            <div className="relative aspect-[1866/843] w-full bg-neutral-50">
+              <Image
+                src="/images/Exhibition-images/frankfurt/exhibition%20poster.png"
+                alt={lang === "zh" ? "赣星法兰克福展会海报" : "GANXING Frankfurt exhibition poster"}
+                fill
+                priority
+                sizes="(min-width: 1280px) 1280px, 100vw"
+                className="object-contain"
+              />
+            </div>
+          </div>
+
           {/* Two-column on lg, stacked on mobile */}
           <div className="grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
             {/* Text content — first on mobile */}

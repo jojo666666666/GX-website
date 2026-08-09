@@ -25,11 +25,9 @@ __turbopack_context__.s([
     ()=>tickerItems
 ]);
 const heroImages = [
-    "/images/imageupdate/carousel001.jpg",
-    "/images/imageupdate/carousel002.jpg",
-    "/images/imageupdate/carousel003.jpg",
     "/images/imageupdate/carousel004.jpg",
-    "/images/imageupdate/carousel005.jpg"
+    "/images/imageupdate/carousel005.jpg",
+    "/images/imageupdate/carousel006.jpg"
 ];
 const heroStats = [
     {

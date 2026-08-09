@@ -196,7 +196,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
   ];
 
   return (
-    <main>
+    <main className="flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -205,7 +205,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
       />
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-white px-4 pb-14 pt-20 sm:px-5 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
+      <section className="order-1 relative overflow-hidden bg-white px-4 pb-14 pt-20 sm:px-5 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10">
             {/* Text */}
@@ -250,7 +250,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
 
       {/* ── Key Features & Applications ── */}
       <section
-        className="px-4 py-12 sm:px-5 sm:py-16 lg:px-8"
+        className="order-3 px-4 py-12 sm:px-5 sm:py-16 lg:px-8"
         aria-labelledby="key-features"
       >
         <div className="mx-auto max-w-7xl">
@@ -295,7 +295,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
       </section>
 
       <section
-        className="px-4 py-12 sm:px-5 sm:py-16 lg:px-8"
+        className="order-4 px-4 py-12 sm:px-5 sm:py-16 lg:px-8"
         aria-labelledby="product-selection-faq"
       >
         <div className="mx-auto max-w-7xl">
@@ -328,7 +328,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
 
       {/* ── Product Grid ── */}
       <section
-        className="px-4 py-14 sm:px-5 sm:py-20 lg:px-8"
+        className="order-2 px-4 py-14 sm:px-5 sm:py-20 lg:px-8"
         aria-labelledby="technical-specifications"
       >
         <div className="mx-auto max-w-7xl">
