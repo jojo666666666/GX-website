@@ -175,7 +175,7 @@ const newsItems = [
         },
         title: {
             en: "GANXING 2026 Flagship Polishing Series Debuts",
-            zh: "GANXING 2026 旗舰抛光系列正式亮相"
+            zh: "赣星 2026 旗舰抛光系列正式亮相"
         },
         excerpt: {
             en: "The full lineup features a next-gen brushless motor with higher power, lighter weight, and coverage across automotive, stone, and metal applications.",
@@ -185,7 +185,7 @@ const newsItems = [
         body: {
             lead: {
                 en: "GANXING's 2026 flagship lineup introduces a new brushless platform across six major professional tool series.",
-                zh: "GANXING 2026 旗舰系列以全新无刷平台覆盖六大专业工具系列。"
+                zh: "赣星 2026 旗舰系列以全新无刷平台覆盖六大专业工具系列。"
             },
             sections: [
                 {
@@ -348,8 +348,15 @@ async function generateMetadata({ params }) {
     const lang = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$i18n$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isLocale"])(rawLang) ? rawLang : "en";
     const item = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$site$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getNewsItem"])(slug);
     return {
-        title: item ? `${item.title[lang]} | GANXING Tools` : "News | GANXING Tools",
-        description: item?.excerpt[lang]
+        title: item ? `${item.title[lang]} | ${lang === "zh" ? "赣星电动工具" : "GANXING Tools"}` : "News | GANXING Tools",
+        description: item?.excerpt[lang],
+        alternates: item ? {
+            canonical: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$i18n$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["localizedPath"])(lang, `/news/${slug}`),
+            languages: {
+                "en-US": (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$i18n$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["localizedPath"])("en", `/news/${slug}`),
+                "zh-CN": (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$i18n$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["localizedPath"])("zh", `/news/${slug}`)
+            }
+        } : undefined
     };
 }
 async function NewsPage({ params }) {
@@ -386,19 +393,19 @@ async function NewsPage({ params }) {
                                         strokeLinejoin: "round"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                        lineNumber: 60,
+                                        lineNumber: 69,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 63,
                                     columnNumber: 13
                                 }, this),
                                 lang === "zh" ? "返回新闻" : "Back to News"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                            lineNumber: 50,
+                            lineNumber: 59,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -409,20 +416,20 @@ async function NewsPage({ params }) {
                                     children: item.category[lang]
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: item.date
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 72,
+                                    lineNumber: 81,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                            lineNumber: 70,
+                            lineNumber: 79,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -430,7 +437,7 @@ async function NewsPage({ params }) {
                             children: item.title[lang]
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                            lineNumber: 74,
+                            lineNumber: 83,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -438,18 +445,18 @@ async function NewsPage({ params }) {
                             children: item.body.lead[lang]
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                            lineNumber: 77,
+                            lineNumber: 86,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                    lineNumber: 49,
+                    lineNumber: 58,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                lineNumber: 48,
+                lineNumber: 57,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -463,12 +470,12 @@ async function NewsPage({ params }) {
                     className: "object-cover"
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                    lineNumber: 85,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                lineNumber: 84,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
@@ -483,7 +490,7 @@ async function NewsPage({ params }) {
                                         children: section.title[lang]
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 109,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -493,12 +500,12 @@ async function NewsPage({ params }) {
                                                 children: paragraph[lang]
                                             }, paragraph.en, false, {
                                                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                                lineNumber: 105,
+                                                lineNumber: 114,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 112,
                                         columnNumber: 15
                                     }, this),
                                     section.images ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -513,23 +520,23 @@ async function NewsPage({ params }) {
                                                     className: "object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 129,
                                                     columnNumber: 23
                                                 }, this)
                                             }, image, false, {
                                                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                                lineNumber: 116,
+                                                lineNumber: 125,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                        lineNumber: 114,
+                                        lineNumber: 123,
                                         columnNumber: 17
                                     }, this) : null
                                 ]
                             }, section.title.en, true, {
                                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                lineNumber: 99,
+                                lineNumber: 108,
                                 columnNumber: 13
                             }, this)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -540,7 +547,7 @@ async function NewsPage({ params }) {
                                     children: lang === "zh" ? "需要更多资料？" : "Need more details?"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 145,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -548,7 +555,7 @@ async function NewsPage({ params }) {
                                     children: lang === "zh" ? "联系赣星销售团队获取完整目录、技术参数与报价。" : "Contact the GANXING sales team for catalogs, technical specs, and pricing."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 148,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -557,30 +564,30 @@ async function NewsPage({ params }) {
                                     children: lang === "zh" ? "联系销售" : "Contact Sales"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                                    lineNumber: 144,
+                                    lineNumber: 153,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                            lineNumber: 135,
+                            lineNumber: 144,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                    lineNumber: 97,
+                    lineNumber: 106,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-                lineNumber: 96,
+                lineNumber: 105,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/[lang]/news/[slug]/page.tsx",
-        lineNumber: 46,
+        lineNumber: 55,
         columnNumber: 5
     }, this);
 }

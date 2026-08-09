@@ -57,11 +57,11 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
       image: product.images.map(getAbsoluteImage),
       brand: {
         "@type": "Brand",
-        name: "GANXING",
+        name: lang === "zh" ? "赣星" : "GANXING",
       },
       manufacturer: {
         "@type": "Organization",
-        name: "GANXING Tools",
+        name: lang === "zh" ? "赣星电动工具" : "GANXING Tools",
         url: getAbsoluteUrl(localizedPath(lang)),
       },
       offers: {
@@ -100,15 +100,15 @@ function buildFaq(category: ProductCategory, applications: string[], lang: Local
     return [
       {
         question: `${categoryName}适合哪些应用？`,
-        answer: `GANXING ${categoryName}适用于${applications.join("、")}。每个型号页面均提供产品图片与技术规格。`,
+        answer: `赣星${categoryName}适用于${applications.join("、")}。每个型号页面均提供产品图片与技术规格。`,
       },
       {
         question: `如何选择合适的${categoryName}？`,
         answer: "请根据具体工序、作业材料和页面列出的转速、尺寸及其他技术参数比较型号；如需协助，可向销售团队发送询盘。",
       },
       {
-        question: `如何获取GANXING ${categoryName}的报价？`,
-        answer: "选择所需型号后，可通过网站询盘表单联系 GANXING 销售团队，提供应用和采购需求以获取报价支持。",
+        question: `如何获取赣星${categoryName}的报价？`,
+        answer: "选择所需型号后，可通过网站询盘表单联系赣星销售团队，提供应用和采购需求以获取报价支持。",
       },
     ];
   }
@@ -300,7 +300,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
       >
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600 sm:text-sm">
-            GANXING TOOLS
+            {lang === "zh" ? "赣星电动工具" : "GANXING TOOLS"}
           </p>
           <h2
             id="product-selection-faq"
@@ -335,7 +335,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600 sm:text-sm">
-                GANXING TOOLS
+                {lang === "zh" ? "赣星电动工具" : "GANXING TOOLS"}
               </p>
               <h2
                 id="technical-specifications"

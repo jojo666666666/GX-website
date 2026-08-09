@@ -22,9 +22,18 @@ export async function generateMetadata({ params }: PageProps) {
 
   return {
     title: item
-      ? `${item.title[lang]} | GANXING Tools`
+      ? `${item.title[lang]} | ${lang === "zh" ? "赣星电动工具" : "GANXING Tools"}`
       : "News | GANXING Tools",
     description: item?.excerpt[lang],
+    alternates: item
+      ? {
+          canonical: localizedPath(lang, `/news/${slug}`),
+          languages: {
+            "en-US": localizedPath("en", `/news/${slug}`),
+            "zh-CN": localizedPath("zh", `/news/${slug}`),
+          },
+        }
+      : undefined,
   };
 }
 

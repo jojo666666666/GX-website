@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/Icons";
 
-export default function HomeCarousel({ images }: { images: string[] }) {
+export default function HomeCarousel({ images, lang }: { images: string[]; lang: "en" | "zh" }) {
   const [active, setActive] = useState(0);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
 
@@ -67,7 +67,7 @@ export default function HomeCarousel({ images }: { images: string[] }) {
           <Image
             key={image}
             src={image}
-            alt="GANXING polishing tools"
+            alt={lang === "zh" ? "赣星专业抛光工具" : "GANXING polishing tools"}
             fill
             // Only the very first image (index 0 on initial load) gets priority.
             // Subsequent slides should NOT block the initial page render.

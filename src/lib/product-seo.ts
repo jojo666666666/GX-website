@@ -230,7 +230,7 @@ export function buildCategoryDescription(
   lang: Locale,
 ) {
   if (lang === "zh") {
-    return `${category.title.zh}专业制造商，提供稳定电机、精准调速与工业级表面处理方案。联系 GANXING 获取免费报价。`;
+    return `${category.title.zh}专业制造商，提供稳定电机、精准调速与工业级表面处理方案。联系赣星获取免费报价。`;
   }
 
   return `${category.title.en} from GANXING Tools with stable motors, precise speed control, and B2B finishing support. Get a free quote today.`;
@@ -242,7 +242,7 @@ export function buildCategoryMetadata(
 ): Metadata {
   const title =
     lang === "zh"
-      ? `${category.title.zh} - 专业${getMainFunction(category, lang)}制造商 | ${companyName}`
+      ? `${category.title.zh} - 专业${getMainFunction(category, lang)}制造商 | 赣星电动工具`
       : `${category.title.en} - Professional ${getMainFunction(category, lang)} Manufacturer | ${companyName}`;
   const description = buildCategoryDescription(category, lang);
   const seoSlug = getSeoSlug(category);
@@ -315,7 +315,7 @@ export function buildProductMetadata(
   const image = product.images[0] || category.sceneImage;
 
   return {
-    title: `${name} | ${category.title[lang]} | ${companyName}`,
+    title: `${name} | ${category.title[lang]} | ${lang === "zh" ? "赣星电动工具" : companyName}`,
     description,
     alternates: {
       canonical: localizedPath(lang, path),

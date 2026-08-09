@@ -539,7 +539,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function Carousel({ images, alt }) {
+function Carousel({ images, alt, lang }) {
     _s();
     const [active, setActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [lightboxIndex, setLightboxIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -577,10 +577,10 @@ function Carousel({ images, alt }) {
     if (!currentImage) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "grid aspect-[4/3] place-items-center rounded-t-lg bg-neutral-100 text-sm text-neutral-400",
-            children: "GANXING"
+            children: lang === "zh" ? "赣星" : "GANXING"
         }, void 0, false, {
             fileName: "[project]/src/components/Carousel.tsx",
-            lineNumber: 54,
+            lineNumber: 55,
             columnNumber: 7
         }, this);
     }
@@ -618,12 +618,12 @@ function Carousel({ images, alt }) {
                             className: "object-contain p-6 transition duration-500 group-hover:scale-[1.03]"
                         }, currentImage, false, {
                             fileName: "[project]/src/components/Carousel.tsx",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Carousel.tsx",
-                        lineNumber: 63,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, this),
                     hasMultiple ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -641,12 +641,12 @@ function Carousel({ images, alt }) {
                                     className: "h-5 w-5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Carousel.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 113,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Carousel.tsx",
-                                lineNumber: 102,
+                                lineNumber: 103,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -662,12 +662,12 @@ function Carousel({ images, alt }) {
                                     className: "h-5 w-5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Carousel.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 125,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Carousel.tsx",
-                                lineNumber: 114,
+                                lineNumber: 115,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -683,12 +683,12 @@ function Carousel({ images, alt }) {
                                         "aria-label": `Show image ${index + 1}`
                                     }, `${image}-${index}`, false, {
                                         fileName: "[project]/src/components/Carousel.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 129,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Carousel.tsx",
-                                lineNumber: 126,
+                                lineNumber: 127,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -696,7 +696,7 @@ function Carousel({ images, alt }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Carousel.tsx",
-                lineNumber: 62,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Lightbox$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -710,7 +710,7 @@ function Carousel({ images, alt }) {
                 onClose: ()=>setLightboxIndex(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/Carousel.tsx",
-                lineNumber: 144,
+                lineNumber: 145,
                 columnNumber: 7
             }, this)
         ]

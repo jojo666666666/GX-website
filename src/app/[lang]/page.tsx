@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,6 +22,43 @@ import { categoryPath } from "@/lib/product-seo";
 type PageProps = {
   params: Promise<{ lang: string }>;
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { lang: rawLang } = await params;
+  const lang = isLocale(rawLang) ? rawLang : "en";
+  const isChinese = lang === "zh";
+  const title = isChinese
+    ? "赣星电动工具官网｜专业抛光机与表面处理工具制造商"
+    : "GANXING Tools | Professional Polishing Tool Manufacturer";
+  const description = isChinese
+    ? "永康市赣星电动工具有限公司专业研发制造汽车抛光机、无刷锂电抛光机、偏心抛光机、石材水磨机及金属表面处理工具。"
+    : "GANXING Tools manufactures professional automotive polishers, cordless polishers, orbital polishers, wet polishers, and metal surface-finishing tools.";
+
+  return {
+    title,
+    description,
+    keywords: isChinese
+      ? ["赣星", "赣星电动工具", "赣星抛光机", "抛光机厂家", "永康市赣星电动工具有限公司"]
+      : ["GANXING", "GANXING Tools", "polisher manufacturer", "professional polishing tools"],
+    alternates: {
+      canonical: localizedPath(lang),
+      languages: {
+        "en-US": localizedPath("en"),
+        "zh-CN": localizedPath("zh"),
+        "x-default": localizedPath("en"),
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: localizedPath(lang),
+      siteName: isChinese ? "赣星电动工具" : "GANXING Tools",
+      locale: isChinese ? "zh_CN" : "en_US",
+      alternateLocale: isChinese ? ["en_US"] : ["zh_CN"],
+      type: "website",
+    },
+  };
+}
 
 export default async function HomePage({ params }: PageProps) {
   const { lang: rawLang } = await params;
@@ -121,7 +159,7 @@ export default async function HomePage({ params }: PageProps) {
 
             {/* Carousel — second on mobile */}
             <div>
-              <HomeCarousel images={heroImages} />
+              <HomeCarousel images={heroImages} lang={lang} />
             </div>
           </div>
 
@@ -367,7 +405,7 @@ export default async function HomePage({ params }: PageProps) {
             <div className="relative min-h-[260px] overflow-hidden rounded-xl bg-neutral-100 shadow-xl shadow-neutral-950/10 sm:min-h-[380px] lg:min-h-[520px]">
               <Image
                 src="/images/imageupdate/factory.jpg"
-                alt="GANXING factory"
+                alt={lang === "zh" ? "赣星工厂" : "GANXING factory"}
                 fill
                 sizes="(min-width: 1024px) 44vw, 100vw"
                 className="object-cover"

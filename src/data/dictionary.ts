@@ -56,7 +56,7 @@ export const dictionary = {
       eyebrow: "专业抛光",
       title: "面向严苛现场的高性能抛光工具系统",
       subtitle:
-        "GANXING 专业抛光电动工具，为工业现场和专业施工团队而生，让功率稳定转化为可靠效率。",
+      "赣星专业抛光电动工具，为工业现场和专业施工团队而生，让功率稳定转化为可靠效率。",
       primaryCta: "探索产品",
       secondaryCta: "联系销售",
       productsLabel: "产品目录",
@@ -66,7 +66,7 @@ export const dictionary = {
       aboutLabel: "关于我们",
       aboutTitle: "专注抛光工具 16 年",
       newsLabel: "新闻动态",
-      contactTitle: "联系 GANXING",
+    contactTitle: "联系赣星",
       contactBody: "告诉我们您的工件材质、目标效果与产线要求，我们将协助匹配合适的工具平台和配件。",
     },
     product: {

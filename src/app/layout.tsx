@@ -8,7 +8,13 @@ const organizationJsonLd = {
   "@type": "Organization",
   "@id": "https://www.ganxingtools.com/#organization",
   name: "GANXING Tools",
-  alternateName: "GANXING",
+  alternateName: [
+    "GANXING",
+    "赣星",
+    "赣星电动工具",
+    "永康市赣星电动工具有限公司",
+    "Yongkang Ganxing Power Tools Co., Ltd.",
+  ],
   url: "https://www.ganxingtools.com",
   description:
     "GANXING Tools manufactures professional polishing, sanding, grinding, and surface-finishing tools for B2B buyers.",
@@ -22,6 +28,10 @@ const organizationJsonLd = {
     addressRegion: "Zhejiang",
     addressCountry: "CN",
   },
+  sameAs: [
+    "https://www.instagram.com/ganxing.polisher",
+    "https://www.tiktok.com/@ganxing_powertools",
+  ],
   knowsAbout: [
     "orbital polishers",
     "rotary polishers",

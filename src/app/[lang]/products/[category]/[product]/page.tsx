@@ -94,11 +94,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
     mainEntityOfPage: detailUrl,
     brand: {
       "@type": "Brand",
-      name: "GANXING",
+      name: lang === "zh" ? "赣星" : "GANXING",
     },
     manufacturer: {
       "@type": "Organization",
-      name: "GANXING Tools",
+      name: lang === "zh" ? "赣星电动工具" : "GANXING Tools",
       url: getAbsoluteUrl(localizedPath(lang)),
     },
     additionalProperty: product.specs
@@ -141,12 +141,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start lg:gap-12">
             <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
-              <Carousel images={product.images} alt={productName} />
+              <Carousel images={product.images} alt={productName} lang={lang} />
             </div>
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600">
-                GANXING TOOLS
+                {lang === "zh" ? "赣星电动工具" : "GANXING TOOLS"}
               </p>
               <h1 className="mt-3 text-3xl font-semibold leading-tight text-neutral-950 sm:text-4xl lg:text-5xl">
                 {productName}

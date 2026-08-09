@@ -42,7 +42,7 @@ export default function ProductCard({
             />
           ) : (
             <div className="grid h-full place-items-center text-sm font-semibold text-neutral-400">
-              GANXING
+              {lang === "zh" ? "赣星" : "GANXING"}
             </div>
           )}
         </div>

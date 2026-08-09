@@ -17,12 +17,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title:
       lang === "zh"
-        ? "资料下载中心 | GANXING Tools"
+        ? "资料下载中心 | 赣星电动工具"
         : "Download Center | GANXING Tools",
     description:
       lang === "zh"
-        ? "下载 GANXING 产品目录、技术资料及其他文档。"
+        ? "下载赣星产品目录、技术资料及其他文档。"
         : "Download GANXING product catalogs, technical resources, and documents.",
+    alternates: {
+      canonical: localizedPath(lang, "/downloads"),
+      languages: {
+        "en-US": localizedPath("en", "/downloads"),
+        "zh-CN": localizedPath("zh", "/downloads"),
+      },
+    },
   };
 }
 
@@ -46,7 +53,7 @@ export default async function DownloadsPage({ params }: PageProps) {
             ← {lang === "zh" ? "返回首页" : "Back to Home"}
           </Link>
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.28em] text-red-400 sm:text-sm">
-            GANXING RESOURCES
+            {lang === "zh" ? "赣星资料中心" : "GANXING RESOURCES"}
           </p>
           <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-7xl">
             {lang === "zh" ? "资料下载中心" : "Download Center"}
@@ -112,7 +119,7 @@ export default async function DownloadsPage({ params }: PageProps) {
                   PDF
                 </div>
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  GANXING 2026
+                  {lang === "zh" ? "赣星 2026" : "GANXING 2026"}
                 </p>
               </div>
             </div>
@@ -130,12 +137,12 @@ export default async function DownloadsPage({ params }: PageProps) {
               </div>
               <h3 className="mt-5 text-2xl font-semibold text-neutral-950 sm:text-3xl">
                 {lang === "zh"
-                  ? "GANXING 2026 产品目录"
+                  ? "赣星 2026 产品目录"
                   : "GANXING Product Catalog 2026"}
               </h3>
               <p className="mt-3 max-w-2xl leading-relaxed text-neutral-600">
                 {lang === "zh"
-                  ? "包含 GANXING 产品系列、主要技术参数、应用场景及产品选型信息。"
+                  ? "包含赣星产品系列、主要技术参数、应用场景及产品选型信息。"
                   : "Includes GANXING product ranges, key specifications, applications, and product selection information."}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">

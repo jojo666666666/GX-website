@@ -1,4 +1,5 @@
 import { productCategories } from "@/data/products";
+import { newsItems } from "@/data/site";
 import {
   getAbsoluteImage,
   getAbsoluteUrl,
@@ -31,20 +32,35 @@ function urlEntry(url: string, images: string[] = []) {
 }
 
 export async function GET() {
+  const locales = ["en", "zh"] as const;
   const entries = [
     urlEntry(getAbsoluteUrl("/en")),
     urlEntry(getAbsoluteUrl("/zh")),
+    urlEntry(getAbsoluteUrl("/en/downloads")),
+    urlEntry(getAbsoluteUrl("/zh/downloads")),
+    ...newsItems.flatMap((item) =>
+      locales.map((lang) =>
+        urlEntry(getAbsoluteUrl(`/${lang}/news/${item.slug}`), [
+          getAbsoluteImage(item.image),
+        ]),
+      ),
+    ),
     ...productCategories.flatMap((category) => {
-      const categoryUrl = getAbsoluteUrl(`/en/products/${getSeoSlug(category)}`);
       const categoryImages = [getAbsoluteImage(category.sceneImage)];
-      const productEntries = category.products.map((product, index) =>
-        urlEntry(
-          getAbsoluteUrl(productPath("en", category, product, index)),
-          product.images.map(getAbsoluteImage),
-        ),
+      return locales.flatMap((lang) =>
+        [
+          urlEntry(
+            getAbsoluteUrl(`/${lang}/products/${getSeoSlug(category)}`),
+            categoryImages,
+          ),
+          ...category.products.map((product, index) =>
+            urlEntry(
+              getAbsoluteUrl(productPath(lang, category, product, index)),
+              product.images.map(getAbsoluteImage),
+            ),
+          ),
+        ],
       );
-
-      return [urlEntry(categoryUrl, categoryImages), ...productEntries];
     }),
   ];
 

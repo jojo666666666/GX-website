@@ -116,7 +116,7 @@ export const newsItems: NewsItem[] = [
     category: { en: "Product Launch", zh: "产品发布" },
     title: {
       en: "GANXING 2026 Flagship Polishing Series Debuts",
-      zh: "GANXING 2026 旗舰抛光系列正式亮相",
+      zh: "赣星 2026 旗舰抛光系列正式亮相",
     },
     excerpt: {
       en: "The full lineup features a next-gen brushless motor with higher power, lighter weight, and coverage across automotive, stone, and metal applications.",
@@ -126,7 +126,7 @@ export const newsItems: NewsItem[] = [
     body: {
       lead: {
         en: "GANXING's 2026 flagship lineup introduces a new brushless platform across six major professional tool series.",
-        zh: "GANXING 2026 旗舰系列以全新无刷平台覆盖六大专业工具系列。",
+        zh: "赣星 2026 旗舰系列以全新无刷平台覆盖六大专业工具系列。",
       },
       sections: [
         {

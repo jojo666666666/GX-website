@@ -8,9 +8,10 @@ import Lightbox from "@/components/Lightbox";
 type CarouselProps = {
   images: string[];
   alt: string;
+  lang: "en" | "zh";
 };
 
-export default function Carousel({ images, alt }: CarouselProps) {
+export default function Carousel({ images, alt, lang }: CarouselProps) {
   const [active, setActive] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
@@ -52,7 +53,7 @@ export default function Carousel({ images, alt }: CarouselProps) {
   if (!currentImage) {
     return (
       <div className="grid aspect-[4/3] place-items-center rounded-t-lg bg-neutral-100 text-sm text-neutral-400">
-        GANXING
+        {lang === "zh" ? "赣星" : "GANXING"}
       </div>
     );
   }

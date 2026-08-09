@@ -80,9 +80,13 @@ export default function Footer({ lang }: { lang: Locale }) {
 
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <span>© 2026 GANXING POWER TOOLS Co., Ltd. All Rights Reserved.</span>
+          <span>
+            {lang === "zh"
+              ? "© 2026 赣星电动工具有限公司 版权所有"
+              : "© 2026 GANXING POWER TOOLS Co., Ltd. All Rights Reserved."}
+          </span>
           <span className="font-semibold tracking-[0.15em] text-neutral-400">
-            GANXING TOOLS
+            {lang === "zh" ? "赣星电动工具" : "GANXING TOOLS"}
           </span>
         </div>
       </div>
