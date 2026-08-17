@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: PageProps) {
           languages: {
             "en-US": localizedPath("en", `/news/${slug}`),
             "zh-CN": localizedPath("zh", `/news/${slug}`),
+            "x-default": localizedPath("en", `/news/${slug}`),
           },
         }
       : undefined,

@@ -1,6 +1,12 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import { headers } from "next/headers";
+
+const submissionLog = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const ALLOWED_INQUIRY_TYPES = new Set(["product", "dealer", "oem"]);
 
 export type InquiryState =
   | { status: "idle" }
@@ -18,18 +24,106 @@ export async function sendInquiry(
   const inquiryType =
     (formData.get("inquiryType") as string | null)?.trim() ?? "";
   const message = (formData.get("message") as string | null)?.trim() ?? "";
+  const productName = (formData.get("productName") as string | null)?.trim() ?? "";
+  const rawSourceUrl = (formData.get("sourceUrl") as string | null)?.trim() ?? "";
+  const sourceUrl = getSafeSourceUrl(rawSourceUrl);
+  const turnstileToken =
+    (formData.get("cf-turnstile-response") as string | null)?.trim() ?? "";
+  const honeypot = (formData.get("website") as string | null)?.trim() ?? "";
+  const formStartedAt = Number(formData.get("formStartedAt") ?? 0);
+  const language = formData.get("lang") === "zh" ? "zh" : "en";
+  const localize = (en: string, zh: string) => (language === "zh" ? zh : en);
+
+  if (honeypot) {
+    return { status: "success" };
+  }
+
+  const elapsed = Date.now() - formStartedAt;
+  if (!Number.isFinite(elapsed) || elapsed < 1500 || elapsed > 2 * 60 * 60 * 1000) {
+    return {
+      status: "error",
+      message: localize("Please refresh the page and try again.", "请刷新页面后重试。"),
+    };
+  }
+
+  const requestHeaders = await headers();
+  const clientId =
+    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    requestHeaders.get("x-real-ip") ||
+    "unknown";
+
+  if (!(await verifyTurnstile(turnstileToken, clientId))) {
+    return {
+      status: "error",
+      message: localize(
+        "Security verification failed. Please try again.",
+        "安全验证失败，请重试。",
+      ),
+    };
+  }
+
+  const now = Date.now();
+  if (submissionLog.size > 5000) {
+    for (const [key, timestamps] of submissionLog) {
+      if (!timestamps.some((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS)) {
+        submissionLog.delete(key);
+      }
+    }
+  }
+  const recent = (submissionLog.get(clientId) ?? []).filter(
+    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS,
+  );
+  if (recent.length >= RATE_LIMIT_MAX) {
+    return {
+      status: "error",
+      message: localize(
+        "Too many submissions. Please try again later.",
+        "提交次数过多，请稍后再试。",
+      ),
+    };
+  }
+  submissionLog.set(clientId, [...recent, now]);
 
   // Basic validation
   if (!name || !phone || !email) {
     return {
       status: "error",
-      message: "Please fill in all required fields (Name, Phone, Email).",
+      message: localize(
+        "Please fill in all required fields (Name, Phone, Email).",
+        "请填写所有必填项（姓名、电话和电子邮箱）。",
+      ),
     };
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return { status: "error", message: "Please enter a valid email address." };
+    return {
+      status: "error",
+      message: localize("Please enter a valid email address.", "请输入有效的电子邮箱地址。"),
+    };
+  }
+
+  if (inquiryType && !ALLOWED_INQUIRY_TYPES.has(inquiryType)) {
+    return {
+      status: "error",
+      message: localize("Please choose a valid inquiry type.", "请选择有效的询问类型。"),
+    };
+  }
+
+  if (
+    name.length > 100 ||
+    company.length > 160 ||
+    phone.length > 50 ||
+    email.length > 254 ||
+    inquiryType.length > 100 ||
+    message.length > 3000 ||
+    productName.length > 240 ||
+    sourceUrl.length > 500
+  ) {
+    return {
+      status: "error",
+      message: localize("One or more fields are too long.", "部分字段内容过长，请适当精简。"),
+    };
   }
 
   const host = process.env.SMTP_HOST;
@@ -43,7 +137,10 @@ export async function sendInquiry(
     console.error("SMTP environment variables are not configured.");
     return {
       status: "error",
-      message: "Email service is not configured. Please contact us directly.",
+      message: localize(
+        "Email service is not configured. Please contact us directly.",
+        "邮件服务尚未配置，请直接联系我们。",
+      ),
     };
   }
 
@@ -92,6 +189,7 @@ export async function sendInquiry(
 
               <!-- Info grid -->
               <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e5e5;border-radius:8px;overflow:hidden;">
+                ${productName ? `<tr><td style="padding:12px 16px;font-size:11px;font-weight:700;color:#c8102e;text-transform:uppercase;letter-spacing:0.14em;width:140px;border-bottom:1px solid #e5e5e5;">Product</td><td style="padding:12px 16px;font-size:14px;color:#171717;border-bottom:1px solid #e5e5e5;">${escapeHtml(productName)}</td></tr>` : ""}
                 <tr style="background:#fafafa;">
                   <td style="padding:12px 16px;font-size:11px;font-weight:700;color:#c8102e;text-transform:uppercase;letter-spacing:0.14em;width:140px;border-bottom:1px solid #e5e5e5;">Full Name</td>
                   <td style="padding:12px 16px;font-size:14px;color:#171717;border-bottom:1px solid #e5e5e5;">${escapeHtml(name)}</td>
@@ -116,6 +214,7 @@ export async function sendInquiry(
                   <td style="padding:12px 16px;font-size:11px;font-weight:700;color:#c8102e;text-transform:uppercase;letter-spacing:0.14em;vertical-align:top;">Message</td>
                   <td style="padding:12px 16px;font-size:14px;color:#171717;line-height:1.65;white-space:pre-wrap;">${escapeHtml(message) || "<em style='color:#a3a3a3'>No message provided</em>"}</td>
                 </tr>
+                ${sourceUrl ? `<tr style="background:#fafafa;"><td style="padding:12px 16px;font-size:11px;font-weight:700;color:#c8102e;text-transform:uppercase;letter-spacing:0.14em;">Source Page</td><td style="padding:12px 16px;font-size:14px;color:#171717;"><a href="${escapeHtml(sourceUrl)}" style="color:#c8102e;">${escapeHtml(sourceUrl)}</a></td></tr>` : ""}
               </table>
             </td>
           </tr>
@@ -142,8 +241,21 @@ export async function sendInquiry(
       from: `"GANXING Tools Inquiry" <${from}>`,
       to, // CONTACT_EMAIL = Sales@ganxingtools.com
       replyTo: email, // reply goes directly to the client
-      subject: `[B2B Inquiry] ${name}${company ? ` — ${company}` : ""} | ${inquiryType}`,
+      subject: `[B2B Inquiry] ${productName || inquiryType} | ${name}${company ? ` — ${company}` : ""}`,
       html: htmlBody,
+    });
+
+    await archiveInquiry({
+      name,
+      company,
+      phone,
+      email,
+      inquiryType,
+      message,
+      productName,
+      sourceUrl,
+      language,
+      submittedAt: new Date().toISOString(),
     });
 
     return { status: "success" };
@@ -151,9 +263,96 @@ export async function sendInquiry(
     console.error("Failed to send inquiry email:", err);
     return {
       status: "error",
-      message:
+      message: localize(
         "Failed to send your inquiry. Please try again or email us directly at Sales@ganxingtools.com.",
+        "询盘发送失败，请重试或直接发送邮件至 Sales@ganxingtools.com。",
+      ),
     };
+  }
+}
+
+async function verifyTurnstile(token: string, remoteIp: string) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("TURNSTILE_SECRET_KEY is not configured in production.");
+      return false;
+    }
+
+    // Keep local development usable until a developer adds local test keys.
+    return !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  }
+
+  if (!token || token.length > 2048) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          secret,
+          response: token,
+          ...(remoteIp !== "unknown" ? { remoteip: remoteIp } : {}),
+        }),
+        cache: "no-store",
+      },
+    );
+    const result = (await response.json()) as { success?: boolean };
+    return response.ok && result.success === true;
+  } catch (error) {
+    console.error("Turnstile verification request failed", error);
+    return false;
+  }
+}
+
+function getSafeSourceUrl(value: string) {
+  if (!value) {
+    return "";
+  }
+
+  try {
+    const url = new URL(value);
+    const allowedHosts = new Set(["ganxingtools.com", "www.ganxingtools.com"]);
+    return url.protocol === "https:" && allowedHosts.has(url.hostname)
+      ? url.toString()
+      : "";
+  } catch {
+    return "";
+  }
+}
+
+async function archiveInquiry(record: Record<string, string>) {
+  const webhookUrl = process.env.INQUIRY_WEBHOOK_URL;
+  if (!webhookUrl) {
+    return;
+  }
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(process.env.INQUIRY_WEBHOOK_TOKEN
+          ? { Authorization: `Bearer ${process.env.INQUIRY_WEBHOOK_TOKEN}` }
+          : {}),
+      },
+      body: JSON.stringify(record),
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (!response.ok) {
+      console.error("Inquiry archive webhook returned", response.status);
+    }
+  } catch (error) {
+    // Email delivery remains the primary path; a storage integration outage
+    // should not make the customer resubmit the same inquiry.
+    console.error("Inquiry archive webhook failed", error);
   }
 }
 

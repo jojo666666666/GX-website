@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DeferredVideo from "@/components/DeferredVideo";
 import HomeCarousel from "@/components/HomeCarousel";
 import InquiryForm from "@/components/InquiryForm";
+import MotionSystems from "@/components/MotionSystems";
 import ScrollToSection from "@/components/ScrollToSection";
 import SocialLinks from "@/components/SocialLinks";
 import { dictionary } from "@/data/dictionary";
@@ -21,7 +23,10 @@ import { categoryPath } from "@/lib/product-seo";
 
 type PageProps = {
   params: Promise<{ lang: string }>;
+  searchParams?: Promise<{ inquiry?: string }>;
 };
+
+const SHOW_FRANKFURT_EXHIBITION = Date.now() < Date.UTC(2026, 8, 13);
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { lang: rawLang } = await params;
@@ -56,11 +61,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: isChinese ? "zh_CN" : "en_US",
       alternateLocale: isChinese ? ["en_US"] : ["zh_CN"],
       type: "website",
+      images: [
+        {
+          url: "/images/brand/ganxing-open-graph.png",
+          width: 1200,
+          height: 630,
+          alt: isChinese ? "赣星专业表面处理工具" : "GANXING professional surface finishing systems",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/brand/ganxing-open-graph.png"],
     },
   };
 }
 
-export default async function HomePage({ params }: PageProps) {
+export default async function HomePage({ params, searchParams }: PageProps) {
   const { lang: rawLang } = await params;
 
   if (!isLocale(rawLang)) {
@@ -68,6 +87,11 @@ export default async function HomePage({ params }: PageProps) {
   }
 
   const lang = rawLang as Locale;
+  const requestedInquiry = (await searchParams)?.inquiry;
+  const defaultInquiryType =
+    requestedInquiry === "dealer" || requestedInquiry === "oem"
+      ? requestedInquiry
+      : "product";
   const copy = dictionary[lang];
   const ticker = [...tickerItems[lang], ...tickerItems[lang]];
   const categoryGroups = [
@@ -95,48 +119,37 @@ export default async function HomePage({ params }: PageProps) {
   ];
 
   return (
-    <main>
+    <main className="home-page">
       {/* ── Hero ── */}
       <section className="relative overflow-hidden px-4 pb-16 pt-20 sm:px-5 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
         <div className="absolute inset-x-0 top-14 h-px bg-gradient-to-r from-transparent via-red-600/30 to-transparent sm:top-16" />
 
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl shadow-neutral-950/10">
-            <div className="flex flex-col gap-4 border-b border-neutral-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600">
-                  {lang === "zh" ? "即将参展" : "Upcoming Exhibition"}
-                </p>
-                <h2 className="mt-1 text-xl font-semibold text-neutral-950 sm:text-2xl">
-                  {lang === "zh" ? "期待在法兰克福与您见面" : "Meet GANXING in Frankfurt"}
-                </h2>
-              </div>
-            </div>
-            <div className="relative aspect-[1866/843] w-full bg-neutral-50">
-              <Image
-                src="/images/Exhibition-images/frankfurt/exhibition%20poster.png"
-                alt={lang === "zh" ? "赣星法兰克福展会海报" : "GANXING Frankfurt exhibition poster"}
-                fill
-                priority
-                sizes="(min-width: 1280px) 1280px, 100vw"
-                className="object-contain"
-              />
-            </div>
-          </div>
-
           {/* Two-column on lg, stacked on mobile */}
           <div className="grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
             {/* Text content — first on mobile */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-600 sm:text-sm">
+              <p className="brand-eyebrow">
                 {copy.home.eyebrow}
               </p>
-              <h1 className="mt-4 text-[2.6rem] font-semibold leading-[0.96] text-neutral-950 sm:text-6xl lg:text-8xl">
-                Professional
-                <br />
-                <span className="text-red-600">polishing</span>
-                <br />
-                <span className="text-neutral-300">TOOLS</span>
+              <h1 className="brand-display mt-4 text-[2.6rem] font-semibold text-neutral-950 sm:text-6xl lg:text-8xl">
+                {lang === "zh" ? (
+                  <>
+                    专业抛光机
+                    <br />
+                    <span className="text-red-600">与表面处理</span>
+                    <br />
+                    <span className="text-neutral-300">工具制造商</span>
+                  </>
+                ) : (
+                  <>
+                    Professional
+                    <br />
+                    <span className="text-red-600">polishing</span>
+                    <br />
+                    <span className="text-neutral-300">TOOLS</span>
+                  </>
+                )}
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg">
                 {copy.home.subtitle}
@@ -176,6 +189,31 @@ export default async function HomePage({ params }: PageProps) {
               </div>
             ))}
           </div>
+
+          {SHOW_FRANKFURT_EXHIBITION && (
+            <div className="brand-panel mt-10 overflow-hidden">
+              <div className="flex flex-col gap-2 border-b border-neutral-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+                <div>
+                  <p className="brand-eyebrow">
+                    {lang === "zh" ? "即将参展" : "Upcoming Exhibition"}
+                  </p>
+                  <h2 className="mt-1 text-xl font-semibold text-neutral-950 sm:text-2xl">
+                    {lang === "zh" ? "期待在法兰克福与您见面" : "Meet GANXING in Frankfurt"}
+                  </h2>
+                </div>
+                <p className="text-sm font-semibold text-neutral-500">8–12 September 2026 · Hall 1.1, F20</p>
+              </div>
+              <div className="relative aspect-[1866/843] w-full bg-neutral-950">
+                <Image
+                  src="/images/Exhibition-images/frankfurt/ganxing-frankfurt-exhibition-poster.webp"
+                  alt={lang === "zh" ? "赣星法兰克福展会海报" : "GANXING Frankfurt exhibition poster"}
+                  fill
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -208,7 +246,9 @@ export default async function HomePage({ params }: PageProps) {
               {copy.home.productsTitle}
             </h2>
             <p className="text-sm font-medium text-neutral-500">
-              {productCategories.length} categories
+              {lang === "zh"
+                ? `${productCategories.length} 个产品系列`
+                : `${productCategories.length} categories`}
             </p>
           </div>
 
@@ -232,6 +272,7 @@ export default async function HomePage({ params }: PageProps) {
                     {categories.map((category) => (
                       <Link
                         key={category.slug}
+                        id={`category-card-${category.slug}`}
                         href={categoryPath(lang, category)}
                         className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-100 hover:shadow-xl hover:shadow-neutral-950/10 active:border-red-100"
                       >
@@ -274,27 +315,12 @@ export default async function HomePage({ params }: PageProps) {
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-12">
             {/* Video — full width on mobile */}
             <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-black lg:aspect-square">
-              {/*
-               * Performance: `preload="none"` prevents the browser from
-               * downloading the video file on page load. The video is below
-               * the fold and auto-plays only when it enters the viewport,
-               * so there is no need to fetch it eagerly — especially on
-               * mobile where bandwidth is limited.
-               */}
-              <video
-                className="h-full w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster="/images/imageupdate/carousel03.jpg"
-              >
-                <source
-                  src="/images/videos/tech-showcase.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              <DeferredVideo
+                lang={lang}
+                src="/images/videos/tech-showcase.mp4?v=20260817-optimized"
+                poster="/images/videos/ganxing-polishing-technology-video-poster.webp"
+                title={lang === "zh" ? "赣星抛光技术展示" : "GANXING polishing technology showcase"}
+              />
               <div className="absolute right-3 top-3 rounded-lg border border-white/15 bg-neutral-950/70 px-3 py-2 text-xs backdrop-blur sm:right-5 sm:top-5 sm:px-4 sm:py-3 sm:text-sm">
                 <strong className="block text-red-400">
                   Polishing Technology
@@ -340,6 +366,7 @@ export default async function HomePage({ params }: PageProps) {
               </div>
             </div>
           </div>
+          <MotionSystems lang={lang} />
         </div>
       </section>
 
@@ -410,15 +437,67 @@ export default async function HomePage({ params }: PageProps) {
                 sizes="(min-width: 1024px) 44vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute bottom-4 left-4 rounded-xl bg-red-600 px-4 py-3 text-white shadow-lg sm:bottom-6 sm:left-6 sm:px-5 sm:py-4">
-                <strong className="block text-lg sm:text-xl">Since 2010</strong>
-                <span className="text-sm text-white/80">
-                  {lang === "zh"
-                    ? "专业抛光电动工具"
-                    : "Professional Polishing Tools"}
-                </span>
+              <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-xl border border-white/60 bg-white/95 p-2.5 pr-4 text-neutral-950 shadow-xl backdrop-blur sm:bottom-6 sm:left-6 sm:gap-4 sm:p-3 sm:pr-5">
+                <div className="relative h-[52px] w-[120px] flex-none overflow-hidden rounded-md bg-[#d93125] shadow-sm sm:h-[60px] sm:w-[139px]">
+                  <Image
+                    src="/images/brand/ganxing-logo.png"
+                    alt={lang === "zh" ? "赣星电动工具 Logo" : "GANXING Power Tools logo"}
+                    fill
+                    sizes="139px"
+                    className="object-contain"
+                  />
+                </div>
+                <div>
+                  <strong className="block text-base sm:text-xl">Since 2010</strong>
+                  <span className="block max-w-[150px] text-xs leading-snug text-neutral-500 sm:text-sm">
+                    {lang === "zh"
+                      ? "专业抛光电动工具制造商"
+                      : "Professional polishing tool manufacturer"}
+                  </span>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Partnership ── */}
+      <section className="bg-neutral-950 px-4 py-16 text-white sm:px-5 sm:py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <p className="brand-eyebrow text-red-400">
+            {lang === "zh" ? "全球商业合作" : "Global Partnerships"}
+          </p>
+          <div className="mt-4 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <h2 className="brand-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
+              {lang === "zh" ? "与赣星一起拓展市场" : "Build your market with GANXING"}
+            </h2>
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-400 lg:justify-self-end">
+              {lang === "zh"
+                ? "我们支持海外经销合作、品牌定制、产品配置与包装方案，为不同市场提供稳定的专业工具供应。"
+                : "We support distributors and private-label partners with product configuration, branding, packaging, and dependable professional tool supply."}
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <article className="rounded-xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">01</span>
+              <h3 className="mt-4 text-2xl font-semibold">{lang === "zh" ? "成为经销商" : "Become a Distributor"}</h3>
+              <p className="mt-3 leading-relaxed text-neutral-400">
+                {lang === "zh" ? "获取产品组合建议、渠道报价与市场支持。" : "Discuss product portfolios, channel pricing, and market support."}
+              </p>
+              <Link href={`${localizedPath(lang)}?inquiry=dealer#contact`} className="mt-6 inline-flex h-11 items-center rounded-full bg-red-600 px-6 text-sm font-semibold text-white shadow-lg shadow-red-950/20 transition hover:bg-red-500">
+                {lang === "zh" ? "申请经销合作" : "Discuss Distribution"}
+              </Link>
+            </article>
+            <article className="rounded-xl border border-red-500/40 bg-red-600 p-6 sm:p-8">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">02</span>
+              <h3 className="mt-4 text-2xl font-semibold">OEM / ODM</h3>
+              <p className="mt-3 leading-relaxed text-white/75">
+                {lang === "zh" ? "支持颜色、品牌标识、包装、配置及市场认证需求。" : "Configure colors, branding, packaging, product sets, and market requirements."}
+              </p>
+              <Link href={`${localizedPath(lang)}?inquiry=oem#contact`} className="mt-6 inline-flex h-11 items-center rounded-full bg-neutral-950 px-6 text-sm font-semibold text-white transition hover:bg-white hover:text-neutral-950">
+                {lang === "zh" ? "讨论定制项目" : "Start an OEM Project"}
+              </Link>
+            </article>
           </div>
         </div>
       </section>
@@ -515,7 +594,7 @@ export default async function HomePage({ params }: PageProps) {
 
             {/* Form — first on mobile */}
             <div className="order-1 lg:order-2">
-              <InquiryForm lang={lang} />
+              <InquiryForm key={defaultInquiryType} lang={lang} defaultInquiryType={defaultInquiryType} />
             </div>
           </div>
         </div>

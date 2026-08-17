@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       languages: {
         "en-US": localizedPath("en", "/downloads"),
         "zh-CN": localizedPath("zh", "/downloads"),
+        "x-default": localizedPath("en", "/downloads"),
       },
     },
   };
@@ -48,7 +49,7 @@ export default async function DownloadsPage({ params }: PageProps) {
         <div className="mx-auto max-w-7xl">
           <Link
             href={localizedPath(lang)}
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400 transition hover:text-red-300"
+            className="-my-3 inline-flex min-h-11 items-center py-3 text-xs font-semibold uppercase tracking-[0.2em] text-red-400 transition hover:text-red-300"
           >
             ← {lang === "zh" ? "返回首页" : "Back to Home"}
           </Link>
@@ -132,7 +133,7 @@ export default async function DownloadsPage({ params }: PageProps) {
                   2026
                 </span>
                 <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-600">
-                  23.6 MB
+                  16.5 MB
                 </span>
               </div>
               <h3 className="mt-5 text-2xl font-semibold text-neutral-950 sm:text-3xl">

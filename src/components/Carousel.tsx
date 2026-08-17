@@ -4,14 +4,16 @@ import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/Icons";
 import Lightbox from "@/components/Lightbox";
+import { getProductImageAlt } from "@/lib/product-seo";
 
 type CarouselProps = {
   images: string[];
   alt: string;
   lang: "en" | "zh";
+  square?: boolean;
 };
 
-export default function Carousel({ images, alt, lang }: CarouselProps) {
+export default function Carousel({ images, alt, lang, square = false }: CarouselProps) {
   const [active, setActive] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
@@ -60,7 +62,7 @@ export default function Carousel({ images, alt, lang }: CarouselProps) {
 
   return (
     <>
-      <div className="group relative aspect-[4/3] overflow-hidden rounded-t-lg bg-white">
+      <div className={`group relative overflow-hidden rounded-t-lg bg-white ${square ? "aspect-square" : "aspect-[4/3]"}`}>
         <button
           type="button"
           className="relative h-full w-full cursor-zoom-in touch-pan-y"
@@ -77,8 +79,8 @@ export default function Carousel({ images, alt, lang }: CarouselProps) {
               setLightboxIndex(active);
             }
           }}
-          aria-label={`Open ${alt} image`}
-          title="Click to enlarge"
+          aria-label={lang === "zh" ? `打开 ${alt} 图片` : `Open ${alt} image`}
+          title={lang === "zh" ? "点击放大" : "Click to enlarge"}
         >
           {/*
            * Performance: render ONLY the active image.
@@ -91,10 +93,10 @@ export default function Carousel({ images, alt, lang }: CarouselProps) {
           <Image
             key={currentImage}
             src={currentImage}
-            alt={alt}
+            alt={getProductImageAlt(currentImage, alt, lang, active)}
             fill
             sizes="(min-width: 1280px) 30vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-contain p-6 transition duration-500 group-hover:scale-[1.03]"
+            className="object-contain transition duration-500 group-hover:scale-[1.015]"
           />
         </button>
 
@@ -102,46 +104,76 @@ export default function Carousel({ images, alt, lang }: CarouselProps) {
           <>
             <button
               type="button"
-              className="absolute left-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-neutral-200 bg-white/90 text-neutral-900 opacity-100 shadow-lg transition hover:border-red-600 hover:bg-red-600 hover:text-white md:opacity-0 md:group-hover:opacity-100"
+              className="absolute left-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-neutral-200 bg-white/90 text-neutral-900 opacity-100 shadow-lg transition hover:border-red-600 hover:bg-red-600 hover:text-white md:opacity-0 md:group-hover:opacity-100"
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
                 move(-1);
               }}
-              aria-label="Previous image"
+              aria-label={lang === "zh" ? "上一张图片" : "Previous image"}
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </button>
             <button
               type="button"
-              className="absolute right-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-neutral-200 bg-transparent /90 text-neutral-900 opacity-100 shadow-lg transition hover:border-red-600 hover:bg-red-600 hover:text-white md:opacity-0 md:group-hover:opacity-100"
+              className="absolute right-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-neutral-200 bg-white/90 text-neutral-900 opacity-100 shadow-lg transition hover:border-red-600 hover:bg-red-600 hover:text-white md:opacity-0 md:group-hover:opacity-100"
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
                 move(1);
               }}
-              aria-label="Next image"
+              aria-label={lang === "zh" ? "下一张图片" : "Next image"}
             >
               <ArrowRightIcon className="h-5 w-5" />
             </button>
-            <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-1.5">
+            <div className="absolute bottom-1 left-0 right-0 z-20 hidden justify-center sm:flex">
               {images.map((image, index) => (
                 <button
                   key={`${image}-${index}`}
                   type="button"
-                  className={`h-1.5 rounded-full transition-all ${index === active ? "w-6 bg-red-600" : "w-1.5 bg-neutral-300"}`}
+                  className="grid h-11 w-11 place-items-center rounded-full transition active:scale-90"
                   onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
                     setActive(index);
                   }}
                   aria-label={`Show image ${index + 1}`}
-                />
+                >
+                  <span
+                    className={`block h-1.5 rounded-full transition-all ${index === active ? "w-6 bg-red-600" : "w-1.5 bg-neutral-300"}`}
+                  />
+                </button>
               ))}
             </div>
           </>
         ) : null}
       </div>
+      {hasMultiple ? (
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain border-t border-neutral-200 bg-white p-3 [scrollbar-width:thin] [-webkit-overflow-scrolling:touch]">
+          {images.map((image, index) => (
+            <button
+              key={`thumbnail-${image}-${index}`}
+              type="button"
+              onClick={() => setActive(index)}
+              className={`relative h-20 w-20 shrink-0 snap-start overflow-hidden rounded-md border-2 bg-white transition ${
+                index === active
+                  ? "border-red-600 shadow-sm"
+                  : "border-neutral-200 hover:border-neutral-400"
+              }`}
+              aria-label={`${lang === "zh" ? "查看图片" : "View image"} ${index + 1}`}
+              aria-current={index === active ? "true" : undefined}
+            >
+              <Image
+                src={image}
+                alt=""
+                fill
+                sizes="80px"
+                className="object-contain p-1.5"
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
       <Lightbox
         images={images}
         activeIndex={lightboxIndex}

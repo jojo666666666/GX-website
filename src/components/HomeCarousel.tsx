@@ -88,7 +88,7 @@ export default function HomeCarousel({ images, lang }: { images: string[]; lang:
           e.stopPropagation();
           move(-1);
         }}
-        className="absolute left-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white hover:text-neutral-950 active:scale-95 sm:h-10 sm:w-10"
+        className="absolute left-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white hover:text-neutral-950 active:scale-95"
         aria-label="Previous hero image"
       >
         <ArrowLeftIcon className="h-5 w-5" />
@@ -101,14 +101,14 @@ export default function HomeCarousel({ images, lang }: { images: string[]; lang:
           e.stopPropagation();
           move(1);
         }}
-        className="absolute right-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white hover:text-neutral-950 active:scale-95 sm:h-10 sm:w-10"
+        className="absolute right-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white hover:text-neutral-950 active:scale-95"
         aria-label="Next hero image"
       >
         <ArrowRightIcon className="h-5 w-5" />
       </button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
+      <div className="absolute bottom-1 left-0 right-0 z-20 flex justify-center sm:bottom-2">
         {images.map((image, index) => (
           <button
             key={`${image}-dot`}
@@ -117,10 +117,13 @@ export default function HomeCarousel({ images, lang }: { images: string[]; lang:
               e.stopPropagation();
               setActive(index);
             }}
-            className={`h-5 rounded-full transition-all active:scale-90 ${index === active ? "w-8 bg-red-500" : "w-2 bg-white/50"}`}
-            style={{ minWidth: index === active ? "2rem" : "0.5rem" }}
+            className="grid h-11 w-11 place-items-center rounded-full transition active:scale-90"
             aria-label={`Show hero image ${index + 1}`}
-          />
+          >
+            <span
+              className={`block h-2 rounded-full transition-all ${index === active ? "w-8 bg-red-500" : "w-2 bg-white/50"}`}
+            />
+          </button>
         ))}
       </div>
     </div>

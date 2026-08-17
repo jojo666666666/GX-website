@@ -18,9 +18,9 @@ export type NewsItem = {
 };
 
 export const heroImages = [
-  "/images/imageupdate/carousel004.jpg",
-  "/images/imageupdate/carousel005.jpg",
-  "/images/imageupdate/carousel006.jpg",
+  "/images/imageupdate/ganxing-polishing-tools-hero-01.webp",
+  "/images/imageupdate/ganxing-polishing-tools-hero-02.webp",
+  "/images/imageupdate/ganxing-polishing-tools-hero-03.webp",
 ];
 
 export const heroStats = [
@@ -46,10 +46,10 @@ export const tickerItems = {
     "IP54 全系防护",
     "三重智能保护",
     "18V 统一电池",
-    "30min 快充",
+    "30 分钟快充",
     "CE / ETL / GS / CCC 认证",
     "20+ 项专利",
-    "3年整机质保",
+    "3 年整机质保",
   ],
 };
 
@@ -94,7 +94,7 @@ export const contactInfo = [
   },
   {
     label: { en: "Sales Hotline", zh: "销售热线" },
-    value: { en: "+86 133-3579-0798", zh: "+86 133-3579-0798" },
+    value: { en: "0579-87293328", zh: "0579-87293328" },
   },
   {
     label: { en: "Business Email", zh: "商务邮箱" },

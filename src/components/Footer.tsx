@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { dictionary } from "@/data/dictionary";
 import { productCategories } from "@/data/products";
@@ -16,10 +17,18 @@ export default function Footer({ lang }: { lang: Locale }) {
           <div className="sm:col-span-2 md:col-span-1">
             <Link
               href={localizedPath(lang)}
-              className="flex items-center gap-3 text-lg font-semibold tracking-[0.2em]"
+              className="group inline-flex items-center"
+              aria-label={lang === "zh" ? "赣星首页" : "GANXING home"}
             >
-              <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-red-600" />
-              {copy.brand as string}
+              <span className="relative h-[58px] w-[134px] overflow-hidden rounded-md bg-[#d93125] shadow-xl shadow-black/20 ring-1 ring-white/10 transition group-hover:ring-white/25">
+                <Image
+                  src="/images/brand/ganxing-logo.png"
+                  alt={lang === "zh" ? "赣星电动工具 Logo" : "GANXING Power Tools logo"}
+                  fill
+                  sizes="134px"
+                  className="object-contain"
+                />
+              </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-neutral-400">
               {copy.home.contactBody}
@@ -31,12 +40,12 @@ export default function Footer({ lang }: { lang: Locale }) {
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
               {copy.nav.products}
             </h4>
-            <div className="mt-4 grid gap-2.5">
+            <div className="mt-2 grid gap-0 sm:mt-4 sm:gap-1">
               {productCategories.slice(0, 6).map((category) => (
                 <Link
                   key={category.slug}
                   href={categoryPath(lang, category)}
-                  className="text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+                  className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
                 >
                   {category.title[lang]}
                 </Link>
@@ -49,28 +58,28 @@ export default function Footer({ lang }: { lang: Locale }) {
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
               {lang === "zh" ? "公司信息" : "Company"}
             </h4>
-            <div className="mt-4 grid gap-2.5">
+            <div className="mt-2 grid gap-0 sm:mt-4 sm:gap-1">
               <Link
                 href={`${localizedPath(lang)}#technology`}
-                className="text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+                className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
               >
                 {copy.nav.technology}
               </Link>
               <Link
                 href={`${localizedPath(lang)}#about`}
-                className="text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+                className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
               >
                 {copy.nav.about}
               </Link>
               <Link
                 href={`${localizedPath(lang)}#news`}
-                className="text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+                className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
               >
                 {copy.nav.news}
               </Link>
               <Link
                 href={`${localizedPath(lang)}#contact`}
-                className="text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+                className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
               >
                 {copy.nav.contact}
               </Link>

@@ -55,6 +55,18 @@ const mainFunctionByLegacySlug: Record<string, { en: string; zh: string }> = {
   },
 };
 
+const imageProductTypeByLegacySlug: Record<string, string> = {
+  "cat-01-lithium": "cordless-polisher",
+  "cat-02-orbital-polisher": "orbital-polisher",
+  "cat-03-sander": "electric-sander",
+  "cat-04-rotary": "rotary-polisher",
+  "cat-05-metal-polishing": "metal-polishing-machine",
+  "cat-06-stone-polishing": "wet-polisher",
+  "cat-07-angle-grinder": "angle-grinder",
+  "cat-08-renovation": "surface-renovation-machine",
+  "cat-09-accessories": "polishing-accessory",
+};
+
 const applicationByLegacySlug: Record<string, { en: string; zh: string }[]> = {
   "cat-01-lithium": [
     {
@@ -103,7 +115,7 @@ const applicationByLegacySlug: Record<string, { en: string; zh: string }[]> = {
     },
     { en: "Wet polishing for stone surfaces", zh: "石材湿抛作业" },
     {
-      en: "Concrete & Marble & polishing and restoration",
+      en: "Concrete and marble polishing and restoration",
       zh: "混凝土及大理石抛光与翻新",
     },
   ],
@@ -154,8 +166,7 @@ export function slugifySegment(value: string) {
 
 export function getProductRouteSlug(product: Product, index: number) {
   const label = product.model || product.title.en || `product-${index + 1}`;
-
-  return `${slugifySegment(label)}-${index + 1}`;
+  return slugifySegment(label);
 }
 
 export function productPath(
@@ -181,10 +192,10 @@ export function getProductByRouteSlug(
   category: ProductCategory,
   productSlug: string,
 ) {
-  const index = category.products.findIndex(
-    (product, currentIndex) =>
-      getProductRouteSlug(product, currentIndex) === productSlug,
-  );
+  const index = category.products.findIndex((product, currentIndex) => {
+    const stableSlug = getProductRouteSlug(product, currentIndex);
+    return stableSlug === productSlug || `${stableSlug}-${currentIndex + 1}` === productSlug;
+  });
 
   if (index < 0) {
     return null;
@@ -225,6 +236,88 @@ export function getAbsoluteImage(path: string) {
   return getAbsoluteUrl(path);
 }
 
+export function getProductListingImage(
+  category: ProductCategory,
+  product: Product,
+  index: number,
+) {
+  const label = product.model || product.title.en || `product-${index + 1}`;
+  const productSlug = slugifySegment(label);
+  const productType =
+    imageProductTypeByLegacySlug[category.slug] || "professional-power-tool";
+  return `/images/product-listing/${category.slug}/${String(index + 1).padStart(2, "0")}-ganxing-${productSlug}-${productType}-main.webp`;
+}
+
+export function getProductGalleryImages(
+  category: ProductCategory,
+  product: Product,
+) {
+  const hasUpdatedImages = product.images.some((image) =>
+    image.includes("/updates-2026/"),
+  );
+
+  if (category.slug !== "cat-01-lithium" || hasUpdatedImages) {
+    return product.images;
+  }
+
+  const modelSlug = slugifySegment(product.model || product.title.en);
+  const base = `/images/cat-01-lithium-images/${encodeURIComponent(product.model)}/curated/ganxing-${modelSlug}-cordless-polisher`;
+  const curatedImages = [
+    `${base}-main-product-view.webp`,
+    `${base}-product-overview.webp`,
+    `${base}-key-feature-view.webp`,
+    `${base}-configuration-view.webp`,
+    `${base}-product-detail-view.webp`,
+  ];
+
+  return product.model.trim().toUpperCase() === "GX5905DA"
+    ? curatedImages.filter((image) => !image.endsWith("-key-feature-view.webp"))
+    : curatedImages;
+}
+
+export function getProductImageAlt(
+  imagePath: string,
+  productName: string,
+  lang: Locale,
+  index = 0,
+) {
+  const filename = decodeURIComponent(imagePath.split("/").pop() ?? "")
+    .replace(/\.(?:avif|jpe?g|png|webp)$/i, "")
+    .replace(/^\d{2}-ganxing-/i, "")
+    .replace(/^ganxing-/i, "")
+    .replace(/reference-tone/gi, "")
+    .replace(/^gx\d+[a-z0-9-]*-\d{2}-/i, "")
+    .replace(/\b(?:gx\d+[a-z0-9-]*)\b/gi, "")
+    .replace(/\b(?:sku|feature)-?\d*(?:-\d{2})*(?:-\d{2})*(?:-pm)?-?\d*\b/gi, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const descriptor = filename || (index === 0 ? "main product view" : `product view ${index + 1}`);
+
+  if (lang === "zh") {
+    const translated = descriptor
+      .replace(/main product view/gi, "产品主图")
+      .replace(/main/gi, "产品主图")
+      .replace(/side view/gi, "侧面展示")
+      .replace(/back/gi, "背面展示")
+      .replace(/top/gi, "顶部展示")
+      .replace(/detail(?:s)?/gi, "细节展示")
+      .replace(/standard set/gi, "标准套装")
+      .replace(/deluxe set/gi, "豪华套装")
+      .replace(/application/gi, "应用场景")
+      .replace(/use/gi, "使用场景")
+      .replace(/technical specifications/gi, "技术参数")
+      .replace(/cordless/gi, "锂电")
+      .replace(/random orbital polisher/gi, "自由偏心抛光机")
+      .replace(/rotary polisher/gi, "同心抛光机")
+      .replace(/gear driven dual action polisher/gi, "强制偏心抛光机");
+    return `赣星 ${productName} ${translated}`.trim();
+  }
+
+  return `GANXING ${productName} ${descriptor}`.trim();
+}
+
 export function buildCategoryDescription(
   category: ProductCategory,
   lang: Locale,
@@ -256,6 +349,7 @@ export function buildCategoryMetadata(
       languages: {
         "en-US": localizedPath("en", path),
         "zh-CN": localizedPath("zh", path),
+        "x-default": localizedPath("en", path),
       },
     },
     openGraph: {
@@ -297,7 +391,14 @@ export function buildProductDescription(
     .join("; ");
 
   if (specSummary) {
+    if (lang === "zh") {
+      return `赣星 ${product.model} ${title}，属于${category.title.zh}系列。主要参数：${specSummary}。支持产品配置、包装方案及 OEM/ODM 定制咨询。`;
+    }
     return `${product.model} ${title} from GANXING ${category.title.en}. Key details: ${specSummary}. Contact us for configuration, packing, and OEM options.`;
+  }
+
+  if (lang === "zh") {
+    return `赣星 ${product.model || title} 专业${category.title.zh}，适用于专业表面处理作业。本页面提供产品图片、应用说明、技术特点及询盘支持。`;
   }
 
   return `${product.model || title} from GANXING ${category.title.en}. This product is designed for professional surface finishing workflows, with product images, application notes, and inquiry support available on this page.`;
@@ -312,7 +413,7 @@ export function buildProductMetadata(
   const name = `${product.model} ${product.title[lang] || product.title.en}`.trim();
   const description = buildProductDescription(category, product, lang);
   const path = `/products/${getSeoSlug(category)}/${getProductRouteSlug(product, index)}`;
-  const image = product.images[0] || category.sceneImage;
+  const image = getProductGalleryImages(category, product)[0] || category.sceneImage;
 
   return {
     title: `${name} | ${category.title[lang]} | ${lang === "zh" ? "赣星电动工具" : companyName}`,
@@ -322,6 +423,7 @@ export function buildProductMetadata(
       languages: {
         "en-US": localizedPath("en", path),
         "zh-CN": localizedPath("zh", path),
+        "x-default": localizedPath("en", path),
       },
     },
     openGraph: {
@@ -359,8 +461,6 @@ export function getAllProductRouteParams() {
     return [
       { lang: "en", category: seoSlug },
       { lang: "zh", category: seoSlug },
-      { lang: "en", category: category.slug },
-      { lang: "zh", category: category.slug },
     ];
   });
 }
@@ -379,8 +479,6 @@ export function getAllProductDetailRouteParams() {
       return [
         { lang: "en", category: seoSlug, product: productSlug },
         { lang: "zh", category: seoSlug, product: productSlug },
-        { lang: "en", category: category.slug, product: productSlug },
-        { lang: "zh", category: category.slug, product: productSlug },
       ];
     });
   });

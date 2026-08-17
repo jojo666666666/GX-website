@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8f8;
-  --foreground: #171717;
+  --background: #f5f5f2;
+  --foreground: #151515;
+  --brand-red: #d92d20;
+  --brand-red-dark: #b91c1c;
+  --brand-graphite: #171717;
+  --brand-border: #deded8;
+  --brand-radius: 0.75rem;
+  --brand-shadow: 0 18px 50px rgba(15, 15, 15, 0.08);
 }
 
 * {
@@ -19,13 +25,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(200, 16, 46, 0.08),
-      transparent 30rem
-    ),
-    linear-gradient(180deg, #ffffff 0%, var(--background) 44%, #eef1f2 100%);
+  background: var(--background);
   color: var(--foreground);
   font-family:
     var(--font-inter),
@@ -41,6 +41,36 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.brand-section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.brand-panel {
+  border: 1px solid var(--brand-border);
+  border-radius: var(--brand-radius);
+  background: #fff;
+  box-shadow: var(--brand-shadow);
+}
+
+.brand-eyebrow {
+  color: var(--brand-red);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.brand-display {
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(217, 45, 32, 0.32);
+  outline-offset: 3px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -50,9 +80,22 @@ button,
 input,
 textarea,
 select {
-  font: inherit;
+  font-family: inherit;
   /* Remove 300ms tap delay on mobile */
   touch-action: manipulation;
+}
+
+.site-header-nav,
+.mobile-menu-nav {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 1024px) {
+  .site-header-nav {
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
 }
 
 /* Ensure all interactive elements have minimum touch target */
@@ -80,6 +123,38 @@ a {
   animation: ticker 28s linear infinite;
 }
 
+@keyframes motion-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes motion-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.motion-spin,
+.motion-orbit,
+.motion-spin-reverse {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.motion-spin {
+  animation: motion-spin 6s linear infinite;
+}
+
+.motion-orbit {
+  animation: motion-spin 4.8s linear infinite;
+}
+
+.motion-spin-reverse {
+  animation: motion-spin-reverse 4.4s linear infinite;
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .ticker-track {
@@ -103,30 +178,5 @@ a {
 @media (min-width: 768px) {
   :target {
     scroll-margin-top: 5rem;
-  }
-}
-
-/*
- * Performance: content-visibility tells the browser it can skip layout,
- * paint, and compositing for off-screen sections until they are about to
- * enter the viewport. This significantly reduces the initial rendering work
- * on mobile CPUs and improves Time-to-Interactive (TTI) and Total Blocking
- * Time (TBT) scores.
- *
- * `contain-intrinsic-size` provides an estimated height so the browser can
- * still calculate scroll position correctly before the section is rendered.
- * Adjust the value if sections are significantly taller or shorter.
- */
-@media (min-width: 1px) {
-  /* Apply to every top-level <section> that is below the hero fold.
-     NOTE: content-visibility: auto is intentionally NOT applied to the
-     #products section (the first section after the ticker div) because
-     it causes the browser to skip layout calculation for off-screen
-     sections, making anchor-link scrolling land at the wrong position.
-     We only apply it to sections further down the page. */
-  main > section + section + section,
-  main > div + section + section {
-    content-visibility: auto;
-    contain-intrinsic-size: 0 600px;
   }
 }

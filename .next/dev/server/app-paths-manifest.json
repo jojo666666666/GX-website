@@ -1,5 +1,6 @@
 {
   "/[lang]/page": "app/[lang]/page.js",
+  "/[lang]/products/[category]/[product]/page": "app/[lang]/products/[category]/[product]/page.js",
   "/[lang]/products/[category]/page": "app/[lang]/products/[category]/page.js",
-  "/_not-found/page": "app/_not-found/page.js"
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js"
 }

@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Product, ProductCategory } from "@/data/products";
-import { productPath } from "@/lib/product-seo";
+import {
+  getProductImageAlt,
+  getProductListingImage,
+  productPath,
+} from "@/lib/product-seo";
 import type { Locale } from "@/lib/i18n";
 
 type ProductCardProps = {
@@ -22,12 +28,39 @@ export default function ProductCard({
     product.model && title.trim().toLowerCase() !== product.model.trim().toLowerCase()
       ? `${product.model} ${title}`
       : product.model || title;
-  const image = product.images[0];
+  const image = getProductListingImage(category, product, index);
+  const cardId = `product-card-${category.slug}-${index + 1}`;
+
+  const rememberCardPosition = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    sessionStorage.setItem(
+      "ganxing-product-listing-return",
+      JSON.stringify({
+        pathname: window.location.pathname,
+        cardId,
+        scrollY: window.scrollY,
+        savedAt: Date.now(),
+      }),
+    );
+  };
 
   return (
     <Link
+      id={cardId}
       href={productPath(lang, category, product, index)}
       prefetch={false}
+      onClick={rememberCardPosition}
       className="group block overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl hover:shadow-neutral-950/10"
     >
       <article>
@@ -35,10 +68,10 @@ export default function ProductCard({
           {image ? (
             <Image
               src={image}
-              alt={productName}
+              alt={getProductImageAlt(image, productName, lang, 0)}
               fill
               sizes="(min-width: 1280px) 30vw, (min-width: 640px) 50vw, 100vw"
-              className="object-contain p-6 transition duration-500 group-hover:scale-[1.04]"
+              className="object-contain transition duration-500 group-hover:scale-[1.04]"
             />
           ) : (
             <div className="grid h-full place-items-center text-sm font-semibold text-neutral-400">

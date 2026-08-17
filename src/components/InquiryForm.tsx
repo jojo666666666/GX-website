@@ -1,23 +1,40 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { sendInquiry, type InquiryState } from "@/app/actions/sendInquiry";
+import TurnstileWidget from "@/components/TurnstileWidget";
 
 const initialState: InquiryState = { status: "idle" };
 
-export default function InquiryForm({ lang }: { lang: Locale }) {
+export default function InquiryForm({
+  lang,
+  productName,
+  sourceUrl,
+  defaultInquiryType,
+}: {
+  lang: Locale;
+  productName?: string;
+  sourceUrl?: string;
+  defaultInquiryType?: "product" | "dealer" | "oem";
+}) {
   const isZh = lang === "zh";
   const [state, formAction, isPending] = useActionState(
     sendInquiry,
     initialState,
   );
+  const [formStartedAt] = useState(() => Date.now().toString());
   const formRef = useRef<HTMLFormElement>(null);
 
   // Reset form fields on success
   useEffect(() => {
     if (state.status === "success") {
       formRef.current?.reset();
+    } else if (state.status === "error") {
+      const turnstile = (
+        window as typeof window & { turnstile?: { reset: () => void } }
+      ).turnstile;
+      turnstile?.reset();
     }
   }, [state.status]);
 
@@ -68,18 +85,38 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
       action={formAction}
       className="rounded-lg border border-neutral-200 bg-white p-6 shadow-xl shadow-neutral-950/5 md:p-8"
     >
+      <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <input name="formStartedAt" type="hidden" value={formStartedAt} />
+      <input name="lang" type="hidden" value={lang} />
+      <input name="sourceUrl" type="hidden" value={sourceUrl ?? ""} />
       <h3 className="text-2xl font-semibold text-neutral-950">
         {isZh ? "发送询盘" : "Send an Inquiry"}
       </h3>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        {productName && (
+          <label className="text-sm font-medium text-neutral-600 sm:col-span-2">
+            {isZh ? "咨询产品" : "Product"}
+            <input
+              name="productName"
+              type="hidden"
+              value={productName}
+            />
+            <span className="mt-2 block break-words rounded-lg border border-red-100 bg-red-50 px-4 py-3 text-base font-semibold leading-relaxed text-neutral-900">
+              {productName}
+            </span>
+          </label>
+        )}
         {/* Full Name */}
         <label className="text-sm font-medium text-neutral-600">
           {isZh ? "姓名 *" : "Full Name *"}
           <input
             name="name"
             required
-            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            maxLength={100}
+            autoComplete="name"
+            autoCapitalize="words"
+            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
             placeholder={isZh ? "您的姓名" : "Your name"}
           />
         </label>
@@ -89,7 +126,9 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
           {isZh ? "公司名称" : "Company"}
           <input
             name="company"
-            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            maxLength={160}
+            autoComplete="organization"
+            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
             placeholder={isZh ? "公司名称" : "Company name"}
           />
         </label>
@@ -101,7 +140,10 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
             name="phone"
             required
             type="tel"
-            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            maxLength={50}
+            inputMode="tel"
+            autoComplete="tel"
+            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
             placeholder="+86 / +1 ..."
           />
         </label>
@@ -113,7 +155,12 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
             name="email"
             required
             type="email"
-            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            maxLength={254}
+            inputMode="email"
+            autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
+            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
             placeholder="name@company.com"
           />
         </label>
@@ -123,11 +170,12 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
           {isZh ? "询问类型" : "Inquiry Type"}
           <select
             name="inquiryType"
-            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            defaultValue={defaultInquiryType ?? "product"}
+            className="mt-2 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
           >
-            <option>{isZh ? "产品采购" : "Product procurement"}</option>
-            <option>{isZh ? "经销合作" : "Dealership partnership"}</option>
-            <option>OEM / ODM</option>
+            <option value="product">{isZh ? "产品采购" : "Product procurement"}</option>
+            <option value="dealer">{isZh ? "经销合作" : "Dealership partnership"}</option>
+            <option value="oem">OEM / ODM</option>
           </select>
         </label>
 
@@ -136,7 +184,8 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
           {isZh ? "需求描述" : "Message"}
           <textarea
             name="message"
-            className="mt-2 min-h-32 w-full rounded-lg border border-neutral-200 px-4 py-3 outline-none transition focus:border-red-600"
+            maxLength={3000}
+            className="mt-2 min-h-32 w-full rounded-lg border border-neutral-200 px-4 py-3 text-base outline-none transition focus:border-red-600 lg:text-sm"
             placeholder={
               isZh
                 ? "请描述您的产品需求、数量、目标市场等..."
@@ -169,6 +218,8 @@ export default function InquiryForm({ lang }: { lang: Locale }) {
           <span>{state.message}</span>
         </div>
       )}
+
+      <TurnstileWidget lang={lang} />
 
       {/* Submit button */}
       <button

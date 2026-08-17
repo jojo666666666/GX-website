@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import ProductCard from "@/components/ProductCard";
+import { notFound, permanentRedirect } from "next/navigation";
+import ProductExplorer from "@/components/ProductExplorer";
 import { dictionary } from "@/data/dictionary";
 import type { ProductCategory } from "@/data/products";
 import { isLocale, localizedPath, type Locale } from "@/lib/i18n";
@@ -15,7 +15,6 @@ import {
   getCategoryByRouteSlug,
   getMainFunction,
   getSeoSlug,
-  productPath,
 } from "@/lib/product-seo";
 
 type PageProps = {
@@ -41,7 +40,6 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
     localizedPath(lang, `/products/${getSeoSlug(category)}`),
   );
   const products = category.products.map((product, index) => {
-    const productUrl = getAbsoluteUrl(productPath(lang, category, product, index));
     const name =
       `${product.model} ${product.title[lang] || product.title.en}`.trim();
     const description = product.specs
@@ -63,12 +61,6 @@ function buildJsonLd(category: ProductCategory, lang: Locale) {
         "@type": "Organization",
         name: lang === "zh" ? "赣星电动工具" : "GANXING Tools",
         url: getAbsoluteUrl(localizedPath(lang)),
-      },
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "USD",
-        url: productUrl,
       },
     };
   });
@@ -159,6 +151,10 @@ export default async function ProductCategoryPage({ params }: PageProps) {
     );
   }
 
+  if (slug !== getSeoSlug(category)) {
+    permanentRedirect(localizedPath(lang, `/products/${getSeoSlug(category)}`));
+  }
+
   const applications = getApplications(category, lang);
   const faqItems = buildFaq(category, applications, lang);
   const keyFeatures =
@@ -181,6 +177,14 @@ export default async function ProductCategoryPage({ params }: PageProps) {
         ];
   const jsonLd = [
     ...buildJsonLd(category, lang),
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: copy.product.breadcrumbHome, item: getAbsoluteUrl(localizedPath(lang)) },
+        { "@type": "ListItem", position: 2, name: category.title[lang], item: getAbsoluteUrl(localizedPath(lang, `/products/${getSeoSlug(category)}`)) },
+      ],
+    },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -213,7 +217,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                 <Link
                   href={localizedPath(lang)}
-                  className="transition hover:text-red-600 active:text-red-600"
+                  className="-my-3 inline-flex min-h-11 items-center py-3 transition hover:text-red-600 active:text-red-600"
                 >
                   {copy.product.breadcrumbHome}
                 </Link>
@@ -350,17 +354,7 @@ export default async function ProductCategoryPage({ params }: PageProps) {
               {category.products.length} {copy.product.modelCount}
             </p>
           </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {category.products.map((product, index) => (
-              <ProductCard
-                key={`${product.model}-${index}`}
-                category={category}
-                product={product}
-                index={index}
-                lang={lang}
-              />
-            ))}
-          </div>
+          <ProductExplorer category={category} lang={lang} />
         </div>
       </section>
     </main>

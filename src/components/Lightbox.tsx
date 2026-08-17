@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from "@/components/Icons";
 
@@ -20,15 +20,15 @@ export default function Lightbox({
   onChange,
   onClose,
 }: LightboxProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const isOpen = activeIndex !== null;
   const currentImage = activeIndex !== null ? images[activeIndex] : null;
   const hasMultiple = images.length > 1;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const move = useCallback(
     (direction: -1 | 1) => {

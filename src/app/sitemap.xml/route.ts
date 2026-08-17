@@ -3,11 +3,17 @@ import { newsItems } from "@/data/site";
 import {
   getAbsoluteImage,
   getAbsoluteUrl,
+  getProductGalleryImages,
+  getProductImageAlt,
+  getProductListingImage,
   getSeoSlug,
   productPath,
 } from "@/lib/product-seo";
 
 export const revalidate = 86400;
+
+// Update this value whenever the public product or editorial content changes.
+const siteContentLastModified = "2026-08-17";
 
 function escapeXml(value: string) {
   return value.replace(/[<>&'\"]/g, (character) => {
@@ -23,12 +29,25 @@ function escapeXml(value: string) {
   });
 }
 
-function urlEntry(url: string, images: string[] = []) {
+type SitemapImage =
+  | string
+  | { url: string; title?: string; caption?: string };
+
+function urlEntry(url: string, images: SitemapImage[] = []) {
   const imageEntries = [...new Set(images)]
-    .map((image) => `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>`)
+    .map((image) => {
+      const item = typeof image === "string" ? { url: image } : image;
+      const title = item.title
+        ? `<image:title>${escapeXml(item.title)}</image:title>`
+        : "";
+      const caption = item.caption
+        ? `<image:caption>${escapeXml(item.caption)}</image:caption>`
+        : "";
+      return `<image:image><image:loc>${escapeXml(item.url)}</image:loc>${title}${caption}</image:image>`;
+    })
     .join("");
 
-  return `<url><loc>${escapeXml(url)}</loc>${imageEntries}</url>`;
+  return `<url><loc>${escapeXml(url)}</loc><lastmod>${siteContentLastModified}</lastmod>${imageEntries}</url>`;
 }
 
 export async function GET() {
@@ -46,17 +65,36 @@ export async function GET() {
       ),
     ),
     ...productCategories.flatMap((category) => {
-      const categoryImages = [getAbsoluteImage(category.sceneImage)];
       return locales.flatMap((lang) =>
         [
           urlEntry(
             getAbsoluteUrl(`/${lang}/products/${getSeoSlug(category)}`),
-            categoryImages,
+            [
+              getAbsoluteImage(category.sceneImage),
+              ...category.products.map((product, index) => {
+                const name = `${product.model} ${product.title[lang] || product.title.en}`.trim();
+                const image = getProductListingImage(category, product, index);
+                return {
+                  url: getAbsoluteImage(image),
+                  title: name,
+                  caption: getProductImageAlt(image, name, lang, 0),
+                };
+              }),
+            ],
           ),
           ...category.products.map((product, index) =>
             urlEntry(
               getAbsoluteUrl(productPath(lang, category, product, index)),
-              product.images.map(getAbsoluteImage),
+              getProductGalleryImages(category, product).map((image, imageIndex) => ({
+                url: getAbsoluteImage(image),
+                title: `${product.model} ${product.title[lang] || product.title.en}`,
+                caption: getProductImageAlt(
+                  image,
+                  `${product.model} ${product.title[lang] || product.title.en}`,
+                  lang,
+                  imageIndex,
+                ),
+              })),
             ),
           ),
         ],
@@ -69,6 +107,7 @@ export async function GET() {
   return new Response(body, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
     },
   });
 }
