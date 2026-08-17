@@ -2,13 +2,14 @@
 
 import Script from "next/script";
 
+// Turnstile site keys are public identifiers and are restricted to the
+// hostnames configured in Cloudflare. Keep the environment override for
+// previews while ensuring the production widget cannot disappear if a
+// deployment platform omits the public build-time variable.
+const GANXING_TURNSTILE_SITE_KEY =
+  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAESzCo3ZtT9kdj60";
+
 export default function TurnstileWidget({ lang }: { lang: "en" | "zh" }) {
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-
-  if (!siteKey) {
-    return null;
-  }
-
   return (
     <div className="mt-5 min-h-[65px] overflow-x-auto" aria-label={lang === "zh" ? "人机验证" : "Security verification"}>
       <Script
@@ -18,7 +19,7 @@ export default function TurnstileWidget({ lang }: { lang: "en" | "zh" }) {
       />
       <div
         className="cf-turnstile"
-        data-sitekey={siteKey}
+        data-sitekey={GANXING_TURNSTILE_SITE_KEY}
         data-theme="light"
         data-language={lang === "zh" ? "zh-cn" : "en"}
       />
