@@ -55,6 +55,18 @@ const mainFunctionByLegacySlug: Record<string, { en: string; zh: string }> = {
   },
 };
 
+const productTypeByLegacySlug: Record<string, { en: string; zh: string }> = {
+  "cat-01-lithium": { en: "Cordless Polisher", zh: "锂电抛光机" },
+  "cat-02-orbital-polisher": { en: "Orbital Polisher", zh: "偏心抛光机" },
+  "cat-03-sander": { en: "Electric Sander", zh: "电动砂光机" },
+  "cat-04-rotary": { en: "Rotary Polisher", zh: "同心抛光机" },
+  "cat-05-metal-polishing": { en: "Metal Polishing Machine", zh: "金属抛光机" },
+  "cat-06-stone-polishing": { en: "Wet Polisher", zh: "石材湿磨机" },
+  "cat-07-angle-grinder": { en: "Angle Grinder", zh: "角磨机" },
+  "cat-08-renovation": { en: "Surface Renovation Machine", zh: "表面翻新机" },
+  "cat-09-accessories": { en: "Polishing Accessory", zh: "抛光配件" },
+};
+
 const imageProductTypeByLegacySlug: Record<string, string> = {
   "cat-01-lithium": "cordless-polisher",
   "cat-02-orbital-polisher": "orbital-polisher",
@@ -410,13 +422,25 @@ export function buildProductMetadata(
   index: number,
   lang: Locale,
 ): Metadata {
-  const name = `${product.model} ${product.title[lang] || product.title.en}`.trim();
-  const description = buildProductDescription(category, product, lang);
+  const productType = productTypeByLegacySlug[category.slug]?.[lang] || category.title[lang];
+  const productLabel = product.model || product.title[lang] || product.title.en;
+  const name = product.model ? `${product.model} ${productType}` : productLabel;
+  const specValues = product.specs
+    .filter((spec) => spec.value)
+    .slice(0, 2)
+    .map((spec) => spec.value)
+    .join(lang === "zh" ? "、" : ", ");
+  const description = lang === "zh"
+    ? `赣星 ${name}${specValues ? `，参数：${specValues}` : ""}。查看产品图片、应用说明及 OEM/ODM 合作信息。`
+    : `GANXING ${name}${specValues ? `. Specs: ${specValues}` : ""}. View images, applications and OEM/ODM options.`;
   const path = `/products/${getSeoSlug(category)}/${getProductRouteSlug(product, index)}`;
   const image = getProductGalleryImages(category, product)[0] || category.sceneImage;
+  const metadataTitle = lang === "zh"
+    ? `赣星 ${name} | 专业电动工具`
+    : `${name} | ${companyName}`;
 
   return {
-    title: `${name} | ${category.title[lang]} | ${lang === "zh" ? "赣星电动工具" : companyName}`,
+    title: metadataTitle,
     description,
     alternates: {
       canonical: localizedPath(lang, path),
@@ -427,7 +451,7 @@ export function buildProductMetadata(
       },
     },
     openGraph: {
-      title: name,
+      title: metadataTitle,
       description,
       url: localizedPath(lang, path),
       siteName: companyName,
@@ -444,7 +468,7 @@ export function buildProductMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: name,
+      title: metadataTitle,
       description,
       images: [image],
     },

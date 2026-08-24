@@ -1,5 +1,6 @@
 import { productCategories } from "@/data/products";
 import { newsItems } from "@/data/site";
+import { knowledgeArticles, knowledgeTopics, knowledgeVisualImages } from "@/data/knowledge";
 import {
   getAbsoluteImage,
   getAbsoluteUrl,
@@ -13,7 +14,7 @@ import {
 export const revalidate = 86400;
 
 // Update this value whenever the public product or editorial content changes.
-const siteContentLastModified = "2026-08-17";
+const siteContentLastModified = "2026-08-24";
 
 function escapeXml(value: string) {
   return value.replace(/[<>&'\"]/g, (character) => {
@@ -57,6 +58,29 @@ export async function GET() {
     urlEntry(getAbsoluteUrl("/zh")),
     urlEntry(getAbsoluteUrl("/en/downloads")),
     urlEntry(getAbsoluteUrl("/zh/downloads")),
+    ...locales.flatMap((lang) => [
+      urlEntry(getAbsoluteUrl(`/${lang}/knowledge`), [
+        {
+          url: getAbsoluteImage(knowledgeVisualImages["scratch-depth"]),
+          title: lang === "zh" ? "汽车漆面划痕深度专业三维剖面图" : "Professional automotive paint scratch-depth 3D cutaway",
+          caption: lang === "zh" ? "用于判断清漆层、色漆层和底漆层划痕深度的技术图解" : "Technical visualization for diagnosing scratch depth across clear coat, color coat and primer",
+        },
+      ]),
+      ...knowledgeTopics.map((topic) =>
+        urlEntry(getAbsoluteUrl(`/${lang}/knowledge/${topic.slug}`), [{
+          url: getAbsoluteImage(knowledgeVisualImages[topic.visual]),
+          title: topic.title[lang],
+          caption: topic.description[lang],
+        }]),
+      ),
+      ...knowledgeArticles.map((article) =>
+        urlEntry(getAbsoluteUrl(`/${lang}/knowledge/${article.topic}/${article.slug}`), [{
+          url: getAbsoluteImage(knowledgeVisualImages[article.visual]),
+          title: article.title[lang],
+          caption: article.description[lang],
+        }]),
+      ),
+    ]),
     ...newsItems.flatMap((item) =>
       locales.map((lang) =>
         urlEntry(getAbsoluteUrl(`/${lang}/news/${item.slug}`), [

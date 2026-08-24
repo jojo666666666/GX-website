@@ -9,6 +9,7 @@ import MotionSystems from "@/components/MotionSystems";
 import ScrollToSection from "@/components/ScrollToSection";
 import SocialLinks from "@/components/SocialLinks";
 import { dictionary } from "@/data/dictionary";
+import { knowledgeArticles, knowledgeArticlePath, knowledgeTopicPath } from "@/data/knowledge";
 import { productCategories } from "@/data/products";
 import {
   contactInfo,
@@ -498,6 +499,37 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 {lang === "zh" ? "讨论定制项目" : "Start an OEM Project"}
               </Link>
             </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Knowledge Center ── */}
+      <section className="bg-neutral-950 px-4 py-16 text-white sm:px-5 sm:py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-red-400 sm:text-sm">
+                {lang === "zh" ? "赣星专业知识中心" : "GANXING Knowledge Center"}
+              </p>
+              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl">
+                {lang === "zh" ? "先理解表面，再选择工具。" : "Understand the surface before choosing the tool."}
+              </h2>
+              <p className="mt-5 max-w-xl leading-7 text-neutral-400">
+                {lang === "zh" ? "用材料、运动和工艺知识，解决划痕、太阳纹、工具选型及抛光垫匹配等常见问题。" : "Use material, motion and process knowledge to solve scratches, swirl marks, tool selection and polishing-pad questions."}
+              </p>
+              <Link href={knowledgeTopicPath(lang)} className="mt-8 inline-flex min-h-12 items-center rounded-full bg-red-600 px-6 text-sm font-bold text-white transition hover:bg-red-500">
+                {lang === "zh" ? "进入知识中心" : "Explore the knowledge center"} →
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {knowledgeArticles.slice(0, 4).map((article, index) => (
+                <Link key={article.slug} href={knowledgeArticlePath(lang, article)} className="group rounded-3xl border border-white/10 bg-white/[.04] p-5 transition hover:border-red-500/50 hover:bg-white/[.07]">
+                  <span className="text-xs font-black tracking-[.18em] text-red-400">0{index + 1}</span>
+                  <h3 className="mt-5 text-base font-bold leading-6 text-white group-hover:text-red-300">{article.title[lang]}</h3>
+                  <span className="mt-5 inline-block text-xs font-bold text-neutral-400">{article.readingTime[lang]} →</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import type { Product, ProductCategory } from "@/data/products";
 import type { Locale } from "@/lib/i18n";
@@ -24,6 +24,8 @@ export default function ProductExplorer({ category, lang }: ProductExplorerProps
   const [powerSource, setPowerSource] = useState("all");
   const [backingPlate, setBackingPlate] = useState("all");
   const [selected, setSelected] = useState<number[]>([]);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const previousSelectedCountRef = useRef(0);
   const isZh = lang === "zh";
 
   const backingPlateOptions = useMemo(
@@ -72,6 +74,19 @@ export default function ProductExplorer({ category, lang }: ProductExplorerProps
       return [...current, index];
     });
   };
+
+  useEffect(() => {
+    const previousCount = previousSelectedCountRef.current;
+    previousSelectedCountRef.current = selected.length;
+
+    if (selected.length >= 2 && selected.length > previousCount) {
+      const frame = window.requestAnimationFrame(() => {
+        comparisonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      return () => window.cancelAnimationFrame(frame);
+    }
+  }, [selected.length]);
 
   return (
     <div className="mt-8">
@@ -133,7 +148,7 @@ export default function ProductExplorer({ category, lang }: ProductExplorerProps
       </div>
 
       {comparedProducts.length >= 2 && (
-        <div className="brand-panel mt-6 overflow-hidden">
+        <div ref={comparisonRef} className="brand-panel mt-6 scroll-mt-28 overflow-hidden">
           <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-950 px-5 py-4 text-white">
             <h3 className="font-semibold">{isZh ? "产品比较" : "Product Comparison"}</h3>
             <button type="button" onClick={() => setSelected([])} className="text-xs font-semibold text-white/70 hover:text-white">

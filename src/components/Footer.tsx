@@ -72,6 +72,12 @@ export default function Footer({ lang }: { lang: Locale }) {
                 {copy.nav.about}
               </Link>
               <Link
+                href={localizedPath(lang, "/knowledge")}
+                className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
+              >
+                {copy.nav.knowledge}
+              </Link>
+              <Link
                 href={`${localizedPath(lang)}#news`}
                 className="flex min-h-11 items-center py-2 text-sm text-neutral-400 transition hover:text-red-400 active:text-red-400"
               >

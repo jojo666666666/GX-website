@@ -1,0 +1,39 @@
+.scan {
+  animation: scan 3.8s ease-in-out infinite;
+}
+
+.glow {
+  animation: glow 2.4s ease-in-out infinite;
+}
+
+.orbit {
+  animation: orbit 5s linear infinite;
+}
+
+.image {
+  transform: scale(1.015);
+  transition: transform .8s cubic-bezier(.2,.8,.2,1), filter .5s ease;
+}
+
+figure:hover .image {
+  transform: scale(1.045);
+  filter: saturate(1.08) contrast(1.03);
+}
+
+@keyframes scan {
+  0%, 100% { transform: translateX(-18px); opacity: .35; }
+  50% { transform: translateX(18px); opacity: .95; }
+}
+
+@keyframes glow {
+  50% { opacity: .45; box-shadow: 0 0 32px currentColor; }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan, .glow, .orbit { animation: none !important; }
+  .image, figure:hover .image { transform: none; transition: none; }
+}

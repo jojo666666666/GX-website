@@ -1,0 +1,28 @@
+.image {
+  transform: scale(1.015);
+  transition: transform 700ms cubic-bezier(.2,.75,.25,1), filter 700ms ease;
+}
+
+figure:hover .image {
+  filter: saturate(1.06) contrast(1.02);
+  transform: scale(1.035);
+}
+
+.scan { animation: scan 3s ease-in-out infinite alternate; }
+.flow { animation: flow 2.6s linear infinite; }
+.particle { animation: drift 2.4s ease-out infinite; }
+.droplet { animation: drop 1.6s ease-in infinite; }
+.pulse { animation: pulse 1.8s ease-in-out infinite; }
+.grain { animation: grain 2.2s linear infinite; }
+
+@keyframes scan { from { transform: translateX(-28px); opacity: .28; } to { transform: translateX(28px); opacity: .85; } }
+@keyframes flow { to { stroke-dashoffset: -68; } }
+@keyframes drift { from { transform: translate(0,0); opacity: .9; } to { transform: translate(var(--dx, 25px), var(--dy, -65px)); opacity: 0; } }
+@keyframes drop { from { transform: translateY(-30px); opacity: 0; } 35% { opacity: 1; } to { transform: translateY(78px); opacity: 0; } }
+@keyframes pulse { 50% { opacity: .42; } }
+@keyframes grain { from { stroke-dashoffset: 52; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .image { transition: none; }
+  .scan, .flow, .particle, .droplet, .pulse, .grain { animation: none !important; }
+}

@@ -1,6 +1,11 @@
 {
+  "/[lang]/downloads/page": "app/[lang]/downloads/page.js",
+  "/[lang]/knowledge/[topic]/[slug]/page": "app/[lang]/knowledge/[topic]/[slug]/page.js",
+  "/[lang]/knowledge/[topic]/page": "app/[lang]/knowledge/[topic]/page.js",
+  "/[lang]/knowledge/page": "app/[lang]/knowledge/page.js",
+  "/[lang]/news/[slug]/page": "app/[lang]/news/[slug]/page.js",
   "/[lang]/page": "app/[lang]/page.js",
   "/[lang]/products/[category]/[product]/page": "app/[lang]/products/[category]/[product]/page.js",
-  "/[lang]/products/[category]/page": "app/[lang]/products/[category]/page.js",
-  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js"
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
 }

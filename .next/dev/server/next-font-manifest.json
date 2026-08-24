@@ -1,12 +1,24 @@
 {
   "app": {
+    "[project]/src/app/[lang]/downloads/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/[lang]/knowledge/[topic]/[slug]/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/[lang]/knowledge/[topic]/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/[lang]/knowledge/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/[lang]/news/[slug]/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
     "[project]/src/app/[lang]/page": [
       "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
     ],
     "[project]/src/app/[lang]/products/[category]/[product]/page": [
-      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
-    ],
-    "[project]/src/app/[lang]/products/[category]/page": [
       "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
     ]
   },

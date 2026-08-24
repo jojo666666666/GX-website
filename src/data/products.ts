@@ -3380,13 +3380,13 @@ export const productCategories = [
         ],
       },
       {
-        model: "GX2812",
+        model: "GX2813",
         title: {
           en: "Angle Grinder with Brushless Motor, Variable Speed, and Ergonomic Bail Handle",
           zh: "无刷可调速角磨机",
         },
         images: [
-          "/images/cat-07-angle-grinder-images/GX2813/seo-webp/ganxing-gx2812-angle-grinder-main-product-view.webp",
+          "/images/cat-07-angle-grinder-images/GX2813/seo-webp/ganxing-gx2813-angle-grinder-main-product-view.webp",
           "/images/cat-07-angle-grinder-images/GX2812/seo-webp/ganxing-gx2812-angle-grinder-alternate-view.webp",
         ],
         specs: [

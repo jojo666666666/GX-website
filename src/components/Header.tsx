@@ -99,6 +99,7 @@ export default function Header({ lang }: HeaderProps) {
   const otherNavLinks = [
     { href: `${localizedPath(lang)}#technology`, label: copy.nav.technology },
     { href: `${localizedPath(lang)}#about`, label: copy.nav.about },
+    { href: localizedPath(lang, "/knowledge"), label: copy.nav.knowledge },
     { href: `${localizedPath(lang)}#news`, label: copy.nav.news },
     {
       href: localizedPath(lang, "/downloads"),

@@ -64,20 +64,13 @@ function MotionDiagram({ type }: { type: (typeof systems)[number]["key"] }) {
 export default function MotionSystems({ lang }: { lang: Locale }) {
   return (
     <div className="mt-12 border-t border-white/10 pt-10 lg:mt-16 lg:pt-12">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-400">
-            {lang === "zh" ? "运动系统" : "Motion Systems"}
-          </p>
-          <h3 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-            {lang === "zh" ? "看见每一种传动逻辑" : "Engineering you can see"}
-          </h3>
-        </div>
-        <p className="max-w-lg text-sm leading-relaxed text-neutral-400">
-          {lang === "zh"
-            ? "轻量动态图形用于直观说明不同抛光运动方式，不额外加载视频或大型图片。"
-            : "Lightweight motion graphics explain each polishing action without loading another video or large image."}
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-400">
+          {lang === "zh" ? "运动系统" : "Motion Systems"}
         </p>
+        <h3 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
+          {lang === "zh" ? "看见每一种传动逻辑" : "Engineering you can see"}
+        </h3>
       </div>
       <div className="mt-7 grid gap-4 md:grid-cols-3">
         {systems.map((system, index) => (

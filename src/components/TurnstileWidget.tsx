@@ -11,7 +11,7 @@ const GANXING_TURNSTILE_SITE_KEY =
 
 export default function TurnstileWidget({ lang }: { lang: "en" | "zh" }) {
   return (
-    <div className="mt-5 min-h-[65px] overflow-x-auto" aria-label={lang === "zh" ? "人机验证" : "Security verification"}>
+    <div className="mt-2 overflow-x-auto" aria-label={lang === "zh" ? "人机验证" : "Security verification"}>
       <Script
         id="cloudflare-turnstile-script"
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
@@ -22,6 +22,7 @@ export default function TurnstileWidget({ lang }: { lang: "en" | "zh" }) {
         data-sitekey={GANXING_TURNSTILE_SITE_KEY}
         data-theme="light"
         data-language={lang === "zh" ? "zh-cn" : "en"}
+        data-appearance="interaction-only"
       />
     </div>
   );
