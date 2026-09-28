@@ -1,8 +1,5 @@
 {
   "app": {
-    "[project]/src/app/[lang]/knowledge/[topic]/[slug]/page": [
-      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
-    ],
     "[project]/src/app/[lang]/news/[slug]/page": [
       "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
     ],

@@ -95,6 +95,8 @@ export default function Carousel({ images, alt, lang, square = false }: Carousel
             src={currentImage}
             alt={getProductImageAlt(currentImage, alt, lang, active)}
             fill
+            loading={active === 0 ? "eager" : "lazy"}
+            fetchPriority={active === 0 ? "high" : "auto"}
             sizes="(min-width: 1280px) 30vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-contain transition duration-500 group-hover:scale-[1.015]"
           />

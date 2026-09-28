@@ -1,5 +1,4 @@
 {
-  "/[lang]/knowledge/[topic]/[slug]/page": "app/[lang]/knowledge/[topic]/[slug]/page.js",
   "/[lang]/news/[slug]/page": "app/[lang]/news/[slug]/page.js",
   "/[lang]/page": "app/[lang]/page.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js"

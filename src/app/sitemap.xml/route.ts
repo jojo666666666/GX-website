@@ -14,7 +14,7 @@ import {
 export const revalidate = 86400;
 
 // Update this value whenever the public product or editorial content changes.
-const siteContentLastModified = "2026-09-27";
+const siteContentLastModified = "2026-09-28";
 
 function escapeXml(value: string) {
   return value.replace(/[<>&'\"]/g, (character) => {
