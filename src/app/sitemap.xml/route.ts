@@ -14,7 +14,7 @@ import {
 export const revalidate = 86400;
 
 // Update this value whenever the public product or editorial content changes.
-const siteContentLastModified = "2026-08-24";
+const siteContentLastModified = "2026-09-27";
 
 function escapeXml(value: string) {
   return value.replace(/[<>&'\"]/g, (character) => {
@@ -84,7 +84,18 @@ export async function GET() {
     ...newsItems.flatMap((item) =>
       locales.map((lang) =>
         urlEntry(getAbsoluteUrl(`/${lang}/news/${item.slug}`), [
-          getAbsoluteImage(item.image),
+          {
+            url: getAbsoluteImage(item.image),
+            title: item.title[lang],
+            caption: item.excerpt[lang],
+          },
+          ...item.body.sections.flatMap((section) =>
+            (section.images ?? []).map((image) => ({
+              url: getAbsoluteImage(image),
+              title: section.title[lang],
+              caption: item.excerpt[lang],
+            })),
+          ),
         ]),
       ),
     ),

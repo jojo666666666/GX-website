@@ -50,7 +50,7 @@ export default function HomeCarousel({ images, lang }: { images: string[]; lang:
        * Performance: render ONLY the active image plus the next one (preloaded).
        * Previously all 6 hero images were rendered simultaneously, causing all
        * of them to be fetched on page load. Now:
-       *   - active image: rendered with priority (LCP candidate)
+       *   - active image: fetched eagerly at high priority (LCP candidate)
        *   - next image: rendered hidden so it's ready before the auto-advance
        *   - all other images: not in the DOM until they become active/next
        */}
@@ -69,9 +69,10 @@ export default function HomeCarousel({ images, lang }: { images: string[]; lang:
             src={image}
             alt={lang === "zh" ? "赣星专业抛光工具" : "GANXING polishing tools"}
             fill
-            // Only the very first image (index 0 on initial load) gets priority.
-            // Subsequent slides should NOT block the initial page render.
-            priority={index === 0}
+            // Give the initial LCP image a high network priority without
+            // preloading the other carousel slides.
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
             sizes="(min-width: 1024px) 48vw, 100vw"
             className={`object-cover transition duration-700 ${isActive ? "opacity-90 scale-100" : "opacity-0 scale-105"}`}
           />

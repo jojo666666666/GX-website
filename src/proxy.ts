@@ -15,9 +15,12 @@ export function proxy(request: NextRequest) {
   const firstSegment = pathname.split("/")[1];
 
   if (isLocale(firstSegment)) {
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-site-locale", firstSegment);
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    const response = NextResponse.next();
+    response.headers.set(
+      "Content-Language",
+      firstSegment === "zh" ? "zh-CN" : "en",
+    );
+    return response;
   }
 
   return NextResponse.redirect(new URL(`/en${pathname === "/" ? "" : pathname}`, request.url));

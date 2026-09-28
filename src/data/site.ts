@@ -7,6 +7,12 @@ export type NewsItem = {
   title: LocalizedText;
   excerpt: LocalizedText;
   image: string;
+  imageFit?: "cover" | "contain";
+  externalLink?: {
+    url: string;
+    label: LocalizedText;
+    source: LocalizedText;
+  };
   body: {
     lead: LocalizedText;
     sections: Array<{
@@ -110,6 +116,80 @@ export const contactInfo = [
 ];
 
 export const newsItems: NewsItem[] = [
+  {
+    slug: "automechanika-frankfurt-2026",
+    date: "2026-09-13",
+    category: { en: "Exhibition News", zh: "展会动态" },
+    title: {
+      en: "GANXING at Automechanika Frankfurt 2026",
+      zh: "赣星亮相 2026 法兰克福国际汽配展",
+    },
+    excerpt: {
+      en: "GANXING presented its professional polishing and surface-finishing portfolio at Automechanika Frankfurt 2026, meeting customers and industry partners from around the world.",
+      zh: "赣星携专业抛光与表面处理产品亮相 2026 法兰克福国际汽配展，与来自全球的客户及行业伙伴深入交流。",
+    },
+    image:
+      "/images/Exhibition-images/frankfurt/on-site photos/ganxing-polisher-booth-automechanika-frankfurt-2026.webp",
+    imageFit: "contain",
+    externalLink: {
+      url: "https://automechanika.messefrankfurt.com/frankfurt/de/ausstellersuche.detail.html/yongkang-ganxing-power-tools-co-ltd/mf_1_0052935445_5413502_10000007202601.html",
+      label: {
+        en: "View GANXING on the Messe Frankfurt website",
+        zh: "前往 Messe Frankfurt 官网查看赣星展商页面",
+      },
+      source: {
+        en: "Official exhibitor profile",
+        zh: "官方展商资料",
+      },
+    },
+    body: {
+      lead: {
+        en: "From 8 to 12 September 2026, GANXING welcomed visitors at Hall 1.1, Booth F20, at Messe Frankfurt, Germany.",
+        zh: "2026 年 9 月 8 日至 12 日，赣星在德国法兰克福展览中心 1.1 馆 F20 展位与全球客户见面。",
+      },
+      sections: [
+        {
+          title: {
+            en: "Professional polishing solutions in Frankfurt",
+            zh: "在法兰克福展示专业抛光解决方案",
+          },
+          paragraphs: [
+            {
+              en: "At the booth, GANXING presented cordless polishers, mini polishers, rotary polishers, dual-action polishers, and other professional surface-finishing tools. The display brought together multiple product platforms so visitors could compare tool formats and application options in one place.",
+              zh: "展会现场，赣星集中展示了锂电抛光机、迷你抛光机、旋转式抛光机、双作用偏心抛光机及其他专业表面处理工具，让观众能够直观比较不同机型与应用方案。",
+            },
+            {
+              en: "The event provided an important opportunity to introduce GANXING's manufacturing capabilities and product development to automotive aftermarket professionals from international markets.",
+              zh: "此次参展为赣星向国际汽车后市场专业人士展示制造能力、产品研发与完整产品矩阵提供了重要机会。",
+            },
+          ],
+          images: [
+            "/images/Exhibition-images/frankfurt/on-site photos/ganxing-automechanika-frankfurt-2026-messe-frankfurt-venue.webp",
+            "/images/Exhibition-images/frankfurt/on-site photos/ganxing-automechanika-frankfurt-2026-hall-1-1.webp",
+          ],
+        },
+        {
+          title: {
+            en: "Connecting with customers and industry partners",
+            zh: "与全球客户及行业伙伴深入交流",
+          },
+          paragraphs: [
+            {
+              en: "During the exhibition, the GANXING team discussed product applications, market requirements, OEM and ODM cooperation, and distributor support with visitors. These conversations will help guide future product development and international service.",
+              zh: "展会期间，赣星团队与到访客户围绕产品应用、市场需求、OEM/ODM 合作及经销商支持进行了深入交流。这些反馈将继续推动产品开发与国际服务能力提升。",
+            },
+            {
+              en: "We sincerely thank every customer and partner who visited Booth F20. GANXING looks forward to building long-term cooperation and meeting the industry again at future international events.",
+              zh: "衷心感谢每一位到访 F20 展位的客户与合作伙伴。赣星期待与全球伙伴建立长期合作，并在未来的国际展会中再次相聚。",
+            },
+          ],
+          images: [
+            "/images/Exhibition-images/frankfurt/on-site photos/ganxing-customer-meeting-automechanika-frankfurt-2026.webp",
+          ],
+        },
+      ],
+    },
+  },
   {
     slug: "product-launch",
     date: "2026-03-01",

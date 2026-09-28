@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { productCategories } from "@/data/products";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { categoryPath } from "@/lib/product-seo";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -27,11 +29,16 @@ export default async function LocaleLayout({
   }
 
   const lang = rawLang as Locale;
+  const headerCategories = productCategories.map((category) => ({
+    slug: category.slug,
+    title: category.title[lang],
+    href: categoryPath(lang, category),
+  }));
 
   return (
     <>
       <ScrollToTop />
-      <Header lang={lang} />
+      <Header lang={lang} categories={headerCategories} />
       {children}
       <Footer lang={lang} />
     </>

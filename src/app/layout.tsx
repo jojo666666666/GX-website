@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -121,16 +120,21 @@ export const metadata: Metadata = {
     : {}),
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const requestHeaders = await headers();
-  const documentLang = requestHeaders.get("x-site-locale") === "zh" ? "zh-CN" : "en";
-
   return (
-    <html lang={documentLang} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.lang=location.pathname.split('/')[1]==='zh'?'zh-CN':'en';",
+          }}
+        />
+      </head>
       <body className={inter.variable}>
         <script
           type="application/ld+json"

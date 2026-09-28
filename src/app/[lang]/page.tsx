@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import DeferredVideo from "@/components/DeferredVideo";
 import HomeCarousel from "@/components/HomeCarousel";
-import InquiryForm from "@/components/InquiryForm";
+import HomeInquiryForm from "@/components/HomeInquiryForm";
 import MotionSystems from "@/components/MotionSystems";
 import ScrollToSection from "@/components/ScrollToSection";
 import SocialLinks from "@/components/SocialLinks";
@@ -24,10 +25,7 @@ import { categoryPath } from "@/lib/product-seo";
 
 type PageProps = {
   params: Promise<{ lang: string }>;
-  searchParams?: Promise<{ inquiry?: string }>;
 };
-
-const SHOW_FRANKFURT_EXHIBITION = Date.now() < Date.UTC(2026, 8, 13);
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { lang: rawLang } = await params;
@@ -80,7 +78,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function HomePage({ params, searchParams }: PageProps) {
+export default async function HomePage({ params }: PageProps) {
   const { lang: rawLang } = await params;
 
   if (!isLocale(rawLang)) {
@@ -88,11 +86,6 @@ export default async function HomePage({ params, searchParams }: PageProps) {
   }
 
   const lang = rawLang as Locale;
-  const requestedInquiry = (await searchParams)?.inquiry;
-  const defaultInquiryType =
-    requestedInquiry === "dealer" || requestedInquiry === "oem"
-      ? requestedInquiry
-      : "product";
   const copy = dictionary[lang];
   const ticker = [...tickerItems[lang], ...tickerItems[lang]];
   const categoryGroups = [
@@ -191,30 +184,6 @@ export default async function HomePage({ params, searchParams }: PageProps) {
             ))}
           </div>
 
-          {SHOW_FRANKFURT_EXHIBITION && (
-            <div className="brand-panel mt-10 overflow-hidden">
-              <div className="flex flex-col gap-2 border-b border-neutral-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-                <div>
-                  <p className="brand-eyebrow">
-                    {lang === "zh" ? "即将参展" : "Upcoming Exhibition"}
-                  </p>
-                  <h2 className="mt-1 text-xl font-semibold text-neutral-950 sm:text-2xl">
-                    {lang === "zh" ? "期待在法兰克福与您见面" : "Meet GANXING in Frankfurt"}
-                  </h2>
-                </div>
-                <p className="text-sm font-semibold text-neutral-500">8–12 September 2026 · Hall 1.1, F20</p>
-              </div>
-              <div className="relative aspect-[1866/843] w-full bg-neutral-950">
-                <Image
-                  src="/images/Exhibition-images/frankfurt/ganxing-frankfurt-exhibition-poster.webp"
-                  alt={lang === "zh" ? "赣星法兰克福展会海报" : "GANXING Frankfurt exhibition poster"}
-                  fill
-                  sizes="(min-width: 1280px) 1280px, 100vw"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -626,7 +595,16 @@ export default async function HomePage({ params, searchParams }: PageProps) {
 
             {/* Form — first on mobile */}
             <div className="order-1 lg:order-2">
-              <InquiryForm key={defaultInquiryType} lang={lang} defaultInquiryType={defaultInquiryType} />
+              <Suspense
+                fallback={
+                  <div
+                    className="min-h-[640px] animate-pulse rounded-lg border border-neutral-200 bg-white shadow-xl shadow-neutral-950/5"
+                    aria-label={lang === "zh" ? "正在加载询盘表单" : "Loading inquiry form"}
+                  />
+                }
+              >
+                <HomeInquiryForm lang={lang} />
+              </Suspense>
             </div>
           </div>
         </div>

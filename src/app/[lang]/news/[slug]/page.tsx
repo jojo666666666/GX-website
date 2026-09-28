@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsItem, newsItems } from "@/data/site";
 import { isLocale, localizedPath, type Locale } from "@/lib/i18n";
+import { getAbsoluteImage, getAbsoluteUrl } from "@/lib/product-seo";
 
 type PageProps = {
   params: Promise<{ lang: string; slug: string }>;
@@ -35,6 +36,24 @@ export async function generateMetadata({ params }: PageProps) {
           },
         }
       : undefined,
+    openGraph: item
+      ? {
+          type: "article" as const,
+          title: item.title[lang],
+          description: item.excerpt[lang],
+          url: localizedPath(lang, `/news/${slug}`),
+          publishedTime: item.date,
+          images: [{ url: item.image, alt: item.title[lang] }],
+        }
+      : undefined,
+    twitter: item
+      ? {
+          card: "summary_large_image" as const,
+          title: item.title[lang],
+          description: item.excerpt[lang],
+          images: [item.image],
+        }
+      : undefined,
   };
 }
 
@@ -52,8 +71,37 @@ export default async function NewsPage({ params }: PageProps) {
     notFound();
   }
 
+  const articleUrl = localizedPath(lang, `/news/${item.slug}`);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: item.title[lang],
+    description: item.excerpt[lang],
+    image: getAbsoluteImage(item.image),
+    datePublished: item.date,
+    dateModified: item.date,
+    inLanguage: lang === "zh" ? "zh-CN" : "en-US",
+    mainEntityOfPage: getAbsoluteUrl(articleUrl),
+    author: {
+      "@type": "Organization",
+      name: lang === "zh" ? "赣星电动工具" : "GANXING Tools",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: lang === "zh" ? "赣星电动工具" : "GANXING Tools",
+      logo: {
+        "@type": "ImageObject",
+        url: getAbsoluteUrl("/images/brand/ganxing-logo.png"),
+      },
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* ── Article header ── */}
       <section className="bg-white px-4 pb-12 pt-20 sm:px-5 sm:pt-24 lg:px-8 lg:pb-16">
         <div className="mx-auto max-w-5xl">
@@ -91,20 +139,49 @@ export default async function NewsPage({ params }: PageProps) {
       </section>
 
       {/* ── Hero image ── */}
-      <div className="relative mx-auto aspect-[16/9] max-w-7xl overflow-hidden bg-neutral-100 sm:aspect-[16/8] sm:rounded-xl">
+      <div
+        className={`relative mx-auto max-w-7xl overflow-hidden sm:rounded-xl ${
+          item.imageFit === "contain"
+            ? "aspect-[4/3] bg-neutral-950"
+            : "aspect-[16/9] bg-neutral-100 sm:aspect-[16/8]"
+        }`}
+      >
         <Image
           src={item.image}
           alt={item.title[lang]}
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className={item.imageFit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>
 
       {/* ── Article body ── */}
       <article className="px-4 py-14 sm:px-5 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-5xl space-y-12 sm:space-y-16">
+          {item.externalLink ? (
+            <aside className="flex flex-col gap-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-600">
+                  {item.externalLink.source[lang]}
+                </p>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+                  {lang === "zh"
+                    ? "通过主办方官方网站核验赣星在 2026 法兰克福国际汽配展的展商信息。"
+                    : "Verify GANXING's Automechanika Frankfurt 2026 exhibitor information on the organizer's official website."}
+                </p>
+              </div>
+              <a
+                href={item.externalLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-red-600 px-6 text-center text-sm font-semibold text-white transition hover:bg-red-700 active:bg-red-700"
+              >
+                {item.externalLink.label[lang]} ↗
+              </a>
+            </aside>
+          ) : null}
+
           {item.body.sections.map((section) => (
             <section key={section.title.en}>
               <h2 className="text-2xl font-semibold leading-tight text-neutral-950 sm:text-3xl">
@@ -121,7 +198,13 @@ export default async function NewsPage({ params }: PageProps) {
                 ))}
               </div>
               {section.images ? (
-                <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-3 sm:gap-4">
+                <div
+                  className={`mt-6 grid gap-3 sm:mt-8 sm:gap-4 ${
+                    section.images.length === 1
+                      ? "mx-auto max-w-2xl"
+                      : "sm:grid-cols-2"
+                  }`}
+                >
                   {section.images.map((image) => (
                     <div
                       key={image}
@@ -132,7 +215,7 @@ export default async function NewsPage({ params }: PageProps) {
                         alt={section.title[lang]}
                         fill
                         sizes="(min-width: 640px) 33vw, 100vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   ))}

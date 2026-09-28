@@ -6,11 +6,16 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { alternateLocale, localizedPath, type Locale } from "@/lib/i18n";
 import { dictionary } from "@/data/dictionary";
-import { productCategories } from "@/data/products";
-import { categoryPath } from "@/lib/product-seo";
+
+type HeaderCategory = {
+  slug: string;
+  title: string;
+  href: string;
+};
 
 type HeaderProps = {
   lang: Locale;
+  categories: HeaderCategory[];
 };
 
 // Product category groups for the dropdown menu
@@ -38,7 +43,7 @@ const categoryGroups = [
   },
 ];
 
-export default function Header({ lang }: HeaderProps) {
+export default function Header({ lang, categories: productNavigation }: HeaderProps) {
   const copy = dictionary[lang];
   const otherLang = alternateLocale(lang);
   const pathname = usePathname();
@@ -129,7 +134,8 @@ export default function Header({ lang }: HeaderProps) {
                 src="/images/brand/ganxing-logo.png"
                 alt={lang === "zh" ? "赣星电动工具 Logo" : "GANXING Power Tools logo"}
                 fill
-                priority
+                loading="eager"
+                fetchPriority="low"
                 sizes="83px"
                 className="object-contain"
               />
@@ -185,10 +191,8 @@ export default function Header({ lang }: HeaderProps) {
                   <div className="grid grid-cols-2 gap-px bg-neutral-100 p-px">
                     {categoryGroups.map((group) => {
                       const categories = group.slugs
-                        .map((slug) =>
-                          productCategories.find((c) => c.slug === slug),
-                        )
-                        .filter(Boolean) as typeof productCategories;
+                        .map((slug) => productNavigation.find((c) => c.slug === slug))
+                        .filter((category): category is HeaderCategory => Boolean(category));
 
                       return (
                         <div key={group.title.en} className="bg-white p-4">
@@ -199,12 +203,12 @@ export default function Header({ lang }: HeaderProps) {
                             {categories.map((category) => (
                               <li key={category.slug}>
                                 <Link
-                                  href={categoryPath(lang, category)}
+                                  href={category.href}
                                   className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-red-50 hover:text-red-600"
                                   onClick={() => setDropdownOpen(false)}
                                 >
                                   <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500/60" />
-                                  {category.title[lang]}
+                                  {category.title}
                                 </Link>
                               </li>
                             ))}

@@ -124,13 +124,9 @@ function proxy(request) {
     }
     const firstSegment = pathname.split("/")[1];
     if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$i18n$2e$ts__$5b$middleware$5d$__$28$ecmascript$29$__["isLocale"])(firstSegment)) {
-        const requestHeaders = new Headers(request.headers);
-        requestHeaders.set("x-site-locale", firstSegment);
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].next({
-            request: {
-                headers: requestHeaders
-            }
-        });
+        const response = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].next();
+        response.headers.set("Content-Language", firstSegment === "zh" ? "zh-CN" : "en");
+        return response;
     }
     return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL(`/en${pathname === "/" ? "" : pathname}`, request.url));
 }
