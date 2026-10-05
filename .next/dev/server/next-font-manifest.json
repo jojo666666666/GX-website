@@ -1,9 +1,15 @@
 {
   "app": {
-    "[project]/src/app/[lang]/news/[slug]/page": [
+    "[project]/src/app/[lang]/page": [
       "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
     ],
-    "[project]/src/app/[lang]/page": [
+    "[project]/src/app/[lang]/products/[category]/[product]/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/[lang]/products/[category]/page": [
+      "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
+    ],
+    "[project]/src/app/_not-found/page": [
       "static/media/inter_latin_variable-s.p.0q-301v4kxxnr.woff2"
     ]
   },
