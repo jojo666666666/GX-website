@@ -7,12 +7,6 @@
           "async": false,
           "exportedName": "sendInquiry",
           "filename": "src/app/actions/sendInquiry.ts"
-        },
-        "app/[lang]/products/[category]/[product]/page": {
-          "moduleId": "[project]/.next-internal/server/app/[lang]/products/[category]/[product]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/sendInquiry.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "sendInquiry",
-          "filename": "src/app/actions/sendInquiry.ts"
         }
       },
       "filename": "src/app/actions/sendInquiry.ts",

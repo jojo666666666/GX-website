@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Keep the OEM/ODM CTA label visible in browsers without CSS Lab color support. */
+a[href*="inquiry=oem"][class*="hover:bg-white"]:hover {
+  color: #0a0a0a !important;
+}
+
 :root {
   --background: #f5f5f2;
   --foreground: #151515;
